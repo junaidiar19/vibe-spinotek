@@ -1,0 +1,3079 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showcase Technologies | Buy, Sell & Trade Crypto Today</title>
+    <meta name="description"
+        content="Experience the future of Web3 with Showcase Technologies Wallet. Secure, fast, and intuitive crypto wallet for the decentralized world.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-bg: #0A0A0F;
+            --secondary-bg: #121218;
+            --card-bg: rgba(30, 20, 50, 0.4);
+            --purple-primary: #8B5CF6;
+            --purple-light: #A78BFA;
+            --purple-dark: #6D28D9;
+            --blue-accent: #3B82F6;
+            --cyan-accent: #06B6D4;
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --glow-purple: rgba(139, 92, 246, 0.5);
+            --glow-blue: rgba(59, 130, 246, 0.5);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Particle Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 1200px;
+            width: calc(100% - 4rem);
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 15, 0.7);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-radius: 100px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        nav.nav-hidden {
+            transform: translate(-50%, -120%);
+            opacity: 0;
+        }
+
+        nav.nav-scrolled {
+            background: rgba(10, 10, 15, 0.9);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--purple-primary), var(--blue-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--purple-primary), var(--purple-dark));
+            color: white;
+            padding: 0.65rem 1.75rem;
+            border-radius: 100px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Hero Section Redesign */
+        .hero {
+            position: relative;
+            padding: 180px 5% 140px;
+            text-align: center;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, rgba(20, 10, 40, 0.4) 0%, rgba(10, 10, 15, 0) 70%);
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120vh;
+            height: 120vh;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(59, 130, 246, 0.1) 30%, transparent 70%);
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Background Cards */
+        .glass-card-bg {
+            position: absolute;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 0 30px rgba(255, 255, 255, 0.05);
+            z-index: 0;
+            opacity: 0.8;
+            transform-style: preserve-3d;
+            border-radius: 24px;
+        }
+
+        /* Iridescent edges/glow */
+        .glass-card-bg::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(59, 130, 246, 0.4), transparent 60%);
+            z-index: -1;
+            opacity: 0.5;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            -webkit-mask-composite: xor;
+        }
+
+        .card-bg-1 {
+            width: 220px;
+            height: 340px;
+            top: 10%;
+            left: -5%;
+            transform: perspective(1000px) rotateY(25deg) rotateX(10deg) rotateZ(-10deg);
+            animation: floatCard1 8s ease-in-out infinite;
+        }
+
+        .card-bg-2 {
+            width: 180px;
+            height: 280px;
+            top: 45%;
+            left: 8%;
+            transform: perspective(1000px) rotateY(35deg) rotateX(-5deg) rotateZ(15deg);
+            animation: floatCard2 9s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+
+        .card-bg-3 {
+            width: 260px;
+            height: 400px;
+            bottom: -5%;
+            right: -8%;
+            transform: perspective(1000px) rotateY(-30deg) rotateX(5deg) rotateZ(-15deg);
+            animation: floatCard3 10s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+
+        .card-bg-4 {
+            width: 160px;
+            height: 240px;
+            top: 15%;
+            right: 5%;
+            transform: perspective(1000px) rotateY(-25deg) rotateX(15deg) rotateZ(10deg);
+            animation: floatCard4 8.5s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+
+        .card-bg-5 {
+            width: 140px;
+            height: 200px;
+            bottom: 20%;
+            left: 20%;
+            transform: perspective(1000px) rotateY(15deg) rotateX(-10deg) rotateZ(-5deg);
+            animation: floatCard5 9.5s ease-in-out infinite;
+            opacity: 0.4;
+            filter: blur(2px);
+        }
+
+        @keyframes floatCard1 {
+
+            0%,
+            100% {
+                transform: perspective(1000px) rotateY(25deg) rotateX(10deg) rotateZ(-10deg) translateY(0);
+            }
+
+            50% {
+                transform: perspective(1000px) rotateY(25deg) rotateX(10deg) rotateZ(-10deg) translateY(-20px);
+            }
+        }
+
+        @keyframes floatCard2 {
+
+            0%,
+            100% {
+                transform: perspective(1000px) rotateY(35deg) rotateX(-5deg) rotateZ(15deg) translateY(0);
+            }
+
+            50% {
+                transform: perspective(1000px) rotateY(35deg) rotateX(-5deg) rotateZ(15deg) translateY(-25px);
+            }
+        }
+
+        @keyframes floatCard3 {
+
+            0%,
+            100% {
+                transform: perspective(1000px) rotateY(-30deg) rotateX(5deg) rotateZ(-15deg) translateY(0);
+            }
+
+            50% {
+                transform: perspective(1000px) rotateY(-30deg) rotateX(5deg) rotateZ(-15deg) translateY(-30px);
+            }
+        }
+
+        @keyframes floatCard4 {
+
+            0%,
+            100% {
+                transform: perspective(1000px) rotateY(-25deg) rotateX(15deg) rotateZ(10deg) translateY(0);
+            }
+
+            50% {
+                transform: perspective(1000px) rotateY(-25deg) rotateX(15deg) rotateZ(10deg) translateY(-15px);
+            }
+        }
+
+        @keyframes floatCard5 {
+
+            0%,
+            100% {
+                transform: perspective(1000px) rotateY(15deg) rotateX(-10deg) rotateZ(-5deg) translateY(0);
+            }
+
+            50% {
+                transform: perspective(1000px) rotateY(15deg) rotateX(-10deg) rotateZ(-5deg) translateY(-20px);
+            }
+        }
+
+        /* Shooting Stars */
+        .shooting-star {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 2px;
+            background: linear-gradient(-45deg, rgba(255, 255, 255, 1), rgba(0, 0, 255, 0));
+            filter: drop-shadow(0 0 6px white);
+            animation: tail 3s ease-in-out infinite, shooting 3s ease-in-out infinite;
+        }
+
+        .star::before,
+        .star::after {
+            content: '';
+            position: absolute;
+            top: calc(50% - 1px);
+            right: 0;
+            height: 2px;
+            background: linear-gradient(-45deg, rgba(0, 0, 255, 0), rgba(255, 255, 255, 1), rgba(0, 0, 255, 0));
+            transform: translateX(50%) rotateZ(45deg);
+            border-radius: 100%;
+            animation: shining 3s ease-in-out infinite;
+        }
+
+        .star::after {
+            transform: translateX(50%) rotateZ(-45deg);
+        }
+
+        .star:nth-child(1) {
+            top: -10%;
+            left: 10%;
+            width: 120px;
+            animation-delay: 2s;
+            opacity: 0.8;
+        }
+
+        .star:nth-child(2) {
+            top: -15%;
+            left: 50%;
+            width: 180px;
+            animation-delay: 4s;
+            opacity: 0.6;
+        }
+
+        .star:nth-child(3) {
+            top: -5%;
+            left: 80%;
+            width: 140px;
+            animation-delay: 1.5s;
+            opacity: 0.9;
+        }
+
+        .star:nth-child(4) {
+            top: 20%;
+            left: -10%;
+            width: 200px;
+            animation-delay: 5s;
+            opacity: 0.7;
+        }
+
+        @keyframes tail {
+            0% {
+                width: 0;
+            }
+
+            30% {
+                width: 100px;
+            }
+
+            100% {
+                width: 0;
+            }
+        }
+
+        @keyframes shooting {
+            0% {
+                transform: translateX(0) translateY(0) rotateZ(35deg);
+            }
+
+            100% {
+                transform: translateX(80vw) translateY(80vh) rotateZ(35deg);
+            }
+        }
+
+        @keyframes shining {
+            0% {
+                width: 0;
+            }
+
+            50% {
+                width: 30px;
+            }
+
+            100% {
+                width: 0;
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero-badge-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--purple-primary), var(--blue-accent));
+            border-radius: 50%;
+            font-size: 0.7rem;
+            color: white;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 5.5rem;
+            font-weight: 800;
+            /* Extra bold */
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            line-height: 0.95;
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+        }
+
+        .highlight-box {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), transparent);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 0 0.2em;
+            display: inline-block;
+            transform: skewX(-5deg);
+        }
+
+        h1 .gradient-text {
+            background: linear-gradient(135deg, #fff 30%, var(--purple-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-weight: 400;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--purple-primary);
+            padding: 0.75rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-outline:hover {
+            background: var(--purple-primary);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Partner Logos */
+        .partners {
+            position: relative;
+            z-index: 1;
+            margin-top: 5rem;
+            padding: 2rem 0;
+        }
+
+        .partners-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* Marquee / Infinite Scroll */
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            padding: 1rem 0;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 4rem;
+            width: max-content;
+            animation: marqueeScroll 40s linear infinite;
+        }
+
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        .partner-logo {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            user-select: none;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .partner-logo img {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: contain;
+        }
+
+        .partner-logo:hover {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: var(--purple-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.2);
+        }
+
+        @keyframes marqueeScroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .glass-card {
+            background: rgba(30, 20, 50, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 32px;
+            padding: 3rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            /* Text at bottom */
+            min-height: 500px;
+        }
+
+        .card-visual {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .glass-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            position: relative;
+            z-index: 2;
+        }
+
+        .glass-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            max-width: 90%;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Micro-interactions for specific cards */
+
+        /* Card 1: Lead Gen (floating user pills) */
+        .pill-group {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .user-pill {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .user-pill img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .user-pill span {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .pill-1 {
+            top: 30%;
+            left: 20%;
+            transform: rotate(-5deg);
+        }
+
+        .pill-2 {
+            top: 50%;
+            left: 40%;
+            transform: rotate(5deg);
+            z-index: 2;
+            background: rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .pill-3 {
+            top: 70%;
+            left: 25%;
+            transform: rotate(-3deg);
+        }
+
+        .glass-card:hover .pill-1 {
+            transform: rotate(-8deg) translateY(-10px) scale(1.05);
+        }
+
+        .glass-card:hover .pill-2 {
+            transform: rotate(8deg) translateY(-5px) scale(1.1);
+        }
+
+        .glass-card:hover .pill-3 {
+            transform: rotate(-5deg) translateY(-15px) scale(1.05);
+        }
+
+        /* Card 2: Notifications (Sliding toasts) */
+        .notification-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transform: perspective(1000px) rotateY(-10deg) rotateX(5deg);
+            transition: transform 0.5s ease;
+        }
+
+        .toast {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 15px;
+            border-radius: 12px;
+            width: 200px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s ease, background 0.3s;
+        }
+
+        .toast-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background: var(--purple-primary);
+            display: grid;
+            place-items: center;
+            font-size: 12px;
+        }
+
+        .glass-card:hover .notification-stack {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+        }
+
+        .glass-card:hover .toast:nth-child(1) {
+            transform: translateX(20px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-card:hover .toast:nth-child(2) {
+            transform: translateX(10px);
+            transition-delay: 0.1s;
+        }
+
+        .glass-card:hover .toast:nth-child(3) {
+            transform: translateX(30px);
+            transition-delay: 0.2s;
+        }
+
+        /* Card 3: Dashboard (Graph reveal) */
+        .dashboard-mini {
+            width: 80%;
+            height: 180px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .dash-header {
+            height: 20px;
+            width: 100%;
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .dash-line {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        .dash-chart {
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            padding-bottom: 5px;
+            overflow: hidden;
+        }
+
+        .bar {
+            flex: 1;
+            background: var(--purple-primary);
+            opacity: 0.5;
+            border-radius: 4px 4px 0 0;
+            height: 0;
+            transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover .bar {
+            opacity: 1;
+        }
+
+        /* Card 4: Cards (Fan out) */
+        .card-stack {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mini-card {
+            position: absolute;
+            width: 140px;
+            height: 180px;
+            background: #1a1a24;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+        }
+
+        .mc-1 {
+            transform: rotate(-10deg) translateX(-20px);
+            z-index: 1;
+            background: #2a2a35;
+        }
+
+        .mc-2 {
+            transform: rotate(0deg);
+            z-index: 2;
+            background: #322a45;
+            border-color: var(--purple-primary);
+        }
+
+        .mc-3 {
+            transform: rotate(10deg) translateX(20px);
+            z-index: 1;
+            background: #2a2a35;
+        }
+
+        .glass-card:hover .mc-1 {
+            transform: rotate(-25deg) translateX(-50px) translateY(10px);
+        }
+
+        .glass-card:hover .mc-2 {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
+        }
+
+        .glass-card:hover .mc-3 {
+            transform: rotate(25deg) translateX(50px) translateY(10px);
+        }
+
+        @media (max-width: 900px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 24px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--purple-primary), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--purple-primary);
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
+        }
+
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--purple-primary), var(--blue-accent));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Large featured card styling */
+        .glass-card:nth-child(1) .card-icon {
+            width: 90px;
+            height: 90px;
+            font-size: 2.5rem;
+        }
+
+        .glass-card:nth-child(1) h3 {
+            font-size: 2rem;
+        }
+
+        .glass-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .glass-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Central Orb Feature Section */
+        .central-feature {
+            padding: 120px 5%;
+            position: relative;
+            text-align: center;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .glass-card {
+            background: rgba(30, 20, 50, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 32px;
+            padding: 3rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            /* Text at top */
+            min-height: 500px;
+        }
+
+        .card-visual {
+            position: absolute;
+            top: 30%;
+            /* Start visuals lower down */
+            left: 0;
+            width: 100%;
+            height: 80%;
+            /* Takes up bottom portion */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            /* Let clicks pass through to potential buttons if needed */
+        }
+
+        .glass-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            position: relative;
+            z-index: 10;
+        }
+
+        .glass-card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 80%;
+            position: relative;
+            z-index: 10;
+            margin-bottom: 2rem;
+        }
+
+        /* Micro-interactions for specific cards */
+
+        /* Card 1: Lead Gen (floating user pills) */
+        .pill-group {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .user-pill {
+            position: absolute;
+            background: rgba(20, 10, 30, 0.6);
+            /* Darker bg for contrast */
+            backdrop-filter: blur(10px);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 5;
+        }
+
+        .user-pill img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .user-pill span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: white;
+        }
+
+        /* Adjusted positioning for overlap */
+        .pill-1 {
+            top: 10%;
+            left: 30%;
+            transform: rotate(-5deg);
+            z-index: 6;
+        }
+
+        .pill-2 {
+            top: 35%;
+            left: 50%;
+            transform: rotate(5deg);
+            z-index: 7;
+            background: rgba(30, 20, 50, 0.8);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .pill-3 {
+            top: 55%;
+            left: 35%;
+            transform: rotate(-3deg);
+            z-index: 6;
+        }
+
+        .glass-card:hover .pill-1 {
+            transform: rotate(-8deg) translateY(-10px) scale(1.05);
+        }
+
+        .glass-card:hover .pill-2 {
+            transform: rotate(8deg) translateY(-5px) scale(1.1);
+        }
+
+        .glass-card:hover .pill-3 {
+            transform: rotate(-5deg) translateY(-15px) scale(1.05);
+        }
+
+        /* Card 2: Notifications (Sliding toasts) */
+        .notification-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+            /* Center visuals */
+            width: 100%;
+            padding-top: 20px;
+        }
+
+        .toast {
+            background: rgba(30, 20, 40, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 20px;
+            border-radius: 14px;
+            width: 240px;
+            font-size: 0.9rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: transform 0.3s ease, background 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            left: 20%;
+            /* Shift right */
+        }
+
+        .toast-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--purple-primary);
+            display: grid;
+            place-items: center;
+            font-size: 14px;
+        }
+
+        .toast:nth-child(1) {
+            transform: translateX(0);
+            z-index: 3;
+        }
+
+        .toast:nth-child(2) {
+            transform: translateX(20px);
+            z-index: 2;
+            opacity: 0.8;
+        }
+
+        .toast:nth-child(3) {
+            transform: translateX(40px);
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        .glass-card:hover .toast:nth-child(1) {
+            transform: translateX(-10px);
+            background: rgba(40, 30, 60, 0.8);
+        }
+
+        .glass-card:hover .toast:nth-child(2) {
+            transform: translateX(0px);
+            opacity: 1;
+            transition-delay: 0.05s;
+        }
+
+        .glass-card:hover .toast:nth-child(3) {
+            transform: translateX(10px);
+            opacity: 1;
+            transition-delay: 0.1s;
+        }
+
+        /* Card 3: Dashboard (Graph reveal) */
+        .dashboard-mini {
+            width: 90%;
+            height: 250px;
+            background: rgba(20, 15, 30, 0.6);
+            border-radius: 20px 20px 0 0;
+            /* Bottom flat to look hidden */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: none;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: absolute;
+            bottom: 0;
+            left: 5%;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .dash-header {
+            height: 20px;
+            width: 100%;
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .dash-line {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        .dash-chart {
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+            padding-bottom: 5px;
+        }
+
+        .bar {
+            flex: 1;
+            background: var(--purple-primary);
+            opacity: 0.5;
+            border-radius: 6px 6px 0 0;
+            height: 10%;
+            /* Start small */
+            transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover .bar {
+            opacity: 1;
+        }
+
+        /* Staggered height on hover */
+        .glass-card:hover .bar:nth-child(1) {
+            height: 40%;
+        }
+
+        .glass-card:hover .bar:nth-child(2) {
+            height: 70%;
+        }
+
+        .glass-card:hover .bar:nth-child(3) {
+            height: 50%;
+        }
+
+        .glass-card:hover .bar:nth-child(4) {
+            height: 90%;
+        }
+
+        .glass-card:hover .bar:nth-child(5) {
+            height: 60%;
+        }
+
+        .glass-card:hover .bar:nth-child(6) {
+            height: 80%;
+        }
+
+        .glass-card:hover .bar:nth-child(7) {
+            height: 50%;
+        }
+
+        /* Card 4: Cards (Fan out) */
+        .card-stack {
+            position: absolute;
+            bottom: -20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .mini-card {
+            position: absolute;
+            width: 180px;
+            height: 240px;
+            background: #1a1a24;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4);
+            transition: all 0.5s ease;
+            bottom: 0;
+        }
+
+        .mc-1 {
+            transform: rotate(-10deg) translateX(-30px);
+            z-index: 1;
+            background: #2a2a35;
+        }
+
+        .mc-2 {
+            transform: rotate(0deg);
+            z-index: 3;
+            background: #322a45;
+            border-color: var(--purple-primary);
+            bottom: 20px;
+        }
+
+        .mc-3 {
+            transform: rotate(10deg) translateX(30px);
+            z-index: 2;
+            background: #2a2a35;
+        }
+
+        .glass-card:hover .mc-1 {
+            transform: rotate(-25deg) translateX(-60px) translateY(10px);
+        }
+
+        .glass-card:hover .mc-2 {
+            transform: translateY(-30px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
+            z-index: 5;
+        }
+
+        .glass-card:hover .mc-3 {
+            transform: rotate(25deg) translateX(60px) translateY(10px);
+        }
+
+        @media (max-width: 900px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Central Orb (Removed) */
+
+        /* Floating Stat (Removed) */
+
+        /* Wallet Visual Section */
+        .wallet-visual {
+            padding: 120px 5%;
+            position: relative;
+        }
+
+        .wallet-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .wallet-3d {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wallet-card-3d {
+            width: 350px;
+            height: 220px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(59, 130, 246, 0.3));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            box-shadow:
+                0 20px 60px rgba(139, 92, 246, 0.4),
+                inset 0 0 40px rgba(255, 255, 255, 0.05);
+            animation: float3D 6s ease-in-out infinite;
+        }
+
+        @keyframes float3D {
+
+            0%,
+            100% {
+                transform: perspective(1000px) rotateY(-10deg) rotateX(5deg);
+            }
+
+            50% {
+                transform: perspective(1000px) rotateY(10deg) rotateX(-5deg);
+            }
+        }
+
+        /* Central Mindmap Section */
+        .central-feature {
+            padding: 100px 5%;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(76, 29, 149, 0.4) 0%, rgba(15, 23, 42, 0) 70%);
+            overflow: hidden;
+        }
+
+        .mindmap-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* SVG Connections */
+        .connections-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .connection-path {
+            fill: none;
+            stroke: url(#lineGradient);
+            stroke-width: 2;
+            stroke-linecap: round;
+            filter: drop-shadow(0 0 5px rgba(139, 92, 246, 0.5));
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dash 3s ease-out forwards;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* Central Hub */
+        .center-hub {
+            position: relative;
+            z-index: 5;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hub-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+        }
+
+        .hub-ring:nth-child(1) {
+            width: 100%;
+            height: 100%;
+            animation: pulse 3s infinite;
+        }
+
+        .hub-ring:nth-child(2) {
+            width: 140%;
+            height: 140%;
+            opacity: 0.5;
+            animation: pulse 3s infinite 0.5s;
+            border-color: rgba(139, 92, 246, 0.15);
+        }
+
+        .hub-core {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 60px rgba(139, 92, 246, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.4);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hub-logo {
+            font-size: 3rem;
+            color: white;
+            filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.3));
+        }
+
+        /* Nodes */
+        .node-item {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 5;
+            transition: transform 0.3s ease;
+        }
+
+        .node-item:hover {
+            transform: scale(1.1);
+        }
+
+        .node-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+        }
+
+        /* 3D Gold Text styling helpers */
+        .gold-icon {
+            font-size: 3rem;
+            background: linear-gradient(to bottom, #ffd700, #b8860b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 0px rgba(184, 134, 11, 0.5));
+        }
+
+        .node-tag {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #d8b4fe;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .node-tag::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #d8b4fe;
+            border-radius: 50%;
+        }
+
+        /* Positioning - Relative to Center Hub (which is effectively center of container) */
+        /* Left Side */
+        .node-l1 {
+            top: 20%;
+            left: 15%;
+        }
+
+        .node-l2 {
+            top: 40%;
+            left: 10%;
+        }
+
+        .node-l3 {
+            top: 60%;
+            left: 15%;
+
+            .node-icon {
+                font-size: 3rem;
+            }
+        }
+
+        /* Right Side */
+        .node-r1 {
+            top: 20%;
+            right: 15%;
+        }
+
+        .node-r2 {
+            top: 40%;
+            right: 10%;
+        }
+
+        .node-r3 {
+            top: 60%;
+            right: 15%;
+        }
+
+        .node-r4 {
+            top: 80%;
+            right: 20%;
+        }
+
+        .top-pill {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            color: black;
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            z-index: 10;
+        }
+
+        /* Specific Icon Styles using existing assets/css or emoji fallback for now */
+        .icon-coin::before {
+            content: '🪙';
+            font-size: 3.5rem;
+        }
+
+        .icon-trophy::before {
+            content: '🏆';
+            font-size: 3.5rem;
+            filter: sepia(1) saturate(5) hue-rotate(5deg);
+        }
+
+        .icon-chart::before {
+            content: '📊';
+            font-size: 3.5rem;
+        }
+
+
+        .wallet-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .wallet-content p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .feature-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            width: 30px;
+            height: 30px;
+            background: var(--purple-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+
+        /* Exchange Comparison */
+        .exchange-comparison {
+            padding: 120px 5%;
+            background: radial-gradient(ellipse at top, rgba(139, 92, 246, 0.05), transparent);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+
+        .comparison-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--purple-primary);
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
+        }
+
+        .comparison-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .comparison-card .price {
+            font-size: 2rem;
+            color: var(--purple-light);
+            margin: 1rem 0;
+            font-weight: 700;
+        }
+
+        .comparison-features {
+            list-style: none;
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+
+        .comparison-features li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comparison-features li::before {
+            content: '•';
+            color: var(--purple-primary);
+            font-size: 1.5rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 5%;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--glow-purple), transparent);
+            pointer-events: none;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+        }
+
+        .cta p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 5% 40px;
+            border-top: 1px solid rgba(139, 92, 246, 0.1);
+            position: relative;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--purple-light);
+            font-weight: 700;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--purple-primary);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(139, 92, 246, 0.1);
+            color: var(--text-muted);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--purple-primary);
+            border-color: var(--purple-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .wallet-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .wallet-3d {
+                height: 400px;
+            }
+
+            h1 {
+                font-size: 3.5rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            /* Bento grid adjustment for tablets */
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+                gap: 1.5rem;
+            }
+
+            .glass-card:nth-child(1) {
+                grid-column: 1 / 3;
+                grid-row: auto;
+            }
+
+            .glass-card:nth-child(2),
+            .glass-card:nth-child(3),
+            .glass-card:nth-child(4),
+            .glass-card:nth-child(5),
+            .glass-card:nth-child(6) {
+                grid-column: span 1;
+                grid-row: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 5.5rem;
+                left: 2rem;
+                right: 2rem;
+                background: rgba(10, 10, 15, 0.95);
+                backdrop-filter: blur(30px);
+                padding: 1.5rem;
+                gap: 1rem;
+                border: 1px solid rgba(139, 92, 246, 0.2);
+                border-radius: 24px;
+                box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+            }
+
+            nav {
+                width: calc(100% - 2rem);
+                padding: 0.875rem 1.5rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero {
+                padding: 140px 5% 80px;
+            }
+
+            .features,
+            .central-feature,
+            .wallet-visual,
+            .exchange-comparison {
+                padding: 80px 5%;
+            }
+
+            .features-grid,
+            .comparison-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+
+            /* Reset bento grid for mobile */
+            .glass-card:nth-child(1),
+            .glass-card:nth-child(2),
+            .glass-card:nth-child(3),
+            .glass-card:nth-child(4),
+            .glass-card:nth-child(5),
+            .glass-card:nth-child(6) {
+                grid-column: 1;
+                grid-row: auto;
+            }
+
+            .central-orb-container {
+                width: 300px;
+                height: 300px;
+            }
+
+            .central-orb {
+                width: 180px;
+                height: 180px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .partners-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .wallet-card-3d {
+                width: 280px;
+                height: 180px;
+            }
+
+            .cta h2 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* New Central Mindmap Styles (Overrides) */
+        .central-feature {
+            padding: 100px 0 !important;
+            background: transparent !important;
+            overflow: hidden !important;
+        }
+
+        .mindmap-container {
+            width: 100% !important;
+            max-width: 1600px !important;
+            height: 700px !important;
+        }
+
+        .connections-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.6));
+        }
+
+        .connection-base {
+            fill: none;
+            stroke: rgba(139, 92, 246, 0.1);
+            stroke-width: 1;
+        }
+
+        .connection-path {
+            fill: none;
+            stroke: url(#lineGradient);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-dasharray: 20 200;
+            stroke-dashoffset: 0;
+            animation: electricFlow 3s linear infinite;
+            opacity: 0.6;
+            filter: drop-shadow(0 0 5px rgba(167, 139, 250, 0.8));
+        }
+
+        @keyframes electricFlow {
+            0% {
+                stroke-dashoffset: 1000;
+            }
+
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .center-hub {
+            width: 180px !important;
+            height: 180px !important;
+        }
+
+        .hub-ring:nth-child(1) {
+            width: 100% !important;
+            height: 100% !important;
+            animation: pulse 2s infinite !important;
+        }
+
+        .hub-ring:nth-child(2) {
+            width: 150% !important;
+            height: 150% !important;
+            opacity: 0.5 !important;
+            animation: pulse 2s infinite 0.3s !important;
+        }
+
+        .hub-ring:nth-child(3) {
+            width: 200% !important;
+            height: 200% !important;
+            opacity: 0.2 !important;
+            animation: pulse 2s infinite 0.6s !important;
+            border: 1px dashed rgba(139, 92, 246, 0.3) !important;
+        }
+
+        .hub-core {
+            width: 140px !important;
+            height: 140px !important;
+        }
+
+        .hub-logo {
+            animation: floatIcon 3s ease-in-out infinite;
+        }
+
+        @keyframes floatIcon {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .node-item:hover {
+            transform: scale(1.15) !important;
+            filter: brightness(1.2);
+        }
+
+        .node-icon {
+            width: 70px !important;
+            height: 70px !important;
+            font-size: 3rem !important;
+            filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.4));
+        }
+
+        /* Wide Positioning Overrides */
+        .node-l1 {
+            top: 15% !important;
+            left: 10% !important;
+        }
+
+        .node-l2 {
+            top: 35% !important;
+            left: 5% !important;
+        }
+
+        .node-l3 {
+            top: 55% !important;
+            left: 5% !important;
+        }
+
+        .node-l4 {
+            top: 75% !important;
+            left: 10% !important;
+        }
+
+        .node-r1 {
+            top: 15% !important;
+            right: 10% !important;
+        }
+
+        .node-r2 {
+            top: 35% !important;
+            right: 5% !important;
+        }
+
+        .node-r3 {
+            top: 55% !important;
+            right: 5% !important;
+        }
+
+        .node-r4 {
+            top: 75% !important;
+            right: 10% !important;
+        }
+
+        /* Missing Icon & Element Definitions */
+        .icon-coin::before {
+            content: '🪙';
+            font-size: 3.5rem;
+        }
+
+        .icon-trophy::before {
+            content: '🏆';
+            font-size: 3.5rem;
+            filter: sepia(1) saturate(5) hue-rotate(5deg);
+        }
+
+        .icon-chart::before {
+            content: '📊';
+            font-size: 3.5rem;
+        }
+
+        .top-pill {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            color: black;
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            z-index: 10;
+        }
+
+        .hub-logo {
+            font-size: 3.5rem !important;
+            color: white;
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
+        }
+
+        /* New Footer Styles */
+        footer {
+            position: relative;
+            background: #000;
+            padding: 80px 5% 0;
+            overflow: hidden;
+            color: white;
+            margin-top: 100px;
+            /* Ensure footer has height for the text to sit in if content is short */
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 1600px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+            margin-bottom: 25vw;
+            /* Increased pushing to ensure no intersection */
+        }
+
+        .footer-left .footer-logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: #9ca3af;
+        }
+
+        .footer-headline {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            font-weight: 500;
+            max-width: 600px;
+            background: linear-gradient(to right, #fff, #9ca3af);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 80px;
+        }
+
+        .footer-column h5 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-column a {
+            display: block;
+            color: #d1d5db;
+            padding: 0;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #fff;
+        }
+
+        .big-footer-text {
+            font-size: 17vw;
+            font-weight: 800;
+            text-align: center;
+            line-height: 0.75;
+            background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 1;
+            position: absolute;
+            bottom: -3vw;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            z-index: 1;
+            pointer-events: none;
+            letter-spacing: -0.05em;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 900px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 50px;
+                margin-bottom: 20vh;
+            }
+
+            .footer-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .footer-headline {
+                font-size: 2.5rem;
+            }
+
+            .big-footer-text {
+                font-size: 28vw;
+                bottom: -1vh;
+            }
+        }
+
+        /* New CTA Card Styles */
+        .cta-card-section {
+            padding: 80px 5%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .cta-card-container {
+            background: #050505;
+            border-radius: 30px;
+            padding: 60px;
+            max-width: 1400px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cta-card-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .cta-card-left h2 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-weight: 500;
+        }
+
+        .cta-card-left p {
+            color: #9ca3af;
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            max-width: 400px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .btn-demo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .btn-demo:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-signup {
+            background: white;
+            color: black;
+            padding: 12px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-signup:hover {
+            transform: scale(1.05);
+        }
+
+        .cta-card-right {
+            background: #0f0f11;
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 2;
+        }
+
+        .testimonial-stars {
+            color: #f59e0b;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-quote {
+            color: #d1d5db;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .testimonial-user {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            color: white;
+            font-weight: 600;
+        }
+
+        .user-role {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .cta-glow {
+            position: absolute;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, rgba(59, 130, 246, 0) 70%);
+            filter: blur(60px);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @media (max-width: 900px) {
+            .cta-card-container {
+                grid-template-columns: 1fr;
+                padding: 40px;
+                gap: 40px;
+            }
+
+            .cta-card-left h2 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Showcase</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#wallet">Wallet</a></li>
+            <li><a href="#compare">Compare</a></li>
+            <li><a href="#download">Download</a></li>
+            <li><a href="#download" class="btn-primary">Get Started</a></li>
+        </ul>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+    </nav>
+
+    <section class="hero" id="hero">
+        <div class="hero-glow"></div>
+
+        <!-- Shooting Stars -->
+        <div class="shooting-star">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+        </div>
+
+        <div class="glass-card-bg card-bg-1" data-speed="0.03"></div>
+        <div class="glass-card-bg card-bg-2" data-speed="-0.02"></div>
+        <div class="glass-card-bg card-bg-3" data-speed="0.04"></div>
+        <div class="glass-card-bg card-bg-4" data-speed="-0.03"></div>
+        <div class="glass-card-bg card-bg-5" data-speed="0.02"></div>
+
+        <div class="hero-content">
+            <div class="hero-badge">
+                <div class="hero-badge-icon">✨</div>
+                100+ Web3 Projects Supported
+            </div>
+            <h1>
+                Powering the <span class="gradient-text">Next</span><br>
+                <span class="highlight-box">Generation</span> of Web3
+            </h1>
+            <p class="hero-subtitle">Build, scale, and secure decentralized applications with enterprise-grade
+                blockchain infrastructure.</p>
+            <div class="hero-buttons">
+                <a href="#download" class="btn-primary"
+                    style="border-radius: 50px; padding: 0.8rem 2.5rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+                    Get Started <span
+                        style="background: white; color: var(--purple-dark); border-radius: 50%; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.8rem;">➜</span>
+                </a>
+                <a href="#features" class="btn-outline"
+                    style="border-radius: 50px; padding: 0.8rem 2.5rem; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05);">Documentation</a>
+            </div>
+        </div>
+
+        <!-- Partners -->
+        <div class="partners">
+            <div class="partners-title">Trusted by leading exchanges</div>
+            <div class="marquee-container">
+                <div class="marquee-track">
+                    <div class="partner-logo">
+                        <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/270.png" alt="Binance">
+                        Binance
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/89.png" alt="Coinbase">
+                        Coinbase
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/24.png" alt="Kraken">
+                        Kraken
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/1149.png" alt="Crypto.com">
+                        Crypto.com
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/151.png" alt="Gemini">
+                        Gemini
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/294.png" alt="OKX">
+                        OKX
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/102.png" alt="Huobi">
+                        Huobi
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/311.png" alt="KuCoin">
+                        KuCoin
+                    </div>
+                    <!-- Duplicate for infinite scroll -->
+                    <div class="partner-logo">
+                        <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/270.png" alt="Binance">
+                        Binance
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/89.png" alt="Coinbase">
+                        Coinbase
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/24.png" alt="Kraken">
+                        Kraken
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/1149.png" alt="Crypto.com">
+                        Crypto.com
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/151.png" alt="Gemini">
+                        Gemini
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/294.png" alt="OKX">
+                        OKX
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/102.png" alt="Huobi">
+                        Huobi
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/311.png" alt="KuCoin">
+                        KuCoin
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2 class="section-title">Simple and secure<br>Wallet overview</h2>
+            <p class="section-subtitle">Everything you need to manage your crypto portfolio in one beautiful interface
+            </p>
+        </div>
+
+        <div class="features-grid">
+            <!-- Card 1: Lead Generation -->
+            <div class="glass-card">
+                <div class="card-visual">
+                    <div class="pill-group">
+                        <div class="user-pill pill-1">
+                            <div style="background:#4F46E5; width:30px; height:30px; border-radius:50%"></div>
+                            <span>Active Trader</span>
+                        </div>
+                        <div class="user-pill pill-2">
+                            <div style="background:#10B981; width:30px; height:30px; border-radius:50%"></div>
+                            <span>New Transaction</span>
+                        </div>
+                        <div class="user-pill pill-3">
+                            <div style="background:#F43F5E; width:30px; height:30px; border-radius:50%"></div>
+                            <span>High Volatility</span>
+                        </div>
+                    </div>
+                </div>
+                <h3>Smart Notifications</h3>
+                <p>Intelligent alerts that help you track market movements, large transactions, and portfolio changes in
+                    real-time.</p>
+            </div>
+
+            <!-- Card 2: Transparent Workflows -->
+            <div class="glass-card">
+                <div class="card-visual">
+                    <div class="notification-stack">
+                        <div class="toast">
+                            <div class="toast-icon">✓</div>
+                            <div>Transaction Confirmed</div>
+                        </div>
+                        <div class="toast">
+                            <div class="toast-icon">$</div>
+                            <div>Dividends Received</div>
+                        </div>
+                        <div class="toast">
+                            <div class="toast-icon">!</div>
+                            <div>Price Alert: ETH</div>
+                        </div>
+                    </div>
+                </div>
+                <h3>Transparent History</h3>
+                <p>A clear, immutable record of every transaction and contract interaction, audited and verified
+                    on-chain.</p>
+            </div>
+
+            <!-- Card 3: Professional Dashboard -->
+            <div class="glass-card">
+                <div class="card-visual">
+                    <div class="dashboard-mini">
+                        <div class="dash-header">
+                            <div class="dash-line" style="width: 40px"></div>
+                            <div class="dash-line"></div>
+                        </div>
+                        <div class="dash-chart">
+                            <div class="bar" style="height: 40%"></div>
+                            <div class="bar" style="height: 70%"></div>
+                            <div class="bar" style="height: 50%"></div>
+                            <div class="bar" style="height: 90%"></div>
+                            <div class="bar" style="height: 60%"></div>
+                            <div class="bar" style="height: 80%"></div>
+                            <div class="bar" style="height: 50%"></div>
+                        </div>
+                    </div>
+                </div>
+                <h3>Professional Dashboard</h3>
+                <p>Advanced charting tools, portfolio analytics, and performance metrics designed for serious crypto
+                    investors.</p>
+            </div>
+
+            <!-- Card 4: Deal Management -->
+            <div class="glass-card">
+                <div class="card-visual">
+                    <div class="card-stack">
+                        <div class="mini-card mc-1"></div>
+                        <div class="mini-card mc-3"></div>
+                        <div class="mini-card mc-2">
+                            <div style="font-size:1.2rem; font-weight:800; color:white;">$1,250</div>
+                            <div style="height:4px; width:40%; background:var(--purple-primary); border-radius:2px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3>Asset Management</h3>
+                <p>Manage multiple wallets, NFTs, and DeFi positions from a single, unified interface with drag-and-drop
+                    simplicity.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Central Orb Feature -->
+    <section class="central-feature" id="ecosystem">
+
+        <div class="mindmap-container">
+            <!-- Connecting Lines SVG -->
+            <svg class="connections-svg" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                    <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#a855f7" stop-opacity="1" />
+                        <stop offset="100%" stop-color="#3b82f6" stop-opacity="1" />
+                    </linearGradient>
+                </defs>
+
+                <!-- Left Paths (Base + electric overlay) -->
+                <!-- L1 -->
+                <path d="M800 350 C 600 350, 400 150, 250 150" class="connection-base" />
+                <path d="M800 350 C 600 350, 400 150, 250 150" class="connection-path" />
+                <!-- L2 -->
+                <path d="M800 350 C 600 350, 300 300, 150 300" class="connection-base" />
+                <path d="M800 350 C 600 350, 300 300, 150 300" class="connection-path" style="animation-delay: -0.5s" />
+                <!-- L3 -->
+                <path d="M800 350 C 600 350, 300 400, 150 400" class="connection-base" />
+                <path d="M800 350 C 600 350, 300 400, 150 400" class="connection-path" style="animation-delay: -1s" />
+                <!-- L4 -->
+                <path d="M800 350 C 600 350, 400 550, 250 550" class="connection-base" />
+                <path d="M800 350 C 600 350, 400 550, 250 550" class="connection-path" style="animation-delay: -1.5s" />
+
+                <!-- Right Paths -->
+                <!-- R1 -->
+                <path d="M800 350 C 1000 350, 1200 150, 1350 150" class="connection-base" />
+                <path d="M800 350 C 1000 350, 1200 150, 1350 150" class="connection-path" />
+                <!-- R2 -->
+                <path d="M800 350 C 1000 350, 1300 300, 1450 300" class="connection-base" />
+                <path d="M800 350 C 1000 350, 1300 300, 1450 300" class="connection-path"
+                    style="animation-delay: -0.7s" />
+                <!-- R3 -->
+                <path d="M800 350 C 1000 350, 1300 400, 1450 400" class="connection-base" />
+                <path d="M800 350 C 1000 350, 1300 400, 1450 400" class="connection-path"
+                    style="animation-delay: -1.2s" />
+                <!-- R4 -->
+                <path d="M800 350 C 1000 350, 1200 550, 1350 550" class="connection-base" />
+                <path d="M800 350 C 1000 350, 1200 550, 1350 550" class="connection-path"
+                    style="animation-delay: -1.8s" />
+            </svg>
+
+            <!-- Center Node -->
+            <div class="center-hub">
+                <div class="hub-ring"></div>
+                <div class="hub-ring"></div>
+                <div class="hub-ring"></div>
+                <div class="hub-core">
+                    <div class="hub-logo">⚡</div>
+                </div>
+            </div>
+
+            <!-- Left Nodes (Wide Spread) -->
+            <!-- L1: Tag -->
+            <div class="node-item node-l1">
+                <div class="node-tag">Smart Exchange</div>
+            </div>
+            <!-- L2: Coin Icon -->
+            <div class="node-item node-l2">
+                <div class="node-icon icon-coin"></div>
+                <div class="node-tag">Yield Staking</div>
+            </div>
+            <!-- L3: Tag -->
+            <div class="node-item node-l3">
+                <div class="node-tag">Multi-Chain</div>
+            </div>
+            <!-- L4: Gold Trophy -->
+            <div class="node-item node-l4">
+                <div class="node-icon icon-trophy" style="transform: scale(0.8);"></div>
+                <div class="node-tag">VIP Rewards</div>
+            </div>
+
+            <!-- Right Nodes (Wide Spread) -->
+            <!-- R1: Chart Icon -->
+            <div class="node-item node-r1" style="flex-direction: row-reverse;">
+                <div class="node-icon icon-chart"></div>
+                <div class="node-tag">Live Analytics</div>
+            </div>
+            <!-- R2: Tag -->
+            <div class="node-item node-r2">
+                <div class="node-tag">NFT Gallery</div>
+            </div>
+            <!-- R3: Gold Trophy -->
+            <div class="node-item node-r3" style="flex-direction: row-reverse;">
+                <div class="node-icon icon-trophy"></div>
+                <div class="node-tag">Governance</div>
+            </div>
+            <!-- R4: Tag -->
+            <div class="node-item node-r4">
+                <div class="node-tag">Fiat Gateway</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wallet Visual Section -->
+    <section class="wallet-visual" id="wallet">
+        <div class="wallet-container">
+            <div class="wallet-3d">
+                <div class="wallet-card-3d">
+                    <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2rem;">Your Balance</div>
+                    <div style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">$127,543.00</div>
+                    <div style="font-size: 0.95rem; color: var(--purple-light);">+12.5% this month</div>
+                    <div
+                        style="position: absolute; bottom: 2rem; right: 2rem; width: 60px; height: 60px; background: linear-gradient(135deg, var(--purple-primary), var(--blue-accent)); border-radius: 50%; box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);">
+                    </div>
+                </div>
+                <div class="wallet-glow"></div>
+            </div>
+
+            <div class="wallet-content">
+                <h2>Why Showcase Wallet?</h2>
+                <p>Experience the most advanced Web3 wallet built for both beginners and crypto veterans. Manage your
+                    entire portfolio with confidence.</p>
+
+                <ul class="feature-list">
+                    <li>Non-custodial - You own your keys</li>
+                    <li>Cross-chain swaps in seconds</li>
+                    <li>Built-in dApp browser</li>
+                    <li>Real-time portfolio tracking</li>
+                    <li>24/7 customer support</li>
+                </ul>
+
+                <a href="#download" class="btn-primary">Download Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exchange Comparison -->
+    <section class="exchange-comparison" id="compare">
+        <div class="section-header">
+            <h2 class="section-title">When you need more than<br>just a simple exchange</h2>
+            <p class="section-subtitle">Compare features and find the perfect plan for your crypto journey</p>
+        </div>
+
+        <div class="comparison-grid">
+            <div class="comparison-card">
+                <h4>Basic</h4>
+                <div class="price">Free</div>
+                <p style="color: var(--text-muted); margin: 1rem 0;">Perfect for beginners</p>
+                <ul class="comparison-features">
+                    <li>Up to 5 wallets</li>
+                    <li>Basic trading features</li>
+                    <li>Email support</li>
+                    <li>Mobile app access</li>
+                </ul>
+                <a href="#download" class="btn-outline" style="margin-top: 2rem; width: 100%;">Get Started</a>
+            </div>
+
+            <div class="comparison-card" style="border: 2px solid var(--purple-primary); transform: scale(1.05);">
+                <div
+                    style="background: var(--purple-primary); color: white; padding: 0.5rem; border-radius: 8px; display: inline-block; font-size: 0.85rem; margin-bottom: 1rem;">
+                    POPULAR</div>
+                <h4>Pro</h4>
+                <div class="price">$9.99/mo</div>
+                <p style="color: var(--text-muted); margin: 1rem 0;">For serious traders</p>
+                <ul class="comparison-features">
+                    <li>Unlimited wallets</li>
+                    <li>Advanced analytics</li>
+                    <li>Priority 24/7 support</li>
+                    <li>API access</li>
+                    <li>Lower fees (0.1%)</li>
+                </ul>
+                <a href="#download" class="btn-primary" style="margin-top: 2rem; width: 100%;">Upgrade Now</a>
+            </div>
+
+            <div class="comparison-card">
+                <h4>Enterprise</h4>
+                <div class="price">Custom</div>
+                <p style="color: var(--text-muted); margin: 1rem 0;">For institutions</p>
+                <ul class="comparison-features">
+                    <li>Everything in Pro</li>
+                    <li>Dedicated account manager</li>
+                    <li>Custom integrations</li>
+                    <li>White-label options</li>
+                    <li>SLA guarantee</li>
+                </ul>
+                <a href="#download" class="btn-outline" style="margin-top: 2rem; width: 100%;">Contact Sales</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section Card -->
+    <section class="cta-card-section" id="download">
+        <div class="cta-card-container">
+            <!-- Left Side -->
+            <div class="cta-card-left">
+                <h2>Shape Your Digital<br>Fortune Today</h2>
+                <p>Join millions of users utilizing the power of Web3. What are you waiting for?</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn-demo">
+                        <span class="icon-play">▶</span> Demo
+                    </a>
+                    <a href="#" class="btn-signup">Sign up</a>
+                </div>
+            </div>
+
+            <!-- Right Side (Testimonial) -->
+            <div class="cta-card-right">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-quote">"Showcase Wallet has completely transformed how I manage my crypto assets.
+                    The interface is stunning and the security features give me total peace of mind. Truly the best in
+                    the market."</p>
+                <div class="testimonial-user">
+                    <div class="user-avatar">
+                        <img src="https://i.pravatar.cc/150?img=11" alt="James Cooper">
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">James Cooper</span>
+                        <span class="user-role">Chief Marketing Officer</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Glow Effect -->
+            <div class="cta-glow"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-logo">Showcase</div>
+                <h2 class="footer-headline">The Ultimate Web3 <br> Wallet Experience</h2>
+            </div>
+
+            <div class="footer-right">
+                <div class="footer-column">
+                    <h5>Useful</h5>
+                    <a href="#hero">Home</a>
+                    <a href="#features">Features</a>
+                    <a href="#compare">Compare</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+                <div class="footer-column">
+                    <h5>Updates</h5>
+                    <a href="#">X - Twitter</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">Linkedin</a>
+                    <a href="#">Discord</a>
+                </div>
+            </div>
+        </div>
+        <div class="big-footer-text">SHOWCASE</div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Create Particle Background
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 100;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 3 + 's';
+            particle.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href.length > 1) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        navLinks.classList.remove('active');
+                    }
+                }
+            });
+        });
+
+        // Intersection Observer for Fade-in Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.glass-card, .comparison-card, .wallet-card-3d').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(40px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+
+        // Enhanced scroll effect with hide/show behavior
+        let lastScroll = 0;
+        const nav = document.querySelector('nav');
+        const scrollThreshold = 100;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            // Add scrolled class for enhanced blur and shadow
+            if (currentScroll > scrollThreshold) {
+                nav.classList.add('nav-scrolled');
+            } else {
+                nav.classList.remove('nav-scrolled');
+            }
+
+            // Hide/show navbar based on scroll direction
+            if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+                // Scrolling down - hide navbar
+                nav.classList.add('nav-hidden');
+            } else {
+                // Scrolling up - show navbar
+                nav.classList.remove('nav-hidden');
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Parallax effect for orbs
+        // Micro-interaction: 3D Mouse Parallax for Hero Cards
+        const heroSection = document.getElementById('hero');
+        const glassCards = document.querySelectorAll('.glass-card-bg');
+
+        // Check if hero exists to avoid errors on other pages (though not applicable here)
+        if (heroSection) {
+            heroSection.addEventListener('mousemove', (e) => {
+                const x = (e.clientX - window.innerWidth / 2);
+                const y = (e.clientY - window.innerHeight / 2);
+
+                glassCards.forEach((card) => {
+                    const speed = parseFloat(card.getAttribute('data-speed')) || 0.02;
+
+                    // Apply subtle translation based on mouse position
+                    // We use marginLeft/marginTop to "nudge" the element position
+                    // without overriding the complex 3D transform animation happening in CSS
+                    card.style.marginLeft = `${x * speed}px`;
+                    card.style.marginTop = `${y * speed}px`;
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

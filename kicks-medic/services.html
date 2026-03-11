@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Perawatan Premium - KicksMedic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#FFF7ED', 500: '#F97316', 600: '#EA580C' },
+                        dark: { 900: '#0F172A', 800: '#1E293B' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #F97316, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-slate-600 bg-[#F8FAFC]">
+
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <div
+                    class="w-10 h-10 bg-brand-500 rounded-xl flex items-center justify-center shadow-lg shadow-brand-500/30">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <span class="font-extrabold text-2xl tracking-tighter text-dark-900">Kicks<span
+                        class="text-brand-500">Medic.</span></span>
+            </a>
+            <div class="flex items-center gap-8">
+                <a href="index.html"
+                    class="hidden md:block text-slate-600 hover:text-brand-500 font-bold transition">Home</a>
+                <a href="booking.html"
+                    class="bg-dark-900 text-white px-7 py-3 rounded-2xl font-bold hover:bg-brand-500 transition shadow-xl shadow-slate-900/10 active:scale-95 transition-transform">Book
+                    Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative pt-20 pb-24 overflow-hidden bg-dark-900">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-brand-500/10 to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10 text-center md:text-left">
+            <div
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-brand-500 text-sm font-bold mb-6">
+                <span class="flex h-2 w-2 rounded-full bg-brand-500 animate-pulse"></span>
+                HARGA TRANSPARAN & JUJUR
+            </div>
+            <h1 class="text-5xl md:text-7xl font-[900] text-white leading-tight mb-6 tracking-tight">
+                Menu Perawatan <br><span class="gradient-text">Sneakers Kesayangan.</span>
+            </h1>
+            <p class="text-slate-400 text-lg md:text-xl max-w-2xl leading-relaxed font-medium">
+                Pilih treatment terbaik untuk mengembalikan kilau sepatu Anda. Menggunakan alat standar kolektor &
+                teknik pembersihan mendalam.
+            </p>
+        </div>
+    </header>
+
+    <section class="py-12 -mt-12 max-w-7xl mx-auto px-4">
+
+        <div class="mb-20">
+            <div class="flex items-center gap-4 my-10">
+                <div class="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-[800] text-dark-900 tracking-tight italic">CLEANING TREATMENT</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div
+                    class="group bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 hover:border-brand-500 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 relative">
+                    <div class="mb-6">
+                        <span class="text-slate-400 text-xs font-bold uppercase tracking-widest">Daily Wash</span>
+                        <h3 class="font-black text-2xl text-dark-900 mt-1">Fast Clean</h3>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-6">
+                        <span class="text-3xl font-black text-brand-500">35k</span>
+                        <span class="text-slate-400 text-sm font-semibold">/ pair</span>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-sm font-bold text-slate-600">
+                            <div
+                                class="w-5 h-5 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                                ✓</div> Midsole & Upper
+                        </li>
+                        <li class="flex items-center gap-3 text-sm font-bold text-slate-400">
+                            <div
+                                class="w-5 h-5 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center">
+                                ✕</div> Insole & Laces
+                        </li>
+                    </ul>
+                    <div class="pt-4 border-t border-slate-50 flex items-center justify-between">
+                        <span
+                            class="text-[10px] font-black uppercase tracking-tighter bg-slate-100 px-3 py-1 rounded-full">EST.
+                            24 HOURS</span>
+                        <button
+                            class="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center group-hover:bg-brand-500 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 4v16m8-8H4" stroke-width="3" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div
+                    class="group bg-dark-900 p-8 rounded-[2.5rem] shadow-2xl shadow-brand-500/20 border-2 border-brand-500 relative lg:scale-105">
+                    <div
+                        class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-500 text-white text-[10px] font-black px-5 py-2 rounded-full tracking-widest shadow-lg">
+                        FAVORIT SNEAKERHEADS</div>
+                    <div class="mb-6">
+                        <span class="text-brand-500 text-xs font-bold uppercase tracking-widest">Premium Wash</span>
+                        <h3 class="font-black text-2xl text-white mt-1">Deep Clean</h3>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-6 text-white">
+                        <span class="text-3xl font-black text-brand-500">50k</span>
+                        <span class="text-slate-400 text-sm font-semibold">/ pair</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-white">
+                        <li class="flex items-center gap-3 text-sm font-bold">
+                            <div
+                                class="w-5 h-5 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center">
+                                ✓</div> Full Deep Wash
+                        </li>
+                        <li class="flex items-center gap-3 text-sm font-bold">
+                            <div
+                                class="w-5 h-5 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center">
+                                ✓</div> Insole & Laces
+                        </li>
+                        <li class="flex items-center gap-3 text-sm font-bold">
+                            <div
+                                class="w-5 h-5 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center">
+                                ✓</div> Anti-Bacteria Spray
+                        </li>
+                    </ul>
+                    <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                        <span
+                            class="text-[10px] font-black uppercase tracking-tighter bg-white/5 text-white px-3 py-1 rounded-full">EST.
+                            2-3 DAYS</span>
+                        <button
+                            class="w-10 h-10 rounded-full bg-brand-500 text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-brand-500/40">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 4v16m8-8H4" stroke-width="3" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div
+                    class="group bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 hover:border-brand-500 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 relative">
+                    <div class="mb-6">
+                        <span class="text-slate-400 text-xs font-bold uppercase tracking-widest">Specialist Care</span>
+                        <h3 class="font-black text-2xl text-dark-900 mt-1">Suede/Leather</h3>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-6">
+                        <span class="text-3xl font-black text-brand-500">75k</span>
+                        <span class="text-slate-400 text-sm font-semibold">/ pair</span>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-sm font-bold text-slate-600">
+                            <div
+                                class="w-5 h-5 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                                ✓</div> Specialized Method
+                        </li>
+                        <li class="flex items-center gap-3 text-sm font-bold text-slate-600">
+                            <div
+                                class="w-5 h-5 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                                ✓</div> Conditioner applied
+                        </li>
+                    </ul>
+                    <div class="pt-4 border-t border-slate-50 flex items-center justify-between">
+                        <span
+                            class="text-[10px] font-black uppercase tracking-tighter bg-slate-100 px-3 py-1 rounded-full">EST.
+                            3 DAYS</span>
+                        <button
+                            class="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center group-hover:bg-brand-500 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 4v16m8-8H4" stroke-width="3" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-16">
+            <div class="flex items-center gap-4 mb-10">
+                <div class="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center text-purple-600">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-[800] text-dark-900 tracking-tight italic">RESTORATION STUDIO</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div
+                    class="bg-white p-2 pr-6 rounded-[2rem] border border-slate-100 hover:border-purple-200 transition-all group flex items-center gap-6 shadow-sm hover:shadow-xl">
+                    <div
+                        class="w-24 h-24 bg-purple-50 rounded-[1.5rem] flex items-center justify-center text-purple-500 font-black text-2xl group-hover:scale-110 transition-transform">
+                        ✨</div>
+                    <div class="flex-1">
+                        <h3 class="font-black text-dark-900 text-xl tracking-tight">Unyellowing</h3>
+                        <p class="text-xs text-slate-500 font-medium">Bikin sol kuning jadi putih susu kembali.</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="block font-black text-brand-500 text-xl tracking-tighter">80k</span>
+                        <span
+                            class="text-[10px] font-bold text-purple-500 uppercase tracking-widest bg-purple-50 px-2 py-0.5 rounded-lg">Garansi</span>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white p-2 pr-6 rounded-[2rem] border border-slate-100 hover:border-purple-200 transition-all group flex items-center gap-6 shadow-sm hover:shadow-xl">
+                    <div
+                        class="w-24 h-24 bg-purple-50 rounded-[1.5rem] flex items-center justify-center text-purple-500 font-black text-2xl group-hover:scale-110 transition-transform">
+                        🎨</div>
+                    <div class="flex-1">
+                        <h3 class="font-black text-dark-900 text-xl tracking-tight">Repaint Midsole</h3>
+                        <p class="text-xs text-slate-500 font-medium">Cat anti-crack kualitas studio pro.</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="block font-black text-brand-500 text-xl tracking-tighter">120k</span>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase">INC. CLEAN</span>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white p-2 pr-6 rounded-[2rem] border border-slate-100 hover:border-purple-200 transition-all group flex items-center gap-6 shadow-sm hover:shadow-xl md:col-span-2">
+                    <div
+                        class="w-24 h-24 bg-purple-50 rounded-[1.5rem] flex items-center justify-center text-purple-500 font-black text-2xl group-hover:scale-110 transition-transform">
+                        ⚓</div>
+                    <div class="flex-1">
+                        <h3 class="font-black text-dark-900 text-xl tracking-tight">Reglue (Lem Ulang)</h3>
+                        <p class="text-xs text-slate-500 font-medium">Sol mangap? Kita press balik pakai lem industri
+                            mesin.</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="block font-black text-brand-500 text-xl tracking-tighter">Start 45k</span>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase italic">Tergantung Kerusakan</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <footer class="py-12 bg-white text-center border-t border-slate-100 mb-24 md:mb-0">
+        <p class="text-slate-400 text-[10px] font-black tracking-[0.3em] uppercase mb-4">
+            © 2026 KicksMedic • All Rights Reserved
+        </p>
+        <p class="text-slate-600 text-sm font-medium">
+            Handcrafted with ❤️ by <a href="https://spinotek.com" target="_blank"
+                class="text-brand-500 hover:text-brand-600 font-bold transition-colors">Spinotek.com</a>
+        </p>
+    </footer>
+
+    <div class="fixed bottom-10 left-1/2 -translate-x-1/2 z-40 w-full px-4 max-w-md">
+        <a href="booking.html"
+            class="flex items-center justify-between bg-dark-900 text-white p-2 pl-8 rounded-[2rem] font-bold shadow-2xl hover:scale-[1.02] transition-transform group">
+            <span class="text-lg tracking-tight">Bersihkan Sepatumu Sekarang</span>
+            <div
+                class="w-14 h-14 bg-brand-500 rounded-full flex items-center justify-center group-hover:rotate-[360deg] transition-all duration-700">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                        d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </div>
+        </a>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bromo Midnight Adventure - JelajahNusa</title>
+    <link href="../assets/style.css" rel="stylesheet" />
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+
+
+    <style>
+      body {
+        background-color: #fafbfc;
+        color: #1e293b;
+        overflow-x: hidden;
+      }
+      .glass-nav {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .custom-select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1.5rem center;
+        background-size: 1rem;
+      }
+      .mesh-bg {
+        background-color: #fafbfc;
+        background-image:
+          radial-gradient(at 0% 0%, hsla(202, 100%, 95%, 1) 0, transparent 50%),
+          radial-gradient(
+            at 100% 100%,
+            hsla(202, 100%, 97%, 1) 0,
+            transparent 50%
+          );
+      }
+    </style>
+  </head>
+  <body class="mesh-bg">
+    <nav class="fixed w-full z-[100] glass-nav border-b border-slate-100/50">
+      <div
+        class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center"
+      >
+        <a
+          href="javascript:history.back()"
+          class="flex items-center gap-3 group text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 hover:text-primary-600 transition-colors"
+        >
+          <div
+            class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center group-hover:bg-primary-50 transition-colors"
+          >
+            <svg
+              class="w-4 h-4 transition-transform group-hover:-translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </div>
+          <span class="hidden sm:inline">Kembali</span>
+        </a>
+        <div class="text-xl font-[1000] tracking-tighter">
+          JELAJAH<span class="text-primary-600">NUSA.</span>
+        </div>
+        <div class="w-10 sm:w-24"></div>
+      </div>
+    </nav>
+
+    <main class="pt-32 pb-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="mb-12" data-aos="fade-up">
+          <div class="flex items-center gap-3 mb-4">
+            <span
+              class="bg-white text-primary-600 shadow-sm px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-primary-100"
+              >Midnight Trip</span
+            >
+            <div class="flex text-amber-400 gap-0.5 text-xs">★★★★★</div>
+          </div>
+          <h1
+            class="text-4xl md:text-7xl font-black text-slate-900 tracking-tight leading-[1.1] mb-8"
+          >
+            Bromo <span class="text-primary-600">Sunrise</span><br />Midnight
+            Adventure.
+          </h1>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+          <div class="lg:col-span-8 space-y-20">
+            <div
+              class="grid grid-cols-4 gap-4 h-[450px] md:h-[650px]"
+              data-aos="zoom-in-up"
+            >
+              <div
+                class="col-span-4 md:col-span-3 overflow-hidden rounded-[3rem] relative group shadow-2xl shadow-primary-900/10"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=1920&q=80"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                  alt="Bromo Golden Sunrise"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"
+                ></div>
+                <div class="absolute bottom-10 left-10 text-white">
+                  <p
+                    class="text-[10px] font-black uppercase tracking-[0.3em] opacity-80 mb-1"
+                  >
+                    Highlight
+                  </p>
+                  <h3 class="text-3xl font-bold tracking-tight">
+                    The Golden Sunrise
+                  </h3>
+                  <p class="text-xs font-medium opacity-70">
+                    View from Kingkong Hill / Penanjakan 1
+                  </p>
+                </div>
+              </div>
+
+              <div class="hidden md:flex flex-col gap-4 col-span-1">
+                <div
+                  class="h-1/2 overflow-hidden rounded-[2.5rem] shadow-lg border border-white group relative"
+                >
+                  <img
+                    src="assets/bromo-2026/bromo-4.jpg"
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    alt="Jeep Bromo 4x4"
+                  />
+                  <div
+                    class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"
+                  ></div>
+                </div>
+                <div
+                  class="h-1/2 overflow-hidden rounded-[2.5rem] shadow-lg border border-white group relative"
+                >
+                  <img
+                    src="assets/bromo-2026/bromo-1.jpg"
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    alt="Kawah Bromo"
+                  />
+                  <div
+                    class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-24">
+              <section data-aos="fade-up" class="relative">
+                <div
+                  class="absolute -top-20 -left-20 w-64 h-64 bg-primary-100/30 rounded-full blur-3xl -z-10"
+                ></div>
+
+                <h2
+                  class="text-[11px] font-black uppercase tracking-[0.4em] text-primary-600 mb-8 flex items-center gap-3"
+                >
+                  <span class="w-8 h-[2px] bg-primary-600"></span>
+                  Overview
+                </h2>
+
+                <div class="max-w-3xl">
+                  <p
+                    class="text-3xl md:text-4xl text-slate-900 leading-[1.2] font-extrabold tracking-tight mb-6"
+                  >
+                    Menembus Dingin demi
+                    <span class="relative inline-block">
+                      <span class="relative z-10 text-primary-600"
+                        >Fajar Abadi</span
+                      >
+                      <span
+                        class="absolute bottom-2 left-0 w-full h-3 bg-primary-100 -z-0"
+                      ></span>
+                    </span>
+                    di Atas Awan.
+                  </p>
+                  <p class="text-lg text-slate-500 leading-relaxed font-medium">
+                    Nikmati perjalanan magis mengejar
+                    <span class="text-slate-900 font-bold">Golden Sunrise</span>
+                    terbaik di Pulau Jawa. Kami membawa Anda dari jantung
+                    Yogyakarta menuju kemegahan kaldera Bromo dengan kenyamanan
+                    bus eksekutif dan sensasi Jeep 4x4.
+                  </p>
+                </div>
+
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16"
+                >
+                  <div
+                    class="group p-8 bg-white rounded-[2.5rem] border border-slate-100 shadow-[0_20px_40px_rgba(0,0,0,0.02)] transition-all duration-500 hover:shadow-xl hover:shadow-primary-900/5 hover:-translate-y-2"
+                  >
+                    <div
+                      class="w-14 h-14 rounded-2xl bg-primary-50 text-primary-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500"
+                    >
+                      <svg
+                        class="w-7 h-7"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <h4 class="text-lg font-black text-slate-900 mb-2">
+                      Midnight Express
+                    </h4>
+                    <p
+                      class="text-sm text-slate-500 font-medium leading-relaxed"
+                    >
+                      Durasi trip efisien 24 jam. Tanpa perlu menginap, langsung
+                      kembali ke Jogja.
+                    </p>
+                  </div>
+
+                  <div
+                    class="group p-8 bg-white rounded-[2.5rem] border border-slate-100 shadow-[0_20px_40px_rgba(0,0,0,0.02)] transition-all duration-500 hover:shadow-xl hover:shadow-primary-900/5 hover:-translate-y-2"
+                  >
+                    <div
+                      class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500"
+                    >
+                      <svg
+                        class="w-7 h-7"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-width="2"
+                          d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                        />
+                      </svg>
+                    </div>
+                    <h4 class="text-lg font-black text-slate-900 mb-2">
+                      Golden Sunrise
+                    </h4>
+                    <p
+                      class="text-sm text-slate-500 font-medium leading-relaxed"
+                    >
+                      Akses ke spot terbaik (Kingkong Hill) untuk melihat
+                      matahari terbit yang ikonik.
+                    </p>
+                  </div>
+
+                  <div
+                    class="group p-8 bg-white rounded-[2.5rem] border border-slate-100 shadow-[0_20px_40px_rgba(0,0,0,0.02)] transition-all duration-500 hover:shadow-xl hover:shadow-primary-900/5 hover:-translate-y-2"
+                  >
+                    <div
+                      class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500"
+                    >
+                      <svg
+                        class="w-7 h-7"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-width="2"
+                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                        />
+                      </svg>
+                    </div>
+                    <h4 class="text-lg font-black text-slate-900 mb-2">
+                      All-in Service
+                    </h4>
+                    <p
+                      class="text-sm text-slate-500 font-medium leading-relaxed"
+                    >
+                      Dari tiket masuk, jeep, hingga jaket hangat sudah kami
+                      siapkan untuk Anda.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <section data-aos="fade-up">
+                <h2
+                  class="text-[11px] font-black uppercase tracking-[0.4em] text-primary-600 mb-10"
+                >
+                  — Perjalanan Anda
+                </h2>
+                <div
+                  class="relative pl-8 sm:pl-12 border-l-2 border-slate-100 space-y-16 ml-4"
+                >
+                  <div class="relative">
+                    <div
+                      class="absolute -left-[58px] sm:-left-[66px] top-0 w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center font-black text-[10px] shadow-xl"
+                    >
+                      19:00
+                    </div>
+                    <h4 class="text-xl font-black text-slate-900 mb-2">
+                      Departure Yogyakarta
+                    </h4>
+                    <p class="text-slate-500 text-sm leading-relaxed max-w-lg">
+                      Berkumpul di Meeting Point (Stasiun Tugu/Area Malioboro).
+                      Perjalanan menuju Probolinggo via Tol Trans Jawa
+                      menggunakan Bus Eksekutif AC.
+                    </p>
+                  </div>
+                  <div class="relative">
+                    <div
+                      class="absolute -left-[58px] sm:-left-[66px] top-0 w-12 h-12 rounded-2xl bg-primary-600 text-white flex items-center justify-center font-black text-[10px] shadow-xl shadow-primary-100"
+                    >
+                      03:00
+                    </div>
+                    <h4 class="text-xl font-black text-slate-900 mb-2">
+                      The Jeep Adventure
+                    </h4>
+                    <p class="text-slate-500 text-sm leading-relaxed max-w-lg">
+                      Tiba di Sukapura/Cemorolawang. Transfer ke Jeep 4x4 untuk
+                      menembus lautan pasir menuju Puncak Penanjakan.
+                    </p>
+                  </div>
+                  <div class="relative">
+                    <div
+                      class="absolute -left-[58px] sm:-left-[66px] top-0 w-12 h-12 rounded-2xl bg-amber-400 text-white flex items-center justify-center font-black text-[10px] shadow-xl"
+                    >
+                      05:00
+                    </div>
+                    <h4 class="text-xl font-black text-slate-900 mb-2">
+                      Sunrise & Crater Explore
+                    </h4>
+                    <p class="text-slate-500 text-sm leading-relaxed max-w-lg">
+                      Moment Sunrise, dilanjutkan explore Kawah Bromo, Pasir
+                      Berbisik, dan Bukit Teletubbies.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <section data-aos="fade-up" class="relative py-24">
+                <div class="mb-20 px-4">
+                  <h2
+                    class="text-[12px] font-black uppercase tracking-[0.5em] text-sky-500 mb-8 flex items-center gap-6"
+                  >
+                    <span class="w-20 h-[2px] bg-sky-500/30"></span>
+                    Fasilitas Premium
+                  </h2>
+                  <h3
+                    class="text-4xl md:text-6xl font-[1000] text-slate-900 tracking-tight leading-[1.1] max-w-4xl"
+                  >
+                    Eksplorasi Tanpa Batas dengan <br class="hidden md:block" />
+                    <span class="text-sky-500">Kenyamanan Maksimal.</span>
+                  </h3>
+                </div>
+
+                <div class="space-y-12">
+                  <div
+                    class="p-12 md:p-20 rounded-[4rem] bg-gradient-to-br from-sky-50/50 via-white to-white border border-sky-100/50 shadow-[0_40px_100px_rgba(14,165,233,0.03)] relative overflow-hidden"
+                  >
+                    <div
+                      class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-sky-100/20 to-transparent pointer-events-none"
+                    ></div>
+
+                    <div class="relative z-10">
+                      <div class="mb-16">
+                        <span
+                          class="bg-white border border-sky-100 text-sky-600 text-[11px] font-black uppercase tracking-[0.3em] px-8 py-3 rounded-full shadow-sm"
+                        >
+                          What's Included
+                        </span>
+                      </div>
+
+                      <div
+                        class="grid grid-cols-1 md:grid-cols-1 gap-x-24 gap-y-16"
+                      >
+                        <div class="flex gap-8 group">
+                          <div
+                            class="w-20 h-20 shrink-0 rounded-3xl bg-white shadow-xl shadow-sky-900/5 border border-sky-50 flex items-center justify-center text-sky-500 group-hover:bg-sky-500 group-hover:text-white transition-all duration-500 group-hover:-translate-y-2"
+                          >
+                            <svg
+                              class="w-9 h-9"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-width="2"
+                                d="M8 7l4-4m0 0l4 4m-4-4v18"
+                              />
+                            </svg>
+                          </div>
+                          <div class="space-y-3">
+                            <h4
+                              class="font-black text-slate-900 text-2xl tracking-tight"
+                            >
+                              Bus Pariwisata Eksekutif
+                            </h4>
+                            <p
+                              class="text-slate-500 font-medium leading-relaxed text-base"
+                            >
+                              Perjalanan nyaman dari Yogyakarta menuju
+                              Probolinggo via Jalur Tol Trans Jawa dengan armada
+                              terbaru ber-AC.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="flex gap-8 group">
+                          <div
+                            class="w-20 h-20 shrink-0 rounded-3xl bg-white shadow-xl shadow-sky-900/5 border border-sky-50 flex items-center justify-center text-sky-500 group-hover:bg-sky-500 group-hover:text-white transition-all duration-500 group-hover:-translate-y-2"
+                          >
+                            <svg
+                              class="w-9 h-9"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-width="2"
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                              />
+                            </svg>
+                          </div>
+                          <div class="space-y-3">
+                            <h4
+                              class="font-black text-slate-900 text-2xl tracking-tight"
+                            >
+                              Makan Malam Eksklusif
+                            </h4>
+                            <p
+                              class="text-slate-500 font-medium leading-relaxed text-base"
+                            >
+                              Sajian hidangan Nusantara yang hangat di restoran
+                              lokal pilihan untuk mengisi energi sebelum
+                              pendakian.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="flex gap-8 group">
+                          <div
+                            class="w-20 h-20 shrink-0 rounded-3xl bg-white shadow-xl shadow-sky-900/5 border border-sky-50 flex items-center justify-center text-sky-500 group-hover:bg-sky-500 group-hover:text-white transition-all duration-500 group-hover:-translate-y-2"
+                          >
+                            <svg
+                              class="w-9 h-9"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-width="2"
+                                d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+                              />
+                            </svg>
+                          </div>
+                          <div class="space-y-3">
+                            <h4
+                              class="font-black text-slate-900 text-2xl tracking-tight"
+                            >
+                              Jeep 4x4 Adventure
+                            </h4>
+                            <p
+                              class="text-slate-500 font-medium leading-relaxed text-base"
+                            >
+                              Transportasi khusus medan berat untuk mengantar
+                              Anda ke spot Sunrise dan kawah Bromo dengan aman.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="flex gap-8 group">
+                          <div
+                            class="w-20 h-20 shrink-0 rounded-3xl bg-white shadow-xl shadow-sky-900/5 border border-sky-50 flex items-center justify-center text-sky-500 group-hover:bg-sky-500 group-hover:text-white transition-all duration-500 group-hover:-translate-y-2"
+                          >
+                            <svg
+                              class="w-9 h-9"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                              />
+                            </svg>
+                          </div>
+                          <div class="space-y-3">
+                            <h4
+                              class="font-black text-slate-900 text-2xl tracking-tight"
+                            >
+                              Atribut & Tiket Masuk
+                            </h4>
+                            <p
+                              class="text-slate-500 font-medium leading-relaxed text-base"
+                            >
+                              Peminjaman jaket tebal, sarung tangan, serta tiket
+                              masuk TNBTS sudah kami urus sepenuhnya.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="p-12 md:p-16 rounded-[4rem] bg-slate-900 text-white flex flex-col md:flex-row justify-between items-center gap-12"
+                  >
+                    <div class="max-w-md">
+                      <h4 class="text-3xl font-black mb-4">
+                        Hal yang perlu Anda siapkan sendiri
+                      </h4>
+                      <p class="text-slate-400 font-medium">
+                        Beberapa kebutuhan personal yang tidak termasuk dalam
+                        paket trip kami.
+                      </p>
+                    </div>
+
+                    <div class="flex flex-wrap gap-6 justify-center">
+                      <span
+                        class="px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-sm font-bold hover:bg-white/10 transition-colors"
+                        >✕ Sewa Kuda</span
+                      >
+                      <span
+                        class="px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-sm font-bold hover:bg-white/10 transition-colors"
+                        >✕ Pengeluaran Pribadi</span
+                      >
+                      <span
+                        class="px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-sm font-bold hover:bg-white/10 transition-colors"
+                        >✕ Tip Guide</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4">
+            <div
+              class="lg:sticky lg:top-28 bg-white rounded-[4rem] p-10 md:p-14 border border-slate-100 shadow-[0_50px_100px_rgba(14,165,233,0.08)] relative overflow-hidden"
+              data-aos="fade-left"
+            >
+              <div
+                class="absolute -top-12 -right-12 w-32 h-32 bg-sky-50 rounded-full blur-3xl"
+              ></div>
+
+              <div class="mb-12 text-center lg:text-left">
+                <span
+                  class="inline-block bg-sky-50 text-sky-600 text-[10px] font-black uppercase tracking-[0.2em] px-5 py-2 rounded-full mb-6"
+                >
+                  Special Deal
+                </span>
+                <div
+                  class="flex items-baseline justify-center lg:justify-start gap-2"
+                >
+                  <span
+                    class="text-slate-400 font-bold text-2xl tracking-tighter"
+                    >IDR</span
+                  >
+                  <span
+                    class="text-7xl font-[1000] tracking-tighter text-slate-900 leading-none"
+                    >550<span class="text-3xl">k</span></span
+                  >
+                  <span class="text-slate-400 font-bold text-sm ml-2"
+                    >/ Pax</span
+                  >
+                </div>
+              </div>
+
+              <div class="space-y-6 mb-12">
+                <div class="flex items-center justify-between ml-1">
+                  <label
+                    class="text-[11px] font-black text-slate-900 uppercase tracking-widest"
+                    >Pilih Jadwal Trip</label
+                  >
+                  <span class="text-[10px] font-bold text-sky-500 uppercase"
+                    >Jan - Feb 2026</span
+                  >
+                </div>
+
+                <div class="grid grid-cols-1 gap-4">
+                  <div class="relative group cursor-pointer">
+                    <input
+                      type="radio"
+                      name="trip_date"
+                      id="date1"
+                      class="peer hidden"
+                      checked
+                    />
+                    <label
+                      for="date1"
+                      class="flex items-center gap-5 p-3 rounded-2xl border-2 border-slate-50 bg-slate-50 peer-checked:border-sky-500 peer-checked:bg-sky-50 transition-all duration-300"
+                    >
+                      <div
+                        class="w-14 h-14 rounded-2xl bg-white shadow-sm flex flex-col items-center justify-center border border-slate-100 group-hover:scale-105 transition-transform"
+                      >
+                        <span
+                          class="text-[10px] font-black text-slate-400 uppercase"
+                          >Jan</span
+                        >
+                        <span class="text-xl font-black text-slate-900"
+                          >24</span
+                        >
+                      </div>
+                      <div>
+                        <p class="text-xs font-black text-slate-900">
+                          Sabtu, 24 Januari 2026
+                        </p>
+                        <div class="flex items-center gap-2 mt-1">
+                          <span
+                            class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"
+                          ></span>
+                          <p
+                            class="text-[10px] font-bold text-yellow-600 uppercase tracking-tighter"
+                          >
+                            6 Slot Sisa
+                          </p>
+                        </div>
+                      </div>
+                    </label>
+                  </div>
+
+                  <div class="relative group cursor-pointer">
+                    <input
+                      type="radio"
+                      name="trip_date"
+                      id="date2"
+                      class="peer hidden"
+                    />
+                    <label
+                      for="date2"
+                      class="flex items-center gap-5 p-3 rounded-2xl border-2 border-slate-50 bg-slate-50 peer-checked:border-sky-500 peer-checked:bg-sky-50 transition-all duration-300"
+                    >
+                      <div
+                        class="w-14 h-14 rounded-2xl bg-white shadow-sm flex flex-col items-center justify-center border border-slate-100 group-hover:scale-105 transition-transform"
+                      >
+                        <span
+                          class="text-[10px] font-black text-slate-400 uppercase"
+                          >Jan</span
+                        >
+                        <span class="text-xl font-black text-slate-900"
+                          >31</span
+                        >
+                      </div>
+                      <div>
+                        <p class="text-xs font-black text-slate-900">
+                          Sabtu, 31 Januari 2026
+                        </p>
+                        <p
+                          class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mt-1"
+                        >
+                          Sedia 12 Slot
+                        </p>
+                      </div>
+                    </label>
+                  </div>
+
+                  <div class="relative group cursor-pointer">
+                    <input
+                      type="radio"
+                      name="trip_date"
+                      id="date3"
+                      class="peer hidden"
+                    />
+                    <label
+                      for="date3"
+                      class="flex items-center gap-5 p-3 rounded-2xl border-2 border-slate-50 bg-slate-50 peer-checked:border-sky-500 peer-checked:bg-sky-50 transition-all duration-300"
+                    >
+                      <div
+                        class="w-14 h-14 rounded-2xl bg-white shadow-sm flex flex-col items-center justify-center border border-slate-100 group-hover:scale-105 transition-transform"
+                      >
+                        <span
+                          class="text-[10px] font-black text-slate-400 uppercase"
+                          >Feb</span
+                        >
+                        <span class="text-xl font-black text-slate-900"
+                          >07</span
+                        >
+                      </div>
+                      <div>
+                        <p class="text-xs font-black text-slate-900">
+                          Sabtu, 07 Februari 2026
+                        </p>
+                        <p
+                          class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mt-1"
+                        >
+                          Sedia 14 Slot
+                        </p>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <a
+                href="https://wa.me/628123456789?text=Halo%20JelajahNusa,%20saya%20ingin%20booking%20paket%20Bromo%20Midnight"
+                class="relative overflow-hidden group w-full bg-slate-900 text-white py-8 rounded-[2.5rem] font-black text-[13px] uppercase tracking-[0.2em] transition-all duration-500 flex items-center justify-center gap-4 hover:bg-sky-600 shadow-xl hover:shadow-sky-500/40"
+              >
+                <span class="relative z-10 flex items-center gap-4">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.67-1.612-.917-2.204-.242-.588-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.94 3.659 1.437 5.63 1.438h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                    />
+                  </svg>
+                  PESAN SEKARANG
+                </span>
+              </a>
+
+              <div class="mt-8 flex flex-col items-center gap-2">
+                <p
+                  class="text-[9px] text-slate-400 font-bold uppercase tracking-[0.3em]"
+                >
+                  No Hidden Fees Guaranteed
+                </p>
+                <div class="flex gap-2">
+                  <div class="w-1 h-1 rounded-full bg-slate-200"></div>
+                  <div class="w-1 h-1 rounded-full bg-slate-200"></div>
+                  <div class="w-1 h-1 rounded-full bg-slate-200"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="py-20 bg-white border-t border-slate-100">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <div class="text-2xl font-[1000] tracking-tighter mb-4">
+          JELAJAH<span class="text-primary-600">NUSA.</span>
+        </div>
+        <p
+          class="text-slate-400 text-[10px] font-black uppercase tracking-[0.4em]"
+        >
+          Yogyakarta • Bromo • 2026
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ duration: 1000, once: true, offset: 100 });
+    </script>
+  </body>
+</html>

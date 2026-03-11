@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Portfolio Submission - TNYI x InJourney</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="/tnyi-injourney/style.css">
+</head>
+<body class="text-gray-800 antialiased min-h-screen flex flex-col theme-injourney-vibrant overflow-x-hidden">
+    <!-- Header / Progress -->
+    <header class="sticky top-0 z-50 navbar-premium">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-4">
+                    <!-- Note: Images in public/tnyi-injourney are served at root /tnyi-injourney/ -->
+                    <div class="flex items-center gap-4 py-2 px-4 rounded-xl logo-container">
+                        <img src="/tnyi-injourney/injourney-logo.png" alt="InJourney Logo" class="h-14 w-auto">
+                        <div class="h-8 w-px bg-gray-300"></div>
+                        <img src="/tnyi-injourney/tnyi-logo.png" alt="TNYI Logo" class="h-8 w-auto">
+                    </div>
+                </div>
+                <!-- Title (Desktop only or adjusted) -->
+                <div class="hidden sm:block pl-2">
+                    <h1 class="font-bold text-lg leading-tight text-gray-900">Culture Role Model</h1>
+                    <p class="text-xs text-[#c5a96f] font-semibold tracking-wide">DIGITAL PORTFOLIO</p>
+                </div>
+                 <!-- Auto-save Indicator -->
+                 <div id="autosave-indicator" class="hidden text-xs text-green-600 bg-green-50 px-3 py-1 rounded-full border border-green-200 shadow-sm flex items-center">
+                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    Draft Saved
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Wizard Container (New Placement) -->
+    <div id="wizard-container" class="w-full max-w-[55%] mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-12">
+        <!-- Injected by JS -->
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col relative">
+        <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10" id="content-area">
+            <!-- Content Injected via JS -->
+            <div class="flex items-center justify-center h-64">
+                <span class="loading-spinner text-[#005eb8]">Loading App...</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-8 text-center text-sm text-gray-400 bg-white/50 backdrop-blur-sm border-t border-gray-100">
+        <p>&copy; 2026 InJourney x The New You Institute. All rights reserved.</p>
+    </footer>
+
+    <!-- Global Floating Elements -->
+    
+    <!-- Auto-Save Indicator -->
+    <div id="save-indicator" class="fixed bottom-8 right-8 bg-white/90 backdrop-blur text-gray-600 px-4 py-2 rounded-full shadow-lg text-sm font-medium flex items-center gap-2 transition-opacity duration-300 opacity-0 pointer-events-none">
+        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+        Draft Saved
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-full shadow-xl transition-all duration-500 translate-y-20 opacity-0 z-50">
+        Message here
+    </div>
+
+    <!-- Review Modal Container (Hidden by default) -->
+    <div id="review-modal" class="hidden fixed inset-0 z-[60] overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <!-- Modal Content Injected JS -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./script.js"></script>
+</body>
+</html>

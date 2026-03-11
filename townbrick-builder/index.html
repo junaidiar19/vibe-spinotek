@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Builder Bricks</title>
+    <!-- Tailwind CSS (via CDN for speed/single-file requirement) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glass-bg: rgba(20, 20, 25, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent-color: #ff3e3e;
+            --button-active: rgba(255, 255, 255, 0.3);
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #0f0f13;
+            font-family: 'Outfit', sans-serif;
+            color: white;
+            touch-action: none;
+            /* Prevent standard touch scrolling */
+        }
+
+        /* Game Container */
+        #game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom, #1a1a2e, #16213e);
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(76, 29, 149, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(219, 39, 119, 0.15) 0%, transparent 40%);
+        }
+
+        /* Canvas */
+        canvas {
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* UI Overlay - Controller */
+        #controller-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 45vh;
+            /* Takes up bottom half */
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 4rem;
+            pointer-events: none;
+            /* Let clicks pass through if needed, but buttons catch them */
+            z-index: 20;
+        }
+
+        /* Left Stick Area */
+        .stick-area {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            pointer-events: auto;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stick-thumb {
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle at 30% 30%, #555, #222);
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 2px 5px rgba(255, 255, 255, 0.2);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Directional indicators on stick */
+        .d-pad-arrow {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .d-up {
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .d-down {
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .d-left {
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .d-right {
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Right Buttons Area */
+        .buttons-area {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            pointer-events: auto;
+        }
+
+        .btn-action {
+            width: 60px;
+            height: 60px;
+            background: rgba(80, 80, 80, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            transition: transform 0.1s, background 0.1s;
+        }
+
+        .btn-action:active,
+        .btn-action.active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        /* Diamond Layout */
+        .btn-y {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(50, 50, 60, 0.6);
+        }
+
+        .btn-a {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(50, 160, 50, 0.4);
+        }
+
+        .btn-x {
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            background: rgba(60, 60, 180, 0.4);
+        }
+
+        .btn-b {
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            background: rgba(180, 60, 60, 0.4);
+        }
+
+        /* Adjusted transform reset for active state */
+        .btn-y:active {
+            transform: translateX(-50%) scale(0.9);
+        }
+
+        .btn-a:active {
+            transform: translateX(-50%) scale(0.9);
+        }
+
+        .btn-x:active {
+            transform: translateY(-50%) scale(0.9);
+        }
+
+        .btn-b:active {
+            transform: translateY(-50%) scale(0.9);
+        }
+
+
+        /* HUD */
+        #hud {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            z-index: 10;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            /* Very subtle */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        #score-board {
+            margin-bottom: 1rem;
+        }
+
+        #template-selector {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .template-btn {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            text-align: right;
+        }
+
+        .template-btn:hover,
+        .template-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        #game-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            font-weight: 700;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 30;
+            text-align: center;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            #controller-overlay {
+                padding: 0 2rem;
+            }
+
+            .stick-area {
+                width: 140px;
+                height: 140px;
+            }
+
+            .buttons-area {
+                width: 160px;
+                height: 160px;
+            }
+
+            canvas {
+                max-width: 90vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="game-container">
+        <!-- Canvas Game -->
+        <canvas id="game-canvas" width="300" height="600"></canvas>
+
+        <!-- Heads Up Display -->
+        <div id="hud" class="glass-panel">
+            <h1 class="text-xl font-bold mb-1 tracking-wider text-white/90">BUILDER</h1>
+            <div class="text-xs text-white/50 mb-4 uppercase tracking-widest">Architect Mode</div>
+
+            <div class="mb-2">
+                <div class="text-xs text-white/50 uppercase">Score</div>
+                <div id="score-val" class="text-2xl font-mono text-white">0</div>
+            </div>
+
+            <div>
+                <div class="text-xs text-white/50 uppercase">Match</div>
+                <div id="match-val" class="text-2xl font-mono text-[#4ade80]">0%</div>
+            </div>
+        </div>
+
+        <!-- Template Selector -->
+        <div id="template-selector">
+            <div class="text-xs text-white/50 uppercase mb-1 mr-2">Select Blueprint</div>
+            <button class="template-btn active" onclick="setTemplate('cabin')">Log Cabin</button>
+            <button class="template-btn" onclick="setTemplate('tower')">Twin Towers</button>
+            <button class="template-btn" onclick="setTemplate('pyramid')">The Pyramid</button>
+        </div>
+
+        <!-- Messages -->
+        <div id="game-message">COMPLETED</div>
+
+        <!-- Controller Overlay -->
+        <div id="controller-overlay">
+
+            <!-- Left Stick -->
+            <div id="joystick" class="stick-area">
+                <div class="d-pad-arrow d-up">^</div>
+                <div class="d-pad-arrow d-down">v</div>
+                <div class="d-pad-arrow d-left">&lt;</div>
+                <div class="d-pad-arrow d-right">&gt;</div>
+                <div id="stick-thumb" class="stick-thumb"></div>
+            </div>
+
+            <!-- Right Buttons -->
+            <div class="buttons-area">
+                <div class="btn-action btn-y" id="btn-y">Y</div>
+                <div class="btn-action btn-x" id="btn-x">X</div>
+                <div class="btn-action btn-b" id="btn-b">B</div>
+                <div class="btn-action btn-a" id="btn-a">A</div>
+            </div>
+        </div>
+
+        <!-- Pause Button -->
+        <button id="pause-btn" onclick="togglePause()"
+            class="absolute top-6 left-1/2 -translate-x-1/2 z-30 p-3 bg-white/10 rounded-full hover:bg-white/20 transition-all border border-white/10 backdrop-blur-sm group">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="text-white fill-white group-hover:scale-110 transition-transform">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+            </svg>
+        </button>
+
+        <!-- Pause Menu Overlay -->
+        <div id="pause-menu"
+            class="hidden absolute inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center flex-col transition-all duration-300">
+            <h2 class="text-6xl font-bold mb-8 text-white tracking-widest drop-shadow-2xl">PAUSED</h2>
+            <div class="flex flex-col gap-4 w-64">
+                <button onclick="togglePause()"
+                    class="px-8 py-4 bg-[#ff3e3e] text-white rounded-xl text-xl font-bold hover:scale-105 transition-all shadow-lg hover:shadow-red-500/30 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="currentColor" stroke="none" class="w-6 h-6">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    RESUME
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Math Quiz Modal -->
+    <div id="quiz-modal"
+        class="hidden absolute inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center flex-col transition-all duration-300">
+        <div
+            class="bg-[#1a1a2e] p-8 rounded-2xl border border-white/10 shadow-2xl w-80 text-center relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+            </div>
+
+            <div class="text-xs font-bold text-white/50 uppercase tracking-widest mb-4">Security Check</div>
+
+            <div id="quiz-question" class="text-4xl font-bold text-white mb-6 font-mono">12 + 5 = ?</div>
+
+            <div class="grid grid-cols-2 gap-3 mb-2" id="quiz-options">
+                <!-- Options injected here -->
+            </div>
+
+            <div id="quiz-timer" class="w-full h-1 bg-gray-700 mt-4 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-500 transition-all duration-100" style="width: 100%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Warning Modal -->
+    <div id="warning-modal"
+        class="hidden absolute inset-0 z-[70] bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 text-center">
+        <div
+            class="bg-red-500/10 border border-red-500/50 rounded-2xl p-8 max-w-sm w-full shadow-[0_0_50px_rgba(239,68,68,0.2)]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="text-red-500 mx-auto mb-4">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                </path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+            <h2 class="text-2xl font-bold text-red-500 mb-2">ACCESS DENIED</h2>
+            <p class="text-gray-300 mb-6">Mission incomplete. You must finish the current blueprint before switching.
+            </p>
+            <button onclick="closeWarning()"
+                class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-bold transition-colors">
+                ACKNOWLEDGE
+            </button>
+        </div>
+    </div>
+
+    <!-- Intro / Rules Overlay -->
+    <div id="intro-overlay"
+        class="absolute inset-0 z-[60] bg-[#0f0f13] flex flex-col items-center justify-center p-6 text-center transition-opacity duration-500">
+        <div class="max-w-md w-full relative">
+            <!-- Background Glow -->
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-500/10 blur-[100px] rounded-full pointer-events-none">
+            </div>
+
+            <h1
+                class="text-6xl font-bold mb-2 tracking-tighter bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-lg">
+                TOWN BUILDER
+            </h1>
+            <p class="text-xl text-white/60 mb-8 tracking-widest uppercase text-xs">Architect Edition</p>
+
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm mb-8 shadow-xl text-left">
+                <h2 class="text-white text-lg font-bold mb-4 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-blue-400">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    MISSION BRIEF
+                </h2>
+                <ul class="text-left space-y-3 text-sm text-gray-300">
+                    <li class="flex items-start gap-3">
+                        <span class="bg-blue-500/20 text-blue-400 p-1 rounded font-mono text-xs">01</span>
+                        <span>Stack blocks to match the <strong>Blueprint</strong> (shadows).</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="bg-purple-500/20 text-purple-400 p-1 rounded font-mono text-xs">02</span>
+                        <span>Pieces trigger a <strong class="text-white">Security Quiz</strong> before locking.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="bg-pink-500/20 text-pink-400 p-1 rounded font-mono text-xs">03</span>
+                        <span>Pass to <strong class="text-green-400">Lock</strong>. Fail and block <strong
+                                class="text-red-400">Burns</strong>.</span>
+                    </li>
+                </ul>
+
+                <div class="w-full h-px bg-white/10 my-6"></div>
+
+                <h2 class="text-white text-lg font-bold mb-4 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-purple-400">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                    CONTROLS
+                </h2>
+
+                <div class="grid grid-cols-2 gap-x-4 gap-y-6 text-sm text-gray-300">
+                    <div class="flex flex-col gap-1 items-center text-center">
+                        <span class="text-white/30 text-[10px] uppercase tracking-widest font-bold">Navigation</span>
+                        <div class="flex items-center gap-2">
+                            <kbd
+                                class="bg-white/10 border border-white/5 px-2 py-1 rounded text-white font-mono text-xs">ARROWS</kbd>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-1 items-center text-center">
+                        <span class="text-white/30 text-[10px] uppercase tracking-widest font-bold">Hard Drop</span>
+                        <div class="flex items-center gap-2">
+                            <kbd
+                                class="bg-white/10 border border-white/5 px-2 py-1 rounded text-white font-mono text-xs">SPACE</kbd>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-1 items-center text-center">
+                        <span class="text-white/30 text-[10px] uppercase tracking-widest font-bold">Rotate</span>
+                        <div class="flex items-center gap-2">
+                            <kbd
+                                class="bg-white/10 border border-white/5 px-2 py-1 rounded text-white font-mono text-xs">UP</kbd>
+                            <span class="text-white/20">/</span>
+                            <kbd
+                                class="bg-[#50a032]/40 border border-white/5 px-2 py-1 rounded text-white font-mono text-xs">A</kbd>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-1 items-center text-center">
+                        <span class="text-white/30 text-[10px] uppercase tracking-widest font-bold">System</span>
+                        <div class="flex items-center gap-2">
+                            <kbd
+                                class="bg-white/10 border border-white/5 px-2 py-1 rounded text-white font-mono text-xs">ESC</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="startGame()"
+                class="group relative px-8 py-4 bg-white text-black font-bold text-lg rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)]">
+                <span class="relative z-10 flex items-center gap-2">
+                    NOW YOU TURN
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="group-hover:translate-x-1 transition-transform">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </span>
+                <div
+                    class="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 opacity-0 group-hover:opacity-20 transition-opacity">
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- Game Config ---
+        const COLS = 10;
+        const ROWS = 20;
+        const BLOCK_SIZE = 30; // Scaled by canvas size
+        const COLORS = [
+            null,
+            '#FF0D72', // T
+            '#0DC2FF', // O
+            '#0DFF72', // S
+            '#F538FF', // Z
+            '#FF8E0D', // L
+            '#FFE138', // J
+            '#3877FF', // I
+        ];
+
+        const SHAPES = [
+            [],
+            [[0, 1, 0], [1, 1, 1], [0, 0, 0]], // T
+            [[2, 2], [2, 2]],                   // O
+            [[0, 3, 3], [3, 3, 0], [0, 0, 0]], // S
+            [[4, 4, 0], [0, 4, 4], [0, 0, 0]], // Z
+            [[0, 0, 5], [5, 5, 5], [0, 0, 0]], // L
+            [[6, 0, 0], [6, 6, 6], [0, 0, 0]], // J
+            [[0, 0, 0, 0], [7, 7, 7, 7], [0, 0, 0, 0], [0, 0, 0, 0]] // I
+        ];
+
+        // --- Templates (Blueprints) ---
+        // 1 = Required block position
+        const BLUEPRINTS = {
+            cabin: [
+                // Floor
+                { x: 1, y: 19 }, { x: 2, y: 19 }, { x: 3, y: 19 }, { x: 4, y: 19 }, { x: 5, y: 19 }, { x: 6, y: 19 }, { x: 7, y: 19 }, { x: 8, y: 19 },
+                // Walls
+                { x: 2, y: 18 }, { x: 7, y: 18 },
+                { x: 2, y: 17 }, { x: 7, y: 17 },
+                { x: 2, y: 16 }, { x: 7, y: 16 },
+                // Roof
+                { x: 1, y: 15 }, { x: 8, y: 15 },
+                { x: 2, y: 14 }, { x: 7, y: 14 },
+                { x: 3, y: 13 }, { x: 6, y: 13 },
+                { x: 4, y: 12 }, { x: 5, y: 12 }
+            ],
+            tower: [
+                { x: 1, y: 19 }, { x: 2, y: 19 }, { x: 1, y: 18 }, { x: 2, y: 18 }, { x: 1, y: 17 }, { x: 2, y: 17 }, { x: 1, y: 16 }, { x: 2, y: 16 },
+                { x: 7, y: 19 }, { x: 8, y: 19 }, { x: 7, y: 18 }, { x: 8, y: 18 }, { x: 7, y: 17 }, { x: 8, y: 17 }, { x: 7, y: 16 }, { x: 8, y: 16 },
+                { x: 3, y: 19 }, { x: 4, y: 19 }, { x: 5, y: 19 }, { x: 6, y: 19 } // Bridge
+            ],
+            pyramid: [
+                { x: 0, y: 19 }, { x: 1, y: 19 }, { x: 2, y: 19 }, { x: 3, y: 19 }, { x: 4, y: 19 }, { x: 5, y: 19 }, { x: 6, y: 19 }, { x: 7, y: 19 }, { x: 8, y: 19 }, { x: 9, y: 19 },
+                { x: 1, y: 18 }, { x: 2, y: 18 }, { x: 3, y: 18 }, { x: 4, y: 18 }, { x: 5, y: 18 }, { x: 6, y: 18 }, { x: 7, y: 18 }, { x: 8, y: 18 },
+                { x: 2, y: 17 }, { x: 3, y: 17 }, { x: 4, y: 17 }, { x: 5, y: 17 }, { x: 6, y: 17 }, { x: 7, y: 17 },
+                { x: 3, y: 16 }, { x: 4, y: 16 }, { x: 5, y: 16 }, { x: 6, y: 16 },
+                { x: 4, y: 15 }, { x: 5, y: 15 }
+            ]
+        };
+
+        // --- Game State ---
+        let canvas, ctx;
+        let grid = [];
+        let piece = null;
+        let dropCounter = 0;
+        let dropInterval = 1000;
+        let lastTime = 0;
+        let score = 0;
+        let currentTemplate = [];
+        let isGameOver = false;
+        let animId;
+
+        // --- FX State ---
+        let particles = [];
+        let floatingTexts = [];
+        let shakeIntensity = 0;
+        let isPaused = false;
+        let isLevelCompleted = false; // New lock state
+
+        // --- Quiz State ---
+        let isQuizActive = false;
+        let quizCallbackSuccess = null;
+        let quizCallbackFail = null;
+        let quizTimer = null;
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 5;
+                this.vy = (Math.random() - 0.5) * 5;
+                this.life = 1.0;
+                this.color = color;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.1; // gravity
+                this.life -= 0.02;
+            }
+            draw(ctx) {
+                ctx.globalAlpha = this.life;
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, 3, 3);
+                ctx.globalAlpha = 1.0;
+            }
+        }
+
+        class FloatingText {
+            constructor(x, y, text, color) {
+                this.x = x;
+                this.y = y;
+                this.text = text;
+                this.color = color;
+                this.life = 1.0;
+                this.vy = -1;
+            }
+            update() {
+                this.y += this.vy;
+                this.life -= 0.015;
+            }
+            draw(ctx) {
+                ctx.globalAlpha = this.life;
+                ctx.fillStyle = this.color;
+                ctx.font = 'bold 16px "Outfit", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(this.text, this.x, this.y);
+                ctx.globalAlpha = 1.0;
+            }
+        }
+
+        // --- Init ---
+        function updateScore() {
+            document.getElementById('score-val').innerText = score;
+        }
+
+        function init() {
+            canvas = document.getElementById('game-canvas');
+            ctx = canvas.getContext('2d');
+
+            // Adjust canvas size for high DPI
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = COLS * BLOCK_SIZE * dpr;
+            canvas.height = ROWS * BLOCK_SIZE * dpr;
+            ctx.scale(dpr, dpr);
+
+            setupInputs();
+            // Game is NOT started yet. Waiting for Start Game button.
+        }
+
+        function startGame() {
+            const overlay = document.getElementById('intro-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 500);
+
+            // Reset Grid
+            grid = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+            particles = [];
+            floatingTexts = [];
+            shakeIntensity = 0;
+
+            setTemplate('cabin'); // Default
+
+            // Ensure piece exists (setTemplate might spawn one, but we double check or let it be)
+            if (!piece) spawnPiece();
+
+            score = 0;
+            updateScore();
+            if (!animId) {
+                lastTime = performance.now();
+                animId = requestAnimationFrame(update);
+            }
+        }
+
+        function setTemplate(name) {
+            // Check Lock
+            if (score > 0 && !isLevelCompleted && !isGameOver) {
+                // Determine if we are just starting (empty grid)
+                const isEmpty = grid.every(row => row.every(val => val === 0));
+                if (!isEmpty) {
+                    showWarning();
+                    return;
+                }
+            }
+
+            // Clear buttons active state
+            document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
+            // Set active
+            const btn = document.querySelector(`button[onclick="setTemplate('${name}')"]`);
+            if (btn) btn.classList.add('active');
+
+            // Set template data
+            const blueprint = BLUEPRINTS[name] || [];
+            // Convert list of points to 2D array representation for easier checking
+            // We just store the points list to draw shadows
+            currentTemplate = blueprint;
+
+            // If changing mid-game, we should probably reset or at least re-calc match
+            grid = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+            spawnPiece();
+            score = 0;
+            isLevelCompleted = false; // Reset lock
+            updateScore();
+            isGameOver = false;
+            document.getElementById('game-message').style.opacity = '0';
+        }
+
+        function showWarning() {
+            document.getElementById('warning-modal').classList.remove('hidden');
+        }
+
+        function closeWarning() {
+            document.getElementById('warning-modal').classList.add('hidden');
+        }
+
+        // --- Game Loop ---
+        function update(time = 0) {
+            if (isPaused || isQuizActive) {
+                lastTime = time; // Prevent delta jump
+                requestAnimationFrame(update); // Keep loop alive but frozen
+                return;
+            }
+
+            const deltaTime = time - lastTime;
+            lastTime = time;
+
+            dropCounter += deltaTime;
+            if (dropCounter > dropInterval) {
+                drop();
+            }
+
+            // FX Update
+            particles.forEach((p, i) => {
+                p.update();
+                if (p.life <= 0) particles.splice(i, 1);
+            });
+            floatingTexts.forEach((t, i) => {
+                t.update();
+                if (t.life <= 0) floatingTexts.splice(i, 1);
+            });
+
+            if (shakeIntensity > 0) {
+                shakeIntensity -= 0.5;
+                if (shakeIntensity < 0) shakeIntensity = 0;
+            }
+
+            draw();
+            if (!isGameOver) requestAnimationFrame(update);
+        }
+
+        function draw() {
+            // Background Clear
+            ctx.fillStyle = '#111';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.save();
+            // Screen Shake
+            if (shakeIntensity > 0) {
+                const dx = (Math.random() - 0.5) * shakeIntensity;
+                const dy = (Math.random() - 0.5) * shakeIntensity;
+                ctx.translate(dx, dy);
+            }
+
+            // Draw Blueprint Shadows (Template)
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+            ctx.lineWidth = 1;
+
+            currentTemplate.forEach(pt => {
+                // Fill if empty in real grid
+                if (grid[pt.y][pt.x] === 0) {
+                    drawBlock(pt.x, pt.y, 'rgba(255, 255, 255, 0.15)', true);
+                }
+            });
+
+            // Draw Grid
+            grid.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0) {
+                        drawBlock(x, y, COLORS[value]);
+                    }
+                });
+            });
+
+            // Draw Piece
+            if (piece) {
+                piece.matrix.forEach((row, y) => {
+                    row.forEach((value, x) => {
+                        if (value !== 0) {
+                            // Ghost piece could go here (drop preview)
+                            drawBlock(piece.pos.x + x, piece.pos.y + y, COLORS[value]);
+                        }
+                    });
+                });
+            }
+
+            // FX Draw
+            particles.forEach(p => p.draw(ctx));
+            floatingTexts.forEach(t => t.draw(ctx));
+
+            ctx.restore();
+        }
+
+        function drawBlock(x, y, color, isTemplate = false) {
+            const s = BLOCK_SIZE;
+            if (isTemplate) {
+                ctx.fillStyle = color;
+                ctx.fillRect(x * s + 2, y * s + 2, s - 4, s - 4);
+                ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+                ctx.strokeRect(x * s + 2, y * s + 2, s - 4, s - 4);
+            } else {
+                // Main Block
+                ctx.fillStyle = color;
+                ctx.fillRect(x * s, y * s, s, s);
+
+                // Highlight (Bevel effect)
+                ctx.fillStyle = 'rgba(255,255,255,0.3)';
+                ctx.fillRect(x * s, y * s, s, 4);
+                ctx.fillRect(x * s, y * s, 4, s);
+
+                // Shadow
+                ctx.fillStyle = 'rgba(0,0,0,0.3)';
+                ctx.fillRect(x * s + s - 4, y * s, 4, s);
+                ctx.fillRect(x * s, y * s + s - 4, s, 4);
+
+                // Outline
+                ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+                ctx.strokeRect(x * s, y * s, s, s);
+            }
+        }
+
+        function spawnPiece() {
+            const typeId = Math.floor(Math.random() * (COLORS.length - 1)) + 1;
+            const matrix = SHAPES[typeId];
+            piece = {
+                matrix,
+                pos: { x: (COLS / 2 | 0) - (matrix[0].length / 2 | 0), y: 0 }
+            };
+            // Check collision on spawn = Game Over
+            if (collide(grid, piece)) {
+                isGameOver = true;
+                const msg = document.getElementById('game-message');
+                msg.innerText = "GAME OVER";
+                msg.style.opacity = '1';
+                msg.style.color = 'red';
+            }
+        }
+
+        function drop() {
+            piece.pos.y++;
+            if (collide(grid, piece)) {
+                piece.pos.y--;
+
+                // Trigger Quiz on Lock
+                startQuiz(
+                    () => {
+                        merge(grid, piece);
+                        spawnPiece();
+                        checkTemplateMatch();
+                    },
+                    () => {
+                        // Burn effect
+                        createExplosion(piece.pos.x * BLOCK_SIZE, piece.pos.y * BLOCK_SIZE, '#ff3e3e');
+                        addFloatingText((piece.pos.x + 1) * BLOCK_SIZE, piece.pos.y * BLOCK_SIZE, "BURNED!", "#ff3e3e");
+                        spawnPiece();
+                    }
+                );
+
+                dropCounter = 0;
+            }
+            dropCounter = 0;
+        }
+
+        function hardDrop() {
+            while (!collide(grid, piece)) {
+                piece.pos.y++;
+            }
+            piece.pos.y--;
+
+            // Trigger Quiz on Lock
+            startQuiz(
+                () => {
+                    merge(grid, piece);
+                    shakeIntensity = 5;
+                    spawnPiece();
+                    checkTemplateMatch();
+                },
+                () => {
+                    createExplosion(piece.pos.x * BLOCK_SIZE, piece.pos.y * BLOCK_SIZE, '#ff3e3e');
+                    addFloatingText((piece.pos.x + 1) * BLOCK_SIZE, piece.pos.y * BLOCK_SIZE, "BURNED!", "#ff3e3e");
+                    spawnPiece();
+                }
+            );
+
+            dropCounter = 0;
+        }
+
+        function move(dir) {
+            piece.pos.x += dir;
+            if (collide(grid, piece)) {
+                piece.pos.x -= dir;
+            }
+        }
+
+        function rotate(dir) {
+            const pos = piece.pos.x;
+            let offset = 1;
+            const matrixBackup = piece.matrix; // Lazy backup
+            // Perform rotation
+            if (dir > 0) {
+                piece.matrix = piece.matrix.map((val, index) =>
+                    piece.matrix.map(row => row[index]).reverse()
+                );
+            } else {
+                piece.matrix = piece.matrix.map((val, index) =>
+                    piece.matrix.map(row => row[row.length - 1 - index])
+                );
+            }
+            // Wall kicks (simple)
+            while (collide(grid, piece)) {
+                piece.pos.x += offset;
+                offset = -(offset + (offset > 0 ? 1 : -1));
+                if (offset > piece.matrix[0].length) {
+                    // Rotate failed
+                    piece.matrix = matrixBackup;
+                    piece.pos.x = pos;
+                    return;
+                }
+            }
+        }
+
+        function collide(arena, player) {
+            const m = player.matrix;
+            const o = player.pos;
+            for (let y = 0; y < m.length; ++y) {
+                for (let x = 0; x < m[y].length; ++x) {
+                    if (m[y][x] !== 0 &&
+                        (arena[y + o.y] && arena[y + o.y][x + o.x]) !== 0) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        function merge(arena, player) {
+            player.matrix.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0) {
+                        arena[y + player.pos.y][x + player.pos.x] = value;
+                        // Spawn particles
+                        const pX = (x + player.pos.x) * BLOCK_SIZE + BLOCK_SIZE / 2;
+                        const pY = (y + player.pos.y) * BLOCK_SIZE + BLOCK_SIZE / 2;
+                        createExplosion(pX, pY, COLORS[value]);
+                    }
+                });
+            });
+            score += 10;
+            addFloatingText((player.pos.x + 1) * BLOCK_SIZE, player.pos.y * BLOCK_SIZE, "+10", "#fff");
+            // Note: We do NOT clear lines because this is a "Building" game.
+            // But if the board fills up to the top, game over.
+            // Optional: Maybe clear lines that are NOT part of the template? Too complex for now.
+        }
+
+        function checkTemplateMatch() {
+            let matched = 0;
+            let total = currentTemplate.length;
+
+            // Check how many template points are filled
+            currentTemplate.forEach(pt => {
+                if (grid[pt.y][pt.x] !== 0) matched++;
+            });
+
+            // Calculate percentage
+            const pct = Math.floor((matched / total) * 100);
+
+            // Update UI
+            document.getElementById('score-val').innerText = score;
+            document.getElementById('match-val').innerText = pct + "%";
+
+            // Simple scoring is now handled in merge for better FX timing
+            // score += 10;
+
+            if (pct >= 100) {
+                isLevelCompleted = true; // Unlock switching
+                const msg = document.getElementById('game-message');
+                msg.innerText = "BLUEPRINT COMPLETE!";
+                msg.style.opacity = '1';
+                msg.style.color = '#4ade80';
+                // Big FX
+                shakeIntensity = 20;
+                isGameOver = true; // Stop spawns
+
+                for (let i = 0; i < 50; i++) {
+                    createExplosion(Math.random() * canvas.width, Math.random() * canvas.height, '#4ade80');
+                }
+            }
+        }
+
+        function createExplosion(x, y, color) {
+            for (let i = 0; i < 8; i++) {
+                particles.push(new Particle(x, y, color));
+            }
+        }
+
+        function addFloatingText(x, y, text, color) {
+            floatingTexts.push(new FloatingText(x, y, text, color));
+        }
+
+        function togglePause() {
+            if (isQuizActive) return;
+            isPaused = !isPaused;
+            const menu = document.getElementById('pause-menu');
+            if (isPaused) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        }
+
+        // --- Math Quiz Logic ---
+        function startQuiz(onSuccess, onFail) {
+            isQuizActive = true;
+            quizCallbackSuccess = onSuccess;
+            quizCallbackFail = onFail;
+
+            // Random Question
+            const ops = ['+', '-', '*', '/'];
+            const op = ops[Math.floor(Math.random() * ops.length)];
+            let a, b, ans;
+
+            switch (op) {
+                case '+':
+                    a = Math.floor(Math.random() * 20) + 1;
+                    b = Math.floor(Math.random() * 20) + 1;
+                    ans = a + b;
+                    break;
+                case '-':
+                    a = Math.floor(Math.random() * 20) + 10;
+                    b = Math.floor(Math.random() * 10) + 1;
+                    ans = a - b;
+                    break;
+                case '*':
+                    a = Math.floor(Math.random() * 9) + 2;
+                    b = Math.floor(Math.random() * 9) + 2;
+                    ans = a * b;
+                    break;
+                case '/':
+                    b = Math.floor(Math.random() * 9) + 2;
+                    ans = Math.floor(Math.random() * 9) + 2;
+                    a = b * ans;
+                    break;
+            }
+
+            const qContainer = document.getElementById('quiz-question');
+            qContainer.innerText = `${a} ${op} ${b} = ?`;
+
+            // Generate Options
+            const options = [ans];
+            while (options.length < 4) {
+                const offset = Math.floor(Math.random() * 10) - 5;
+                const fake = ans + offset;
+                if (fake > 0 && !options.includes(fake)) options.push(fake);
+            }
+            // Shuffle
+            options.sort(() => Math.random() - 0.5);
+
+            // Render Options
+            const optContainer = document.getElementById('quiz-options');
+            optContainer.innerHTML = '';
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = "bg-white/5 border border-white/10 hover:bg-white/20 text-white font-mono py-3 rounded-lg transition-all active:scale-95";
+                btn.innerText = opt;
+                btn.onclick = () => resolveQuiz(opt === ans);
+                optContainer.appendChild(btn);
+            });
+
+            // Show Overlay
+            document.getElementById('quiz-modal').classList.remove('hidden');
+        }
+
+        function resolveQuiz(correct) {
+            isQuizActive = false;
+            document.getElementById('quiz-modal').classList.add('hidden');
+
+            if (correct) {
+                if (quizCallbackSuccess) quizCallbackSuccess();
+            } else {
+                if (quizCallbackFail) quizCallbackFail();
+            }
+        }
+
+        // --- Controls ---
+        function setupInputs() {
+            // Keyboard
+            document.addEventListener('keydown', event => {
+                if (event.key === 'Escape') togglePause();
+                if (isGameOver || isPaused) return;
+
+                if (event.keyCode === 37) move(-1); // Left
+                else if (event.keyCode === 39) move(1); // Right
+                else if (event.keyCode === 40) drop(); // Down
+                else if (event.keyCode === 38) rotate(1); // Up -> Rotate
+                else if (event.keyCode === 32) hardDrop(); // Space -> Hard Drop
+            });
+
+            // Touch Controls - Mapped to SVG Controller
+            const stick = document.getElementById('joystick');
+            const stickThumb = document.getElementById('stick-thumb');
+
+            let dragStart = null;
+
+            // Simple Joystick Logic
+            stick.addEventListener('touchstart', e => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const rect = stick.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                dragStart = { x: centerX, y: centerY };
+                updateJoystick(touch.clientX, touch.clientY);
+            });
+
+            stick.addEventListener('touchmove', e => {
+                e.preventDefault();
+                if (!dragStart) return;
+                const touch = e.touches[0];
+                updateJoystick(touch.clientX, touch.clientY);
+            });
+
+            const endJoystick = (e) => {
+                // e.preventDefault();
+                dragStart = null;
+                stickThumb.style.transform = `translate(-50%, -50%)`; // Reset visual
+            };
+            stick.addEventListener('touchend', endJoystick);
+            stick.addEventListener('touchcancel', endJoystick);
+
+            function updateJoystick(cx, cy) {
+                const dx = cx - dragStart.x;
+                const dy = cy - dragStart.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const maxDist = 40;
+
+                const angle = Math.atan2(dy, dx);
+
+                // Limit visual Movement
+                const cappedDist = Math.min(dist, maxDist);
+                const visX = Math.cos(angle) * cappedDist;
+                const visY = Math.sin(angle) * cappedDist;
+
+                stickThumb.style.transform = `translate(calc(-50% + ${visX}px), calc(-50% + ${visY}px))`;
+
+                // Logic Threshold
+                if (dist > 15) {
+                    // Determine direction
+                    // Right: -PI/4 to PI/4
+                    // Down: PI/4 to 3PI/4
+                    // Left: 3PI/4 to PI OR -PI to -3PI/4
+                    // Up: -3PI/4 to -PI/4
+
+                    if (Math.abs(dx) > Math.abs(dy)) {
+                        // Horizontal
+                        if (dx > 0) move(1); // throttle?
+                        else move(-1);
+                    } else {
+                        // Vertical
+                        if (dy > 0) drop();
+                        // else rotate? No, easier to just drop
+                    }
+
+                    // Simple throttling via logic is hard here without loop, 
+                    // ideally we set a "velocity" state. For now, let's just trigger single steps on repeat?
+                    // Actually, standard touch joystick implementation usually sets a 'dir' var that the update loop reads.
+                    // Let's improve `update` to read input state.
+                }
+            }
+
+            // Better Joystick Logic for discrete grid movement
+            // We'll use a cooldown
+            let touchCooldown = 0;
+            const cooldownTime = 100; // ms
+
+            stick.addEventListener('touchmove', e => {
+                // Overwriting previous rough logic logic
+                const now = Date.now();
+                if (now - touchCooldown < cooldownTime) return;
+
+                const touch = e.touches[0];
+                const dx = touch.clientX - dragStart.x;
+                const dy = touch.clientY - dragStart.y;
+
+                if (Math.abs(dx) > 20 || Math.abs(dy) > 20) {
+                    if (Math.abs(dx) > Math.abs(dy)) {
+                        move(dx > 0 ? 1 : -1);
+                    } else {
+                        if (dy > 0) drop();
+                        // if (dy < 0) hardDrop(); // Up hard drop?
+                    }
+                    touchCooldown = now;
+                }
+            });
+
+            // Buttons
+            bindButton('btn-a', () => rotate(1));  // A: Rotate Right
+            bindButton('btn-b', () => rotate(-1)); // B: Rotate Left
+            bindButton('btn-y', () => hardDrop()); // Y: Hard Drop
+            bindButton('btn-x', () => {
+                // X: Maybe swap hold? Or just drop
+                drop();
+            });
+
+            function bindButton(id, action) {
+                const btn = document.getElementById(id);
+                btn.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    btn.classList.add('active');
+                    action();
+                });
+                btn.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    btn.classList.remove('active');
+                });
+                // Mouse fallback for testing on desktop
+                btn.addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                    btn.classList.add('active');
+                    action();
+                });
+                btn.addEventListener('mouseup', () => btn.classList.remove('active'));
+            }
+        }
+
+        // Start
+        window.onload = init;
+
+    </script>
+</body>
+
+</html>

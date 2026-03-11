@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aksa Hub | Professional & Social Connect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'aksa-light': '#F1F5F9',
+                        'aksa-connect': '#6366F1',
+                        'aksa-dark': '#0F172A',
+                        'aksa-accent': '#10B981',
+                    },
+                    backgroundImage: {
+                        'gradient-aksa': 'linear-gradient(135deg, #6366F1 0%, #4F46E5 100%)',
+                        'gradient-dark': 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0F172A; overflow-x: hidden; color: #f8fafc; }
+        
+        /* Particle Background */
+        #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; filter: blur(60px); opacity: 0.3; }
+
+        /* Enhanced Glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .glass-card:hover { background: rgba(255, 255, 255, 0.07); border-color: rgba(99, 102, 241, 0.5); }
+
+        /* Nav Animations */
+        .nav-link { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; opacity: 0.7; }
+        .nav-link:hover { opacity: 1; transform: translateX(8px); color: #6366F1; }
+        .nav-active { 
+            background: rgba(99, 102, 241, 0.15); 
+            color: #6366F1; 
+            font-weight: 800; 
+            opacity: 1;
+            border-left: 4px solid #6366F1;
+        }
+
+        /* Content Transitions */
+        .content-section { display: none; opacity: 0; transform: scale(0.98); }
+        .content-active { 
+            display: block; 
+            animation: reveal 0.6s forwards cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        @keyframes reveal {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .pop-in { animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .float { animation: floating 4s ease-in-out infinite; }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        
+        input, textarea, select {
+            background: rgba(15, 23, 42, 0.6) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <aside class="w-20 lg:w-72 border-r border-white/5 hidden md:flex flex-col sticky top-0 h-screen p-6 bg-aksa-dark/50 backdrop-blur-xl z-50">
+        <div class="mb-12 px-2">
+            <h1 class="text-2xl font-black text-white tracking-tighter italic uppercase">
+                Aksa<span class="text-aksa-connect">Hub.</span>
+            </h1>
+            <div class="h-1.5 w-12 bg-gradient-aksa rounded-full mt-2 animate-pulse"></div>
+        </div>
+        
+        <nav class="flex-1 space-y-2" id="main-nav">
+            <div onclick="showSection('discovery')" class="nav-link nav-active flex items-center gap-4 py-4 px-5 rounded-xl text-sm">
+                <span class="text-lg">🔍</span> Discovery
+            </div>
+            <div onclick="showSection('projects')" class="nav-link flex items-center gap-4 py-4 px-5 rounded-xl text-sm font-semibold">
+                <span class="text-lg">🚀</span> Project Board
+            </div>
+            <div onclick="showSection('wall-of-fame')" class="nav-link flex items-center gap-4 py-4 px-5 rounded-xl text-sm font-semibold">
+                <span class="text-lg">🏆</span> Wall of Fame
+            </div>
+            <div onclick="showSection('skill-swap')" class="nav-link flex items-center gap-4 py-4 px-5 rounded-xl text-sm font-semibold">
+                <span class="text-lg">🤝</span> Skill Swap
+            </div>
+            <div onclick="showSection('resources')" class="nav-link flex items-center gap-4 py-4 px-5 rounded-xl text-sm font-semibold">
+                <span class="text-lg">📚</span> Resources
+            </div>
+            <div onclick="showSection('coffee-break')" class="nav-link flex items-center gap-4 py-4 px-5 rounded-xl text-sm font-semibold">
+                <span class="text-lg">☕</span> Coffee Break
+            </div>
+            <div onclick="showSection('gifting')" class="nav-link flex items-center gap-4 py-4 px-5 rounded-xl text-sm font-semibold text-pink-400">
+                <span class="text-lg">🎁</span> Send a Treat
+            </div>
+        </nav>
+
+        <div class="mt-auto space-y-4">
+            <div class="px-5 py-2 border-t border-white/10 pt-4">
+                <p class="text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em]">Developed By</p>
+                <a href="https://spinotek.com" target="_blank" class="text-xs font-black text-white hover:text-aksa-connect transition-colors tracking-tighter italic">SPINOTEK.COM</a>
+            </div>
+
+            <div class="glass-card p-5 rounded-3xl relative overflow-hidden group border-indigo-500/30">
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Network Status</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-2.5 h-2.5 bg-aksa-accent rounded-full animate-ping shadow-[0_0_10px_#10B981]"></div>
+                    <span class="text-xs font-mono text-white tracking-tighter">AKSA_PRO_5G</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="flex-1 p-6 lg:p-12 overflow-y-auto">
+        
+        <section id="discovery" class="content-section content-active">
+            <div class="mb-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                    <h2 class="text-5xl font-black text-white tracking-tight mb-2">Discovery 👋</h2>
+                    <p class="text-slate-400 font-medium italic">Temukan kolaborator potensial di sekitar Anda.</p>
+                </div>
+                <button onclick="toggleModal('statusModal')" class="bg-gradient-aksa text-white px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl shadow-indigo-500/20">
+                    Update My Status
+                </button>
+            </div>
+
+            <div id="statusModal" class="hidden mb-12 glass-card p-10 rounded-[3rem] border-2 border-aksa-connect/30 pop-in">
+                <h3 class="text-xl font-bold mb-6 text-white italic">Lagi sibuk apa hari ini?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <input type="text" id="discoName" placeholder="Nama Lengkap" class="p-4 rounded-2xl outline-none text-sm focus:ring-2 focus:ring-aksa-connect transition-all">
+                    <input type="text" id="discoRole" placeholder="Role (ex: Creative Director)" class="p-4 rounded-2xl outline-none text-sm focus:ring-2 focus:ring-aksa-connect transition-all">
+                    <input type="text" id="discoTable" placeholder="Nomor Meja" class="p-4 rounded-2xl outline-none text-sm focus:ring-2 focus:ring-aksa-connect transition-all">
+                    <textarea id="discoBio" placeholder="Lagi ngerjain apa?" class="p-4 rounded-2xl outline-none text-sm md:col-span-2 h-24 focus:ring-2 focus:ring-aksa-connect transition-all"></textarea>
+                    <select id="discoMode" class="p-4 rounded-2xl outline-none text-sm font-bold text-aksa-connect">
+                        <option value="Available">Available for Chat</option>
+                        <option value="Deep Work">Deep Work Mode</option>
+                    </select>
+                    <div class="md:col-span-3 flex justify-end gap-4 mt-4">
+                        <button onclick="toggleModal('statusModal')" class="text-xs font-bold uppercase text-slate-400 hover:text-white transition-colors">Dismiss</button>
+                        <button onclick="addNewStatus()" class="bg-white text-aksa-dark px-10 py-4 rounded-2xl text-xs font-black uppercase tracking-widest shadow-lg">Broadcast Status</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="discoveryGrid" class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                <div class="glass-card p-8 rounded-[2.5rem] group relative overflow-hidden">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex gap-5">
+                            <div class="w-16 h-16 bg-gradient-aksa text-white rounded-3xl flex items-center justify-center font-black text-2xl shadow-lg float">BN</div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white">Bimo Nugroho</h4>
+                                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-tighter">iOS Developer • Meja 12</p>
+                            </div>
+                        </div>
+                        <span class="bg-emerald-500/20 text-emerald-400 text-[9px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest border border-emerald-500/30">Available</span>
+                    </div>
+                    <p class="text-sm text-slate-300 mb-8 bg-white/5 p-6 rounded-3xl leading-relaxed italic border border-white/5">"Lagi build aplikasi logistik. Butuh insight soal flow gudang. Ngobrol yuk!"</p>
+                    <button class="w-full py-4 bg-white text-aksa-dark text-xs font-black rounded-2xl uppercase tracking-widest hover:bg-aksa-connect hover:text-white transition-all transform active:scale-95">Connect Now</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="content-section">
+            <div class="mb-12">
+                <h2 class="text-5xl font-black text-white tracking-tight mb-2">Project Board 🚀</h2>
+                <p class="text-slate-400 italic">Kolaborasi nyata, hasil nyata.</p>
+            </div>
+            <div class="grid gap-6">
+                <div class="glass-card p-8 rounded-[2rem] flex flex-col md:flex-row justify-between items-start md:items-center hover:scale-[1.01] transition-all group">
+                    <div class="mb-4 md:mb-0">
+                        <span class="text-[10px] font-black text-aksa-accent bg-aksa-accent/10 px-3 py-1.5 rounded-lg uppercase tracking-widest mb-3 inline-block border border-aksa-accent/20">Paid Gig</span>
+                        <h4 class="text-xl font-bold text-white italic group-hover:text-aksa-connect transition-colors">Landing Page Designer (3 Days)</h4>
+                        <p class="text-xs text-slate-400 mt-2 uppercase tracking-tighter">Client: @Dhimas (Meja 09)</p>
+                    </div>
+                    <button class="px-10 py-4 bg-aksa-connect text-white text-xs font-black rounded-xl uppercase tracking-widest hover:bg-white hover:text-aksa-dark transition-all shadow-lg">Apply Now</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="wall-of-fame" class="content-section">
+            <div class="mb-12 flex flex-col md:flex-row justify-between items-end gap-6">
+                <div>
+                    <h2 class="text-5xl font-black text-white tracking-tight mb-2">Wall of Fame 🏆</h2>
+                    <p class="text-slate-400 italic">Karya hebat yang lahir di sini.</p>
+                </div>
+                <button onclick="toggleModal('uploadModal')" class="bg-gradient-aksa text-white px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest">Post Karya Kamu</button>
+            </div>
+            
+            <div id="uploadModal" class="hidden mb-12 glass-card p-10 rounded-[3rem] border-2 border-dashed border-white/20 pop-in">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <input type="text" id="postTitle" placeholder="Judul Karya" class="p-4 rounded-2xl outline-none text-sm">
+                    <input type="text" id="postAuthor" placeholder="Nama Kamu" class="p-4 rounded-2xl outline-none text-sm">
+                    <textarea id="postDesc" placeholder="Ceritakan proses kreatifnya..." class="p-4 rounded-2xl outline-none text-sm md:col-span-2 h-24"></textarea>
+                    <button onclick="addNewPost()" class="bg-white text-aksa-dark px-10 py-4 rounded-2xl text-xs font-black uppercase tracking-widest md:col-span-2 shadow-lg">Publish to Wall</button>
+                </div>
+            </div>
+
+            <div id="wallGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="glass-card p-10 rounded-[3rem] relative overflow-hidden group">
+                    <div class="absolute -right-6 -top-6 w-32 h-32 bg-aksa-connect/10 rounded-full blur-3xl group-hover:bg-aksa-connect/20 transition-all"></div>
+                    <span class="text-[11px] font-black text-aksa-connect uppercase tracking-[0.3em] mb-4 block">Product Showcase</span>
+                    <h3 class="text-2xl font-black text-white mb-3 italic">Eco-Living App</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed mb-8 italic">"Desain aplikasi ini 90% selesai dikerjakan di sofa pojok Aksa. Kolaborasi dengan @Raka."</p>
+                    <div class="flex items-center gap-4 border-t border-white/5 pt-6">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-aksa flex items-center justify-center text-white font-bold shadow-lg">RF</div>
+                        <span class="text-[11px] font-bold text-white uppercase italic">By Raka Fajri</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skill-swap" class="content-section">
+             <div class="mb-12 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div>
+                    <h2 class="text-5xl font-black text-white tracking-tight italic mb-2">Skill Swap 🤝</h2>
+                    <p class="text-slate-400 italic">Barter ilmu, bukan materi.</p>
+                </div>
+                <button onclick="toggleModal('skillModal')" class="bg-indigo-600 text-white px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest shadow-xl">Buka Barter Baru</button>
+            </div>
+            
+            <div id="skillModal" class="hidden mb-12 bg-aksa-connect/20 border border-aksa-connect/30 p-10 rounded-[3rem] pop-in">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <input type="text" id="skillGive" placeholder="Gue Bisa (ex: Copywriting)" class="p-4 rounded-2xl text-sm">
+                    <input type="text" id="skillTake" placeholder="Gue Pengen Belajar (ex: Figma)" class="p-4 rounded-2xl text-sm">
+                    <textarea id="skillNote" placeholder="Tulis detail singkat..." class="p-4 rounded-2xl text-sm md:col-span-2 h-24"></textarea>
+                    <button onclick="addNewSkillSwap()" class="bg-white text-aksa-connect px-10 py-4 rounded-2xl text-xs font-black uppercase tracking-widest md:col-span-2 shadow-lg">Publish Barter</button>
+                </div>
+            </div>
+
+            <div id="skillGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="p-8 glass-card rounded-[2.5rem] border-l-[12px] border-aksa-connect hover:translate-x-2">
+                    <h4 class="font-black text-xs italic mb-4 uppercase tracking-widest text-aksa-connect">Offering: SEO Content</h4>
+                    <p class="text-lg font-bold mb-8 italic text-white">"Gue ajarin cara artikel lo nongol di Page 1 Google."</p>
+                    <div class="pt-6 border-t border-white/5">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">In Exchange For:</p>
+                        <p class="text-md font-bold italic text-white uppercase">UI Design Insight</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="resources" class="content-section">
+            <div class="mb-12">
+                <h2 class="text-5xl font-black text-white tracking-tight mb-2 italic text-center md:text-left">Resources 📚</h2>
+            </div>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-card p-8 rounded-[2.5rem] text-center group">
+                    <div class="text-5xl mb-4 group-hover:scale-125 transition-transform duration-500">🔌</div>
+                    <p class="text-[11px] font-black uppercase italic text-slate-400 tracking-widest">Universal Adapter</p>
+                    <p class="text-[10px] text-aksa-accent font-black mt-3 bg-aksa-accent/10 py-1.5 rounded-full px-4 inline-block border border-aksa-accent/20">4 AVAILABLE</p>
+                </div>
+                <div class="glass-card p-8 rounded-[2.5rem] text-center group">
+                    <div class="text-5xl mb-4 group-hover:scale-125 transition-transform duration-500">🎧</div>
+                    <p class="text-[11px] font-black uppercase italic text-slate-400 tracking-widest">Noise Cancelling</p>
+                    <p class="text-[10px] text-aksa-accent font-black mt-3 bg-aksa-accent/10 py-1.5 rounded-full px-4 inline-block border border-aksa-accent/20">2 AVAILABLE</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="coffee-break" class="content-section">
+            <div class="max-w-3xl mx-auto glass-card rounded-[3rem] shadow-2xl overflow-hidden">
+                <div class="p-8 bg-aksa-dark border-b border-white/5 flex justify-between items-center">
+                    <div>
+                        <h3 class="font-black text-lg italic tracking-widest uppercase">Kedai Chat ☕</h3>
+                        <p class="text-[9px] text-slate-500 uppercase tracking-widest mt-1">Real-time Lounge</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span>
+                        <span class="text-[10px] font-bold uppercase text-emerald-400">Online</span>
+                    </div>
+                </div>
+                <div id="chatMessages" class="p-10 space-y-6 h-[450px] overflow-y-auto no-scrollbar">
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex-shrink-0 flex items-center justify-center font-bold text-indigo-400">RK</div>
+                        <div class="glass-card p-5 rounded-2xl rounded-tl-none text-xs text-slate-300 italic max-w-[80%]">
+                            <span class="font-black block text-indigo-400 mb-1 uppercase text-[9px]">@Raka</span>
+                            Ada yang tau spot colokan yang paling dingin gak?
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 bg-aksa-dark/80 flex gap-4 border-t border-white/5">
+                    <input type="text" id="chatInput" placeholder="Tulis sesuatu..." class="flex-1 rounded-2xl px-6 text-sm outline-none focus:border-indigo-500">
+                    <button onclick="sendMessage()" class="bg-gradient-aksa text-white px-10 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg">Kirim</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="gifting" class="content-section">
+            <div class="mb-12 text-center">
+                <h2 class="text-5xl font-black text-white mb-2 italic">Traktiran! 🎁</h2>
+                <p class="text-slate-400 font-medium italic">Kirim energi kecil ke teman semeja via <b>Spinofy</b>.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="glass-card p-8 rounded-[3rem] text-center hover:translate-y-[-10px] shadow-xl group">
+                    <div class="text-5xl mb-6 float">☕</div>
+                    <h4 class="font-black text-white text-sm uppercase italic mb-2">Manual Brew</h4>
+                    <p class="text-[11px] text-slate-400 mb-8 italic leading-relaxed">Pesan kopi untuk kawan kolaborasi Anda.</p>
+                    <a href="https://my.spinofy.id" target="_blank" class="block w-full py-4 bg-gradient-to-r from-pink-600 to-indigo-600 text-white text-[10px] font-black rounded-2xl uppercase tracking-widest shadow-lg hover:brightness-110 transition-all text-center">Order via Spinofy</a>
+                </div>
+                <div class="glass-card p-8 rounded-[3rem] text-center hover:translate-y-[-10px] shadow-xl group">
+                    <div class="text-5xl mb-6 float" style="animation-delay: 1s">🥐</div>
+                    <h4 class="font-black text-white text-sm uppercase italic mb-2">Light Snack</h4>
+                    <p class="text-[11px] text-slate-400 mb-8 italic leading-relaxed">Camilan manis untuk ide yang lebih lancar.</p>
+                    <a href="https://my.spinofy.id" target="_blank" class="block w-full py-4 bg-gradient-to-r from-pink-600 to-indigo-600 text-white text-[10px] font-black rounded-2xl uppercase tracking-widest shadow-lg hover:brightness-110 transition-all text-center">Order via Spinofy</a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="mt-24 pb-12 text-center border-t border-white/5 pt-12">
+            <p class="text-xs text-slate-500 font-medium tracking-wide">
+                &copy; 2024 Aksa Hub. Crafted with energy by 
+                <a href="https://spinotek.com" target="_blank" class="text-aksa-connect font-black hover:underline italic ml-1">Spinotek</a>
+            </p>
+        </footer>
+
+    </main>
+
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for(let i=0; i<6; i++) particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 200 + 100,
+                color: Math.random() > 0.5 ? '#6366F1' : '#10B981',
+                vx: (Math.random() - 0.5) * 1,
+                vy: (Math.random() - 0.5) * 1
+            });
+        }
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+            });
+            requestAnimationFrame(drawParticles);
+        }
+        window.addEventListener('resize', initCanvas);
+        initCanvas(); drawParticles();
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('content-active'));
+            document.getElementById(sectionId).classList.add('content-active');
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('nav-active');
+                if (link.innerText.toLowerCase().includes(sectionId.split('-')[0].toLowerCase())) {
+                    link.classList.add('nav-active');
+                }
+            });
+        }
+
+        function toggleModal(id) {
+            document.getElementById(id).classList.toggle('hidden');
+        }
+
+        function addNewStatus() {
+            const name = document.getElementById('discoName').value;
+            const role = document.getElementById('discoRole').value;
+            const table = document.getElementById('discoTable').value;
+            const bio = document.getElementById('discoBio').value;
+            const mode = document.getElementById('discoMode').value;
+            if(!name || !role) return alert("Isi minimal Nama dan Role ya!");
+
+            const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+            const statusClass = mode === "Available" ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" : "bg-red-500/20 text-red-400 border-red-500/30";
+            
+            const card = `
+                <div class="glass-card p-8 rounded-[2.5rem] pop-in">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex gap-5">
+                            <div class="w-16 h-16 bg-gradient-aksa text-white rounded-3xl flex items-center justify-center font-black text-2xl shadow-lg">${initials}</div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white">${name}</h4>
+                                <p class="text-[11px] font-bold text-slate-400 uppercase">Meja ${table} • ${role}</p>
+                            </div>
+                        </div>
+                        <span class="${statusClass} text-[9px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest border">${mode}</span>
+                    </div>
+                    <p class="text-sm text-slate-300 mb-8 bg-white/5 p-6 rounded-3xl italic">"${bio}"</p>
+                    <button class="w-full py-4 bg-white text-aksa-dark text-xs font-black rounded-2xl uppercase tracking-widest">Connect Now</button>
+                </div>`;
+            document.getElementById('discoveryGrid').insertAdjacentHTML('afterbegin', card);
+            toggleModal('statusModal');
+        }
+
+        function addNewSkillSwap() {
+            const give = document.getElementById('skillGive').value;
+            const take = document.getElementById('skillTake').value;
+            const note = document.getElementById('skillNote').value;
+            if(!give || !take) return alert("Lengkapi data barter!");
+
+            const card = `
+                <div class="p-8 glass-card rounded-[2.5rem] border-l-[12px] border-aksa-accent pop-in">
+                    <h4 class="font-black text-xs italic mb-4 uppercase tracking-widest text-aksa-accent">Offering: ${give}</h4>
+                    <p class="text-lg font-bold mb-8 italic text-white">"${note}"</p>
+                    <div class="pt-6 border-t border-white/5">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">In Exchange For:</p>
+                        <p class="text-md font-bold italic text-white uppercase">${take}</p>
+                    </div>
+                </div>`;
+            document.getElementById('skillGrid').insertAdjacentHTML('afterbegin', card);
+            toggleModal('skillModal');
+        }
+
+        function addNewPost() {
+            const title = document.getElementById('postTitle').value;
+            const author = document.getElementById('postAuthor').value;
+            const desc = document.getElementById('postDesc').value;
+            if(!title || !author) return alert("Lengkapi judul dan pencipta!");
+
+            const card = `
+                <div class="glass-card p-10 rounded-[3rem] pop-in">
+                    <h3 class="text-2xl font-black mb-3 text-white italic">${title}</h3>
+                    <p class="text-sm text-slate-400 mb-6 leading-relaxed">${desc}</p>
+                    <div class="flex items-center gap-2">
+                         <div class="h-0.5 w-8 bg-aksa-connect"></div>
+                         <span class="text-[10px] font-black uppercase text-aksa-connect">By ${author}</span>
+                    </div>
+                </div>`;
+            document.getElementById('wallGrid').insertAdjacentHTML('afterbegin', card);
+            toggleModal('uploadModal');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            if(!input.value.trim()) return;
+            const msg = `
+                <div class="flex gap-4 flex-row-reverse pop-in">
+                    <div class="bg-gradient-aksa p-5 rounded-[2rem] rounded-tr-none text-white text-xs shadow-lg max-w-[80%]">
+                        ${input.value}
+                    </div>
+                </div>`;
+            const box = document.getElementById('chatMessages');
+            box.insertAdjacentHTML('beforeend', msg);
+            input.value = '';
+            box.scrollTop = box.scrollHeight;
+        }
+    </script>
+</body>
+</html>

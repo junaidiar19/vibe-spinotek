@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KicksMedic - Premium Sneaker Care</title>
+
+    <!-- Google Fonts: Plus Jakarta Sans (Modern & Trustworthy) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Alpine.js (Interaction) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <!-- Tailwind CSS (Styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            500: '#F97316', // Orange semangat (Call to action)
+                            600: '#EA580C',
+                        },
+                        dark: {
+                            900: '#0F172A', // Slate dark (Premium feel)
+                            800: '#1E293B',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles for Slider */
+        input[type=range]::-webkit-slider-thumb {
+            pointer-events: all;
+            width: 24px;
+            height: 24px;
+            -webkit-appearance: none;
+            background-color: #F97316;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.3);
+            cursor: ew-resize;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-slate-600 antialiased bg-slate-50">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100"
+        x-data="{ mobileMenuOpen: false }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div
+                        class="w-8 h-8 bg-brand-500 rounded-lg flex items-center justify-center text-white font-bold text-xl">
+                        K</div>
+                    <span class="font-bold text-xl text-dark-900 tracking-tight">Kicks<span
+                            class="text-brand-500">Medic</span>.</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="services.html"
+                        class="text-slate-600 hover:text-brand-500 font-medium transition">Services</a>
+                    <a href="#results" class="text-slate-600 hover:text-brand-500 font-medium transition">Hasil
+                        Nyata</a>
+                    <a href="#faq" class="text-slate-600 hover:text-brand-500 font-medium transition">FAQ</a>
+                    <a href="booking.html"
+                        class="bg-dark-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-brand-500 transition shadow-lg shadow-brand-500/20 transform hover:-translate-y-0.5">
+                        Booking Pickup
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen"
+                        class="text-slate-600 hover:text-dark-900 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div x-show="mobileMenuOpen" class="md:hidden bg-white border-t border-slate-100 p-4 space-y-4 shadow-xl">
+            <a href="#services" class="block text-slate-600 font-medium">Services</a>
+            <a href="#results" class="block text-slate-600 font-medium">Hasil Nyata</a>
+            <a href="#faq" class="block text-slate-600 font-medium">FAQ</a>
+            <a href="#" class="block w-full text-center bg-brand-500 text-white px-6 py-3 rounded-lg font-bold">Booking
+                Sekarang</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-20 lg:pt-52 lg:pb-40 overflow-hidden bg-white">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
+            <div class="absolute -top-[10%] -right-[5%] w-[500px] h-[500px] bg-orange-100/50 rounded-full blur-[120px]">
+            </div>
+            <div class="absolute top-[20%] -left-[10%] w-[400px] h-[400px] bg-blue-100/50 rounded-full blur-[100px]">
+            </div>
+            <div class="absolute inset-0 opacity-[0.03]"
+                style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 40px 40px;"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
+
+                <div class="lg:col-span-7 text-center lg:text-left mb-16 lg:mb-0 relative z-10">
+                    <div
+                        class="inline-flex items-center gap-3 px-5 py-2 rounded-2xl bg-gradient-to-r from-orange-500/10 to-amber-500/10 border border-orange-200/50 text-orange-700 font-bold text-xs uppercase tracking-[0.15em] mb-8 shadow-sm">
+                        <span class="relative flex h-3 w-3">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
+                        </span>
+                        Gratis Antar Jemput Jaksel & Depok
+                    </div>
+
+                    <h1 class="text-5xl lg:text-7xl font-[900] text-slate-900 tracking-tight leading-[1.1] mb-8">
+                        Outfit Lo Udah <span class="relative inline-block">
+                            10/10
+                            <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 100 10"
+                                preserveAspectRatio="none">
+                                <path d="M0 5 Q 25 0 50 5 T 100 5" stroke="#f97316" stroke-width="4" fill="none" />
+                            </svg>
+                        </span>, Masa <br class="hidden lg:block">
+                        <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-orange-500 to-amber-400">Sepatunya
+                            Dekil?</span>
+                    </h1>
+
+                    <p class="text-xl text-slate-600 mb-10 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium">
+                        Kembalikan wibawa <span
+                            class="text-slate-900 font-bold underline decoration-orange-500/30">Grail Sneakers</span> lo
+                        dalam 45 menit. Teknik <span class="italic font-semibold text-orange-600">Deep Clean</span>
+                        kelas kolektor tanpa merusak tekstur bahan.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start items-center">
+                        <a href="#"
+                            class="group relative px-10 py-5 bg-slate-900 text-white rounded-2xl font-black text-lg transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-slate-900/20 overflow-hidden">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                            </div>
+                            <span class="relative z-10">Cuci Sepatu Sekarang</span>
+                        </a>
+
+                        <a href="#results"
+                            class="group flex items-center gap-3 px-8 py-5 bg-white text-slate-900 border-2 border-slate-100 rounded-2xl font-bold text-lg hover:border-orange-500/30 hover:bg-orange-50/30 transition-all">
+                            <div
+                                class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 group-hover:scale-110 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                            </div>
+                            Lihat Hasil Kerja
+                        </a>
+                    </div>
+
+                    <div class="mt-12 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6">
+                        <div class="flex -space-x-3">
+                            <img class="w-12 h-12 rounded-full border-4 border-white shadow-md"
+                                src="https://i.pravatar.cc/100?img=11" alt="User">
+                            <img class="w-12 h-12 rounded-full border-4 border-white shadow-md"
+                                src="https://i.pravatar.cc/100?img=12" alt="User">
+                            <img class="w-12 h-12 rounded-full border-4 border-white shadow-md"
+                                src="https://i.pravatar.cc/100?img=13" alt="User">
+                            <div
+                                class="w-12 h-12 rounded-full border-4 border-white bg-orange-500 shadow-md flex items-center justify-center text-white text-xs font-bold">
+                                +5k</div>
+                        </div>
+                        <div class="text-left">
+                            <div class="flex text-amber-400 mb-1">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                    <path
+                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                    <path
+                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                    <path
+                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                    <path
+                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                    <path
+                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                            </div>
+                            <p class="text-xs font-black text-slate-900 uppercase tracking-widest">Dipercaya 5.000+
+                                Sneakerheads</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 relative lg:block">
+                    <div
+                        class="absolute -top-12 -right-12 w-32 h-32 bg-amber-400 rounded-full mix-blend-multiply opacity-70 animate-blob">
+                    </div>
+                    <div
+                        class="absolute -bottom-8 -left-8 w-32 h-32 bg-orange-400 rounded-full mix-blend-multiply opacity-70 animate-blob animation-delay-2000">
+                    </div>
+
+                    <div class="relative group">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-tr from-orange-600 to-amber-400 rounded-[3rem] rotate-6 scale-95 opacity-20 blur-xl group-hover:rotate-12 transition-all duration-500">
+                        </div>
+                        <div
+                            class="relative rounded-[2.5rem] overflow-hidden border-[12px] border-white shadow-2xl transition-all duration-700 group-hover:-translate-y-2">
+                            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Sneaker Cleaning"
+                                class="w-full h-auto scale-110 group-hover:scale-100 transition-transform duration-700">
+
+                            <div
+                                class="absolute top-6 right-6 bg-white/90 backdrop-blur px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3 border border-white">
+                                <div class="relative flex h-2 w-2">
+                                    <span
+                                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                </div>
+                                <p class="text-[10px] font-black text-slate-900 uppercase tracking-widest">Technician
+                                    Ready</p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="absolute -bottom-6 -left-6 bg-slate-900 text-white p-6 rounded-3xl shadow-2xl max-w-[200px] animate-bounce-slow">
+                            <p class="text-[10px] text-orange-400 font-black uppercase mb-1">Result</p>
+                            <p class="text-sm font-bold leading-tight uppercase tracking-tight">Looks like brand new
+                                shoes!</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <style>
+        @keyframes blob {
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+
+            100% {
+                transform: translate(0px, 0px) scale(1);
+            }
+        }
+
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+
+        .animate-bounce-slow {
+            animation: bounce 3s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(-5%);
+                animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+            }
+
+            50% {
+                transform: none;
+                animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+            }
+        }
+    </style>
+
+    <!-- SECTION: THE KILLER FEATURE (Before After) -->
+    <section id="results" class="py-24 bg-[#020617] relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none">
+            <div
+                class="absolute top-1/4 left-0 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-[120px] animate-pulse">
+            </div>
+            <div class="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-orange-500/20 bg-orange-500/5 backdrop-blur-md mb-6">
+                    <span class="w-2 h-2 rounded-full bg-orange-500 animate-ping"></span>
+                    <span class="text-orange-400 font-black tracking-[0.3em] uppercase text-[10px]">Real
+                        Transformation</span>
+                </div>
+                <h2 class="text-5xl md:text-7xl font-black text-white mt-2 mb-8 tracking-tighter">
+                    Standar Kebersihan <br>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-400 to-orange-200">Level
+                        Kolektor.</span>
+                </h2>
+                <p class="text-slate-400 max-w-2xl mx-auto text-lg md:text-xl font-medium leading-relaxed">
+                    Bukan sekadar cuci, ini adalah <span class="text-white italic">aesthetic restoration</span>. Geser
+                    slider untuk melihat keajaiban di setiap serat material.
+                </p>
+            </div>
+
+            <div x-data="{ sliderValue: 50 }"
+                class="relative w-full max-w-5xl mx-auto aspect-[16/9] md:aspect-[21/9] rounded-[2.5rem] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 group">
+
+                <div class="absolute inset-0 w-full h-full bg-cover bg-center"
+                    style="background-image: url('https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+                    <div
+                        class="absolute bottom-6 right-8 bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-black tracking-widest px-4 py-2 rounded-xl z-20">
+                        AFTER TREATMENT
+                    </div>
+                </div>
+
+                <div class="absolute inset-0 w-full h-full bg-cover bg-center border-r-2 border-orange-500/50 shadow-[10px_0_30px_rgba(0,0,0,0.5)]"
+                    :style="`width: ${sliderValue}%; background-image: url('assets/dirty-shoe1.png');`">
+                    <div
+                        class="absolute bottom-6 left-8 bg-orange-500 text-white text-[10px] font-black tracking-widest px-4 py-2 rounded-xl z-20 shadow-lg shadow-orange-900/40">
+                        BEFORE
+                    </div>
+                </div>
+
+                <input type="range" min="0" max="100" x-model="sliderValue"
+                    class="absolute inset-0 w-full h-full opacity-0 cursor-col-resize z-40"
+                    aria-label="Comparison Slider">
+
+                <div class="absolute inset-y-0 pointer-events-none z-30 flex flex-col justify-center items-center"
+                    :style="`left: ${sliderValue}%`">
+                    <div
+                        class="absolute inset-y-0 w-[2px] bg-gradient-to-b from-orange-500/0 via-orange-500 to-orange-500/0">
+                    </div>
+                    <div class="group-hover:scale-110 transition-transform duration-300 relative">
+                        <div class="absolute inset-0 bg-orange-500 rounded-full blur-lg opacity-50"></div>
+                        <div
+                            class="relative w-14 h-14 -ml-7 bg-white rounded-full shadow-2xl flex items-center justify-center border-[6px] border-[#020617]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-500 animate-pulse"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div
+                    class="group p-6 rounded-[2rem] bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] transition-all">
+                    <div class="flex items-center gap-5">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all duration-300">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-white font-black text-lg tracking-tight">Stain Removal</p>
+                            <p class="text-slate-500 text-sm font-medium">Penghapusan noda hingga ke serat terdalam.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="group p-6 rounded-[2rem] bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] transition-all">
+                    <div class="flex items-center gap-5">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-white font-black text-lg tracking-tight">Material Care</p>
+                            <p class="text-slate-500 text-sm font-medium">Teknik khusus untuk Suede, Leather & Knit.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="group p-6 rounded-[2rem] bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] transition-all">
+                    <div class="flex items-center gap-5">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-all duration-300">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-white font-black text-lg tracking-tight">Protection</p>
+                            <p class="text-slate-500 text-sm font-medium">Lapisan pelindung anti-jamur & bakteri.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        @keyframes pulse-slow {
+
+            0%,
+            100% {
+                opacity: 0.8;
+                transform: translate(0, -50%);
+            }
+
+            50% {
+                opacity: 0.3;
+                transform: translate(10px, -50%);
+            }
+        }
+
+        .animate-pulse-slow {
+            animation: pulse-slow 3s infinite;
+        }
+
+        /* Menghilangkan gaya default input range agar pointer custom terlihat bersih */
+        input[type=range]::-webkit-slider-thumb {
+            pointer-events: all;
+            width: 40px;
+            height: 400px;
+            -webkit-appearance: none;
+        }
+    </style>
+
+    <!-- Masukkan Script ini KHUSUS untuk 3D Viewer (Taruh di Head atau sebelum Section ini) -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+
+    <!-- SECTION: 3D SHOWCASE -->
+    <section id="showcase" class="py-24 bg-[#020617] relative overflow-hidden">
+        <div
+            class="absolute top-0 right-0 w-[600px] h-[600px] bg-orange-500/20 blur-[180px] rounded-full -mr-80 -mt-80 animate-pulse">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-600/15 blur-[180px] rounded-full -ml-80 -mb-80">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-20">
+                <div
+                    class="inline-flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md mb-6 shadow-xl">
+                    <span class="relative flex h-3 w-3">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
+                    </span>
+                    <span class="text-white text-xs font-black tracking-[0.4em] uppercase italic">Interactive 360
+                        Experience</span>
+                </div>
+
+                <h2 class="text-5xl md:text-7xl font-black text-white mb-8 tracking-tighter">
+                    Inspeksi <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-400 to-orange-500">Setiap
+                        Milimeter.</span>
+                </h2>
+                <p class="text-slate-400 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed font-medium">
+                    Transparansi total untuk kepuasan Anda. Putar, zoom, dan lihat bagaimana <span
+                        class="text-white border-b-2 border-orange-500/50">KicksMedic</span> mengembalikan kilau sepatu
+                    Anda.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-10 items-stretch" x-data="{ 
+            activeModel: 0,
+            models: [
+                {
+                    name: 'Nike Air Max 97',
+                    desc: 'Deep Clean & Restoration',
+                    price: 'Premium Result',
+                    src: 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/MaterialsVariantsShoe/glTF-Binary/MaterialsVariantsShoe.glb'
+                },
+                {
+                    name: 'Adidas Yeezy 350',
+                    desc: 'Boost Sole Whitening',
+                    price: 'Best Seller',
+                    src: 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/MaterialsVariantsShoe/glTF-Binary/MaterialsVariantsShoe.glb' 
+                }
+            ]
+        }">
+
+                <div class="lg:col-span-8 relative group">
+                    <div
+                        class="absolute -inset-1 bg-gradient-to-r from-orange-500/30 to-blue-500/30 rounded-[3rem] blur-2xl opacity-50 group-hover:opacity-100 transition duration-700">
+                    </div>
+
+                    <div
+                        class="relative h-[500px] md:h-[650px] bg-slate-900/80 rounded-[3rem] border border-white/10 shadow-3xl overflow-hidden backdrop-blur-sm">
+                        <model-viewer class="w-full h-full cursor-grab active:cursor-grabbing"
+                            :src="models[activeModel].src" alt="3D Sneaker" shadow-intensity="2" camera-controls
+                            auto-rotate rotation-per-second="40deg" touch-action="pan-y" ar
+                            ar-modes="webxr scene-viewer quick-look" environment-image="neutral" exposure="1.2"
+                            loading="eager" camera-orbit="45deg 75deg 2.5m">
+
+                            <div slot="poster" class="w-full h-full flex items-center justify-center bg-slate-950">
+                                <div class="relative flex flex-col items-center">
+                                    <div
+                                        class="w-20 h-20 border-4 border-orange-500/10 border-t-orange-500 rounded-full animate-spin shadow-[0_0_20px_rgba(249,115,22,0.3)]">
+                                    </div>
+                                    <p
+                                        class="mt-6 text-orange-500 font-black tracking-[0.3em] text-[10px] animate-pulse">
+                                        PREPARING 3D ASSETS...</p>
+                                </div>
+                            </div>
+
+                            <button slot="ar-button"
+                                class="absolute bottom-8 left-1/2 -translate-x-1/2 bg-white text-slate-950 px-10 py-4 rounded-2xl font-black text-xs shadow-[0_20px_40px_rgba(255,255,255,0.2)] flex items-center gap-3 hover:bg-orange-500 hover:text-white transition-all transform hover:-translate-y-1">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
+                                </svg>
+                                LIHAT DI RUANGANMU (AR)
+                            </button>
+                        </model-viewer>
+
+                        <div class="absolute top-6 left-6 pointer-events-none">
+                            <div
+                                class="px-5 py-3 bg-black/60 backdrop-blur-2xl rounded-2xl border border-white/10 shadow-2xl">
+                                <div class="flex items-center gap-4">
+                                    <div class="relative">
+                                        <svg class="w-6 h-6 text-orange-400 animate-bounce" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0V12m-3-2.5l3-1.5m1.359 1.177L16 9.5m-1.359 1.177V14m0-5.5l3 1.5m1.359 1.177L21 11.5M10.5 20h3a2 2 0 002-2v-3.5a2 2 0 00-2-2h-3a2 2 0 00-2 2V18a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <span
+                                        class="text-white text-[10px] font-black tracking-widest uppercase opacity-80">Geser
+                                        untuk memutar 360°</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-4 flex flex-col gap-6">
+                    <div
+                        class="p-8 bg-white/[0.03] backdrop-blur-3xl rounded-[2.5rem] border border-white/10 shadow-2xl h-full flex flex-col">
+                        <div class="flex justify-between items-start mb-10">
+                            <div>
+                                <h3 class="text-3xl font-black text-white tracking-tight mb-2"
+                                    x-text="models[activeModel].name"></h3>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                                    <p class="text-orange-400 font-bold text-sm uppercase tracking-wider"
+                                        x-text="models[activeModel].desc"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6 flex-grow">
+                            <p class="text-slate-500 text-[10px] font-black tracking-[0.2em] uppercase">Treatment
+                                Included:</p>
+                            <div class="grid gap-3">
+                                <template
+                                    x-for="item in ['Deep Tissue Cleaning', 'Oxidation Removal', 'Internal Sanitize', 'Signature Perfume']">
+                                    <div
+                                        class="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5 hover:bg-white/10 transition-colors group/item">
+                                        <div
+                                            class="w-6 h-6 rounded-lg bg-orange-500/20 flex items-center justify-center group-hover/item:bg-orange-500 transition-colors">
+                                            <svg class="w-3.5 h-3.5 text-orange-500 group-hover/item:text-white"
+                                                fill="currentColor" viewBox="0 0 20 20">
+                                                <path
+                                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                                            </svg>
+                                        </div>
+                                        <span class="text-slate-300 text-sm font-semibold" x-text="item"></span>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div class="mt-10">
+                            <p class="text-slate-500 text-[10px] font-black tracking-[0.2em] uppercase mb-4">Pilih
+                                Model:</p>
+                            <div class="flex gap-3">
+                                <template x-for="(model, index) in models" :key="index">
+                                    <button @click="activeModel = index"
+                                        class="flex-1 py-4 rounded-2xl border-2 transition-all duration-500 font-black text-xs tracking-widest relative overflow-hidden"
+                                        :class="activeModel === index ? 'border-orange-500 text-white' : 'border-white/10 text-slate-500 hover:border-white/30'">
+                                        <div x-show="activeModel === index"
+                                            class="absolute inset-0 bg-orange-500 -z-10 animate-in fade-in zoom-in duration-300">
+                                        </div>
+                                        SAMPLE <span x-text="index + 1"></span>
+                                    </button>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#" class="group relative block w-full">
+                        <div
+                            class="absolute -inset-1 bg-gradient-to-r from-orange-600 to-amber-400 rounded-3xl blur opacity-30 group-hover:opacity-60 transition duration-500">
+                        </div>
+                        <div class="relative bg-gradient-to-r from-orange-600 to-amber-500 p-[2px] rounded-3xl">
+                            <div
+                                class="bg-slate-950 group-hover:bg-transparent transition-colors duration-300 rounded-[22px] px-8 py-6 flex items-center justify-center gap-4">
+                                <span
+                                    class="text-white font-black tracking-[0.2em] uppercase text-sm group-hover:text-slate-950 transition-colors">Book
+                                    Treatment Sekarang</span>
+                                <svg class="w-6 h-6 text-orange-500 group-hover:text-slate-950 transition-colors"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                        d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="py-24 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight">
+                    Gak Asal Sikat, <span class="text-orange-500">Ini Rahasianya.</span>
+                </h2>
+                <p class="text-slate-500 max-w-2xl mx-auto text-lg font-medium">
+                    Setiap pasang sepatu melewati protokol pembersihan 3 tahap yang dirancang khusus oleh para ahli.
+                </p>
+            </div>
+
+            <div class="relative grid grid-cols-1 md:grid-cols-3 gap-8 items-center justify-center">
+
+                <div
+                    class="relative group flex flex-col items-center text-center p-8 rounded-[3rem] bg-blue-50/50 border-2 border-transparent hover:border-blue-200 transition-all duration-500">
+                    <div class="h-48 w-full relative flex items-center justify-center mb-8">
+                        <div class="relative w-32 h-32">
+                            <div class="absolute inset-0 flex items-center justify-center animate-bounce-slow">
+                                <svg class="w-28 h-28 text-blue-400 opacity-80" viewBox="0 0 64 64" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M58 44C58 45.1 57.1 46 56 46H8C6.9 46 6 45.1 6 44V42H58V44Z"
+                                        fill="currentColor" fill-opacity="0.3" />
+                                    <path d="M58 38H6V41C6 41.6 6.4 42 7 42H57C57.6 42 58 41.6 58 41V38Z"
+                                        fill="currentColor" fill-opacity="0.5" />
+                                    <path
+                                        d="M56 28C55.2 27.2 54.1 26.8 53 26.5L46 24L41 12L34 16L28 24L10 28C8.9 28.2 8 29.1 8 30.2V36C8 37.1 8.9 38 10 38H54C55.1 38 56 37.1 56 36V28Z"
+                                        fill="currentColor" />
+                                    <path d="M32 20L36 24M28 22L32 26M24 24L28 28" stroke="white" stroke-width="2"
+                                        stroke-linecap="round" opacity="0.6" />
+                                </svg>
+                            </div>
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 flex gap-2">
+                                <div class="w-2 h-2 bg-blue-400 rounded-full animate-drop-1"></div>
+                                <div class="w-2 h-2 bg-blue-300 rounded-full animate-drop-2"></div>
+                                <div class="w-2 h-2 bg-blue-500 rounded-full animate-drop-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-500 text-white font-black mb-4 shadow-lg shadow-blue-200">
+                        1</div>
+                    <h3 class="text-xl font-black text-slate-900 mb-2 uppercase tracking-tight">Deep Hydration</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Melembutkan noda membandel dengan uap
+                        suhu tinggi & cairan pH seimbang.</p>
+                </div>
+
+                <div
+                    class="relative group flex flex-col items-center text-center p-8 rounded-[3rem] bg-orange-50 border-2 border-orange-200 shadow-2xl shadow-orange-100 scale-105 z-10">
+                    <div class="h-48 w-full relative flex items-center justify-center mb-8">
+                        <div class="relative w-32 h-32">
+                            <div class="absolute inset-0 flex items-center justify-center animate-scrub">
+                                <svg class="w-28 h-28 text-orange-950/20" viewBox="0 0 64 64" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M58 44C58 45.1 57.1 46 56 46H8C6.9 46 6 45.1 6 44V42H58V44Z"
+                                        fill="currentColor" fill-opacity="0.3" />
+                                    <path d="M58 38H6V41C6 41.6 6.4 42 7 42H57C57.6 42 58 41.6 58 41V38Z"
+                                        fill="currentColor" fill-opacity="0.5" />
+                                    <path
+                                        d="M56 28C55.2 27.2 54.1 26.8 53 26.5L46 24L41 12L34 16L28 24L10 28C8.9 28.2 8 29.1 8 30.2V36C8 37.1 8.9 38 10 38H54C55.1 38 56 37.1 56 36V28Z"
+                                        fill="currentColor" />
+                                    <path d="M32 20L36 24M28 22L32 26M24 24L28 28" stroke="white" stroke-width="2"
+                                        stroke-linecap="round" opacity="0.6" />
+                                </svg>
+                            </div>
+                            <div class="absolute top-4 -right-4 w-12 h-12 text-orange-600 animate-brush">
+                                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                </svg>
+                            </div>
+                            <div class="absolute inset-0 pointer-events-none">
+                                <div
+                                    class="absolute top-10 left-0 w-3 h-3 bg-white rounded-full animate-bubble opacity-0">
+                                </div>
+                                <div
+                                    class="absolute top-5 right-5 w-4 h-4 bg-white rounded-full animate-bubble delay-500 opacity-0 border border-orange-200">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-orange-500 text-white font-black mb-4 shadow-lg shadow-orange-200">
+                        2</div>
+                    <h3 class="text-xl font-black text-slate-900 mb-2 uppercase tracking-tight">Advanced Scrubbing</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Penyikatan detail menggunakan 3 jenis
+                        sikat bulu kuda untuk material berbeda.</p>
+                </div>
+
+                <div
+                    class="relative group flex flex-col items-center text-center p-8 rounded-[3rem] bg-amber-50/50 border-2 border-transparent hover:border-amber-200 transition-all duration-500">
+                    <div class="h-48 w-full relative flex items-center justify-center mb-8">
+                        <div class="relative w-32 h-32">
+                            <div class="absolute inset-0 flex items-center justify-center animate-shine">
+                                <svg class="w-28 h-28 text-amber-500 opacity-80" viewBox="0 0 64 64" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M58 44C58 45.1 57.1 46 56 46H8C6.9 46 6 45.1 6 44V42H58V44Z"
+                                        fill="currentColor" fill-opacity="0.3" />
+                                    <path d="M58 38H6V41C6 41.6 6.4 42 7 42H57C57.6 42 58 41.6 58 41V38Z"
+                                        fill="currentColor" fill-opacity="0.5" />
+                                    <path
+                                        d="M56 28C55.2 27.2 54.1 26.8 53 26.5L46 24L41 12L34 16L28 24L10 28C8.9 28.2 8 29.1 8 30.2V36C8 37.1 8.9 38 10 38H54C55.1 38 56 37.1 56 36V28Z"
+                                        fill="currentColor" />
+                                    <path d="M32 20L36 24M28 22L32 26M24 24L28 28" stroke="white" stroke-width="2"
+                                        stroke-linecap="round" opacity="0.6" />
+                                </svg>
+                            </div>
+                            <div
+                                class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-20 h-8 flex justify-between gap-1">
+                                <div class="w-1 bg-amber-400 h-full rounded-full animate-wave-1"></div>
+                                <div class="w-1 bg-amber-400 h-full rounded-full animate-wave-2"></div>
+                                <div class="w-1 bg-amber-400 h-full rounded-full animate-wave-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-amber-500 text-white font-black mb-4 shadow-lg shadow-amber-200">
+                        3</div>
+                    <h3 class="text-xl font-black text-slate-900 mb-2 uppercase tracking-tight">Fast Drying & Ozone</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Pengeringan suhu terkontrol &
+                        sterilisasi UV untuk bunuh bakteri 99.9%.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <style>
+        /* Custom Animations */
+        @keyframes drop {
+            0% {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+        }
+
+        .animate-drop-1 {
+            animation: drop 1.5s infinite linear;
+        }
+
+        .animate-drop-2 {
+            animation: drop 1.5s infinite linear 0.5s;
+        }
+
+        .animate-drop-3 {
+            animation: drop 1.5s infinite linear 1s;
+        }
+
+        @keyframes scrub {
+
+            0%,
+            100% {
+                transform: rotate(-5deg);
+            }
+
+            50% {
+                transform: rotate(5deg);
+            }
+        }
+
+        .animate-scrub {
+            animation: scrub 0.3s infinite ease-in-out;
+        }
+
+        @keyframes brush-move {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0);
+            }
+
+            50% {
+                transform: translate(-30px, 20px) rotate(-20deg);
+            }
+        }
+
+        .animate-brush {
+            animation: brush-move 0.6s infinite alternate ease-in-out;
+        }
+
+        @keyframes bubble {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(2) translateY(-40px);
+                opacity: 0;
+            }
+        }
+
+        .animate-bubble {
+            animation: bubble 2s infinite ease-out;
+        }
+
+        @keyframes wave {
+
+            0%,
+            100% {
+                height: 10px;
+                opacity: 0.3;
+            }
+
+            50% {
+                height: 30px;
+                opacity: 1;
+            }
+        }
+
+        .animate-wave-1 {
+            animation: wave 1s infinite ease-in-out;
+        }
+
+        .animate-wave-2 {
+            animation: wave 1s infinite ease-in-out 0.2s;
+        }
+
+        .animate-wave-3 {
+            animation: wave 1s infinite ease-in-out 0.4s;
+        }
+
+        @keyframes shine {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 5px rgba(245, 158, 11, 0.4));
+            }
+
+            50% {
+                filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.8));
+            }
+        }
+
+        .animate-shine {
+            animation: shine 2s infinite ease-in-out;
+        }
+
+        .animate-bounce-slow {
+            animation: bounce 3s infinite;
+        }
+    </style>
+
+
+    <!-- SECTION: PROCESS (HOW IT WORKS) - NEW -->
+    <section id="process" class="py-24 bg-slate-50 relative overflow-hidden">
+        <div
+            class="absolute top-0 left-0 w-72 h-72 bg-orange-100 rounded-full blur-3xl opacity-40 -translate-x-1/2 -translate-y-1/2">
+        </div>
+        <div
+            class="absolute bottom-0 right-0 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-40 translate-x-1/4 translate-y-1/4">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="text-center mb-24">
+                <span
+                    class="inline-block px-4 py-1.5 mb-4 text-xs font-black tracking-[0.3em] text-orange-600 uppercase bg-orange-100 rounded-full">
+                    Step-by-Step Guide
+                </span>
+                <h2 class="text-4xl md:text-6xl font-black text-slate-900 mt-3 mb-6 tracking-tight">
+                    Proses Mudah, <br class="hidden md:block">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">Hasil
+                        Wah.</span>
+                </h2>
+                <div
+                    class="w-24 h-2 bg-gradient-to-r from-orange-500 to-amber-400 mx-auto rounded-full shadow-lg shadow-orange-200">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12 relative">
+                <div class="hidden md:block absolute top-20 left-0 w-full h-0.5 -z-0">
+                    <svg width="100%" height="20" viewBox="0 0 1000 20" fill="none" class="opacity-20">
+                        <path d="M0 10C150 10 350 10 500 10C650 10 850 10 1000 10" stroke="url(#paint0_linear)"
+                            stroke-width="4" stroke-dasharray="12 12" />
+                        <defs>
+                            <linearGradient id="paint0_linear" x1="0" y1="10" x2="1000" y2="10"
+                                gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#f97316" />
+                                <stop offset="1" stop-color="#3b82f6" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+
+                <div class="relative group">
+                    <div class="relative mb-10 text-center">
+                        <div
+                            class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-white text-orange-600 rounded-2xl flex items-center justify-center font-black text-lg shadow-xl shadow-orange-200/50 z-20 transition-all duration-500 group-hover:bg-orange-600 group-hover:text-white group-hover:-translate-y-2">
+                            01
+                        </div>
+                        <div
+                            class="w-40 h-40 mx-auto bg-white rounded-[3rem] flex items-center justify-center shadow-2xl shadow-slate-200/50 border border-white group-hover:border-orange-500 group-hover:scale-110 transition-all duration-500 relative overflow-hidden">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                            </div>
+                            <svg class="w-16 h-16 text-orange-500 group-hover:rotate-12 transition-transform duration-500"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3
+                            class="font-black text-2xl text-slate-900 mb-4 tracking-tight group-hover:text-orange-600 transition-colors">
+                            Reservasi Kilat</h3>
+                        <p class="text-slate-500 font-medium leading-relaxed px-2">Pilih treatment via web. Admin
+                            kami
+                            konfirmasi via WhatsApp dalam <span
+                                class="text-orange-600 font-bold underline decoration-orange-200 decoration-4">5
+                                menit.</span></p>
+                    </div>
+                </div>
+
+                <div class="relative group">
+                    <div class="relative mb-10 text-center">
+                        <div
+                            class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-white text-blue-600 rounded-2xl flex items-center justify-center font-black text-lg shadow-xl shadow-blue-200/50 z-20 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white group-hover:-translate-y-2">
+                            02
+                        </div>
+                        <div
+                            class="w-40 h-40 mx-auto bg-white rounded-[3rem] flex items-center justify-center shadow-2xl shadow-slate-200/50 border border-white group-hover:border-blue-500 group-hover:scale-110 transition-all duration-500 relative overflow-hidden">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                            </div>
+                            <svg class="w-16 h-16 text-blue-500 group-hover:rotate-12 transition-transform duration-500"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3
+                            class="font-black text-2xl text-slate-900 mb-4 tracking-tight group-hover:text-blue-600 transition-colors">
+                            Free Pickup</h3>
+                        <p class="text-slate-500 font-medium leading-relaxed px-2">Kurir profesional kami jemput
+                            sepatu
+                            Anda. <span class="text-blue-600 font-bold block mt-1">Safe & Trackable.</span></p>
+                    </div>
+                </div>
+
+                <div class="relative group">
+                    <div class="relative mb-10 text-center">
+                        <div
+                            class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-white text-purple-600 rounded-2xl flex items-center justify-center font-black text-lg shadow-xl shadow-purple-200/50 z-20 transition-all duration-500 group-hover:bg-purple-600 group-hover:text-white group-hover:-translate-y-2">
+                            03
+                        </div>
+                        <div
+                            class="w-40 h-40 mx-auto bg-white rounded-[3rem] flex items-center justify-center shadow-2xl shadow-slate-200/50 border border-white group-hover:border-purple-500 group-hover:scale-110 transition-all duration-500 relative overflow-hidden">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                            </div>
+                            <svg class="w-16 h-16 text-purple-500 group-hover:rotate-12 transition-transform duration-500"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3
+                            class="font-black text-2xl text-slate-900 mb-4 tracking-tight group-hover:text-purple-600 transition-colors">
+                            Luxury Treatment</h3>
+                        <p class="text-slate-500 font-medium leading-relaxed px-2">Pembersihan mendalam dengan bahan
+                            <span class="italic text-slate-900 font-bold">eco-friendly</span> impor dan teknik
+                            presisi.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="relative group">
+                    <div class="relative mb-10 text-center">
+                        <div
+                            class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-white text-green-600 rounded-2xl flex items-center justify-center font-black text-lg shadow-xl shadow-green-200/50 z-20 transition-all duration-500 group-hover:bg-green-600 group-hover:text-white group-hover:-translate-y-2">
+                            04
+                        </div>
+                        <div
+                            class="w-40 h-40 mx-auto bg-white rounded-[3rem] flex items-center justify-center shadow-2xl shadow-slate-200/50 border border-white group-hover:border-green-500 group-hover:scale-110 transition-all duration-500 relative overflow-hidden">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-green-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                            </div>
+                            <svg class="w-16 h-16 text-green-500 group-hover:rotate-12 transition-transform duration-500"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3
+                            class="font-black text-2xl text-slate-900 mb-4 tracking-tight group-hover:text-green-600 transition-colors">
+                            Ready to Flex</h3>
+                        <p class="text-slate-500 font-medium leading-relaxed px-2">Sepatu kembali dalam box
+                            eksklusif.
+                            Siap tampil <span class="text-slate-900 font-bold uppercase tracking-wider">percaya
+                                diri</span> kembali.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="services" class="py-24 bg-white relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full opacity-10 pointer-events-none">
+            <div class="absolute top-24 left-10 w-64 h-64 bg-blue-400 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-24 right-10 w-64 h-64 bg-purple-400 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="text-center mb-20">
+                <span
+                    class="inline-block px-4 py-1.5 mb-4 text-sm font-semibold tracking-wider text-blue-600 uppercase bg-blue-50 rounded-full">
+                    Layanan Kami
+                </span>
+                <h2 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
+                    Menu <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Perawatan</span>
+                </h2>
+                <p class="text-slate-600 text-lg max-w-2xl mx-auto">
+                    Kembalikan kepercayaan diri langkahmu dengan perawatan spesialis sepatu terbaik.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div
+                    class="group bg-white p-10 rounded-[2.5rem] shadow-xl shadow-slate-100 border border-slate-100 hover:border-blue-200 transition-all duration-300 hover:-translate-y-2">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-blue-200 group-hover:rotate-6 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-4">Deep Clean</h3>
+                    <p class="text-slate-500 leading-relaxed mb-8">Pembersihan menyeluruh mulai dari Upper hingga
+                        Insole. Sempurna untuk menjaga sepatu harianmu tetap segar.</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-blue-600 font-extrabold text-xl">Rp 50rb</span>
+                        <button
+                            class="text-blue-600 font-bold flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                            Pesan <span class="text-xl">→</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div
+                    class="relative group bg-slate-900 p-10 rounded-[2.5rem] shadow-2xl shadow-blue-200 transform md:-translate-y-6 border border-slate-800 overflow-hidden">
+                    <div class="absolute -top-24 -right-24 w-48 h-48 bg-blue-500/20 rounded-full blur-3xl"></div>
+
+                    <div
+                        class="absolute top-6 right-8 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">
+                        Best Seller
+                    </div>
+
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-blue-900/50 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Unyellowing</h3>
+                    <p class="text-slate-400 leading-relaxed mb-8">Ubah sol yang menguning menjadi putih bersih
+                        seperti
+                        baru kembali dengan teknik oksidasi khusus kami.</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-blue-400 font-extrabold text-xl">Rp 80rb</span>
+                        <button
+                            class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-xl font-bold transition-colors">
+                            Pilih
+                        </button>
+                    </div>
+                </div>
+
+                <div
+                    class="group bg-white p-10 rounded-[2.5rem] shadow-xl shadow-slate-100 border border-slate-100 hover:border-purple-200 transition-all duration-300 hover:-translate-y-2">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-purple-200 group-hover:-rotate-6 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-4">Premium Repaint</h3>
+                    <p class="text-slate-500 leading-relaxed mb-8">Restorasi warna pudar atau ganti gaya dengan
+                        warna
+                        baru. Menggunakan cat premium anti-retak & tahan lama.</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-purple-600 font-extrabold text-xl">Mulai 150rb</span>
+                        <button
+                            class="text-purple-600 font-bold flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                            Detail <span class="text-xl">→</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- TESTIMONIALS SECTION - NEW -->
+    <section class="py-24 bg-gradient-to-b from-white to-blue-50/50 relative overflow-hidden">
+        <div class="absolute top-10 right-10 w-32 h-32 bg-yellow-200 rounded-full blur-3xl opacity-30 animate-pulse">
+        </div>
+        <div class="absolute bottom-10 left-10 w-40 h-40 bg-purple-200 rounded-full blur-3xl opacity-30"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+                    Kata Para <span class="relative">
+                        <span class="relative z-10 text-blue-600">Sneakerhead</span>
+                        <svg class="absolute -bottom-2 left-0 w-full h-3 text-yellow-300 -z-0" viewBox="0 0 100 20"
+                            preserveAspectRatio="none">
+                            <path d="M0 10 Q25 0 50 10 T100 10" stroke="currentColor" stroke-width="4"
+                                fill="transparent" stroke-linecap="round" />
+                        </svg>
+                    </span>
+                </h2>
+                <p class="mt-6 text-slate-500 font-medium text-lg">Ribuan pasang sepatu telah kami selamatkan!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div
+                    class="group relative p-8 bg-white rounded-[2rem] shadow-xl shadow-blue-900/5 border border-transparent hover:border-blue-200 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute -top-4 -right-2 text-6xl text-blue-100 font-serif opacity-50">“</div>
+
+                    <div class="flex text-yellow-400 mb-5 gap-1">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </div>
+
+                    <p class="text-slate-700 leading-relaxed text-lg font-medium mb-8">
+                        "Gila sih, midsole Jordan gw yang kuning parah bisa <span
+                            class="bg-blue-100 text-blue-700 px-1">putih lagi</span>. Recommended banget buat yang
+                        mager
+                        nyuci!"
+                    </p>
+
+                    <div class="flex items-center gap-4">
+                        <div class="relative">
+                            <div
+                                class="absolute inset-0 bg-blue-400 rounded-full blur-sm opacity-20 group-hover:opacity-40 transition-opacity">
+                            </div>
+                            <img src="https://i.pravatar.cc/100?img=11" alt="User"
+                                class="relative w-12 h-12 rounded-full border-2 border-white shadow-md">
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 leading-tight">Raka Adithya</h4>
+                            <p class="text-sm text-blue-500 font-semibold">Sneaker Collector</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="group relative p-8 bg-white rounded-[2rem] shadow-xl shadow-purple-900/5 border border-transparent hover:border-purple-200 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute -top-4 -right-2 text-6xl text-purple-100 font-serif opacity-50">“</div>
+
+                    <div class="flex text-yellow-400 mb-5 gap-1">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </div>
+
+                    <p class="text-slate-700 leading-relaxed text-lg font-medium mb-8">
+                        "Awalnya ragu takut suedenya rusak, eh pas balik malah jadi <span
+                            class="bg-purple-100 text-purple-700 px-1">lembut lagi</span>. Adminnya gercep!"
+                    </p>
+
+                    <div class="flex items-center gap-4">
+                        <img src="https://i.pravatar.cc/100?img=5" alt="User"
+                            class="w-12 h-12 rounded-full border-2 border-white shadow-md">
+                        <div>
+                            <h4 class="font-bold text-slate-900 leading-tight">Sarah Vanya</h4>
+                            <p class="text-sm text-purple-500 font-semibold">Mahasiswi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="group relative p-8 bg-white rounded-[2rem] shadow-xl shadow-green-900/5 border border-transparent hover:border-green-200 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute -top-4 -right-2 text-6xl text-green-100 font-serif opacity-50">“</div>
+
+                    <div class="flex text-yellow-400 mb-5 gap-1">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </div>
+
+                    <p class="text-slate-700 leading-relaxed text-lg font-medium mb-8">
+                        "Layanan jemputnya ngebantu banget. Pulang kerja capek, sepatu udah <span
+                            class="bg-green-100 text-green-700 px-1">bersih dianter</span> ke kosan."
+                    </p>
+
+                    <div class="flex items-center gap-4">
+                        <img src="https://i.pravatar.cc/100?img=60" alt="User"
+                            class="w-12 h-12 rounded-full border-2 border-white shadow-md">
+                        <div>
+                            <h4 class="font-bold text-slate-900 leading-tight">Dimas Anggara</h4>
+                            <p class="text-sm text-green-500 font-semibold">Karyawan Swasta</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section with Alpine -->
+    <section id="faq" class="py-24 bg-white relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-orange-50 rounded-full blur-3xl opacity-70"></div>
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-amber-50 rounded-full blur-3xl opacity-70"></div>
+
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="text-center mb-16">
+                <div
+                    class="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-3xl shadow-inner mb-6 text-orange-600 ring-4 ring-orange-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
+                    Sering <span class="text-orange-500">Ditanyakan</span>
+                </h2>
+                <p class="text-slate-500 font-medium text-lg">Masih bingung? Tenang, KicksMedic punya jawabannya.
+                </p>
+            </div>
+
+            <div class="space-y-5" x-data="{ activeAccordion: null }">
+
+                <div class="group transition-all duration-300 rounded-[2.5rem] border-2"
+                    :class="activeAccordion === 1 ? 'bg-white shadow-2xl shadow-orange-200/40 border-orange-500' : 'bg-slate-50 border-transparent hover:border-slate-200'">
+                    <button @click="activeAccordion = activeAccordion === 1 ? null : 1"
+                        class="w-full flex justify-between items-center p-7 text-left transition-all">
+                        <span class="font-bold text-xl tracking-tight transition-colors"
+                            :class="activeAccordion === 1 ? 'text-orange-600' : 'text-slate-800'">
+                            Berapa lama proses pengerjaannya?
+                        </span>
+                        <div class="flex-shrink-0 ml-4 w-10 h-10 rounded-2xl flex items-center justify-center transition-all duration-500 shadow-sm"
+                            :class="activeAccordion === 1 ? 'bg-orange-500 text-white rotate-180 shadow-orange-300' : 'bg-white text-slate-400'">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </button>
+                    <div x-show="activeAccordion === 1" x-collapse>
+                        <div class="px-7 pb-8 text-slate-600 leading-relaxed text-lg font-medium">
+                            <div class="h-px w-full bg-slate-100 mb-6"></div>
+                            Untuk <span class="text-slate-900 font-bold">Deep Clean</span> standar hanya 2-3 hari.
+                            Butuh
+                            kilat? Layanan <span class="text-orange-600">Express</span> tersedia hanya dengan
+                            tambahan
+                            <span class="px-2 py-0.5 bg-orange-100 text-orange-700 rounded-lg">Rp 15.000</span>.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group transition-all duration-300 rounded-[2.5rem] border-2"
+                    :class="activeAccordion === 2 ? 'bg-white shadow-2xl shadow-orange-200/40 border-orange-500' : 'bg-slate-50 border-transparent hover:border-slate-200'">
+                    <button @click="activeAccordion = activeAccordion === 2 ? null : 2"
+                        class="w-full flex justify-between items-center p-7 text-left transition-all">
+                        <span class="font-bold text-xl tracking-tight transition-colors"
+                            :class="activeAccordion === 2 ? 'text-orange-600' : 'text-slate-800'">
+                            Apakah aman untuk bahan Suede/Nubuck?
+                        </span>
+                        <div class="flex-shrink-0 ml-4 w-10 h-10 rounded-2xl flex items-center justify-center transition-all duration-500 shadow-sm"
+                            :class="activeAccordion === 2 ? 'bg-orange-500 text-white rotate-180 shadow-orange-300' : 'bg-white text-slate-400'">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </button>
+                    <div x-show="activeAccordion === 2" x-collapse>
+                        <div class="px-7 pb-8 text-slate-600 leading-relaxed text-lg font-medium">
+                            <div class="h-px w-full bg-slate-100 mb-6"></div>
+                            <p class="mb-3 italic">Sangat aman!</p>
+                            Kami menggunakan sikat <span
+                                class="text-slate-900 font-bold underline decoration-orange-400 decoration-4">horse
+                                hair
+                                brush</span> khusus dan cairan premium yang menjaga tekstur tetap lembut.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group transition-all duration-300 rounded-[2.5rem] border-2"
+                    :class="activeAccordion === 3 ? 'bg-white shadow-2xl shadow-orange-200/40 border-orange-500' : 'bg-slate-50 border-transparent hover:border-slate-200'">
+                    <button @click="activeAccordion = activeAccordion === 3 ? null : 3"
+                        class="w-full flex justify-between items-center p-7 text-left transition-all">
+                        <span class="font-bold text-xl tracking-tight transition-colors"
+                            :class="activeAccordion === 3 ? 'text-orange-600' : 'text-slate-800'">
+                            Ada garansi gak kalau sepatu rusak?
+                        </span>
+                        <div class="flex-shrink-0 ml-4 w-10 h-10 rounded-2xl flex items-center justify-center transition-all duration-500 shadow-sm"
+                            :class="activeAccordion === 3 ? 'bg-orange-500 text-white rotate-180 shadow-orange-300' : 'bg-white text-slate-400'">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </button>
+                    <div x-show="activeAccordion === 3" x-collapse>
+                        <div class="px-7 pb-8 text-slate-600 leading-relaxed text-lg font-medium">
+                            <div class="h-px w-full bg-slate-100 mb-6"></div>
+                            Tentu saja! Kami memberikan <span class="text-green-600 font-bold">Garansi Cuci
+                                Ulang</span>
+                            dan jaminan ganti rugi jika terjadi kerusakan fatal akibat kelalaian tim.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 pt-24 pb-12 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-orange-600/10 rounded-full blur-3xl -ml-32 -mb-32"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div
+                            class="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <span class="text-2xl font-black text-white tracking-tighter">Kicks<span
+                                class="text-orange-500">Medic.</span></span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed mb-6 font-medium">
+                        Solusi perawatan sepatu spesialis untuk para sneakerhead. Bersih, Cepat, dan Bergaransi.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 bg-slate-800 hover:bg-orange-500 text-white rounded-full flex items-center justify-center transition-all duration-300">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.44-.645 1.44-1.44s-.645-1.44-1.44-1.44z" />
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-slate-800 hover:bg-orange-500 text-white rounded-full flex items-center justify-center transition-all duration-300">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.94 3.659 1.437 5.63 1.433h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-slate-800 hover:bg-orange-500 text-white rounded-full flex items-center justify-center transition-all duration-300">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12.525.02c1.31-.036 2.612-.012 3.914-.012.041 1.56.452 3.057 1.341 4.334.492.68 1.139 1.218 1.884 1.583.744.364 1.547.534 2.336.567V10.4c-1.317-.008-2.6-.328-3.729-.933a7.485 7.485 0 01-2.937-2.612v8.527a7.042 7.042 0 01-.4 2.45c-.294.697-.751 1.313-1.328 1.794a7.011 7.011 0 01-1.841 1.05 6.923 6.923 0 01-4.814-.153 6.99 6.99 0 01-3.235-2.656 7.152 7.152 0 01-.983-3.082c-.085-.807-.025-1.623.176-2.404.14-.543.385-1.055.722-1.503a7.036 7.036 0 011.667-1.55 6.942 6.942 0 013.793-1.127c.437.012.872.072 1.3.179V10.51c-.179-.023-.359-.039-.54-.047a4.436 4.436 0 00-1.84.22c-.443.155-.838.418-1.147.76a4.45 4.45 0 00-.73 1.156 4.45 4.45 0 00-.28 1.15 4.542 4.542 0 00-.323 2.13c.2.49.537.915.969 1.222a4.42 4.42 0 001.275.61 4.497 4.497 0 003.04.1c1.328-.47 2.228-1.745 2.228-3.157V0z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6 uppercase tracking-widest text-sm">Layanan</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#"
+                                class="text-slate-400 hover:text-orange-500 transition-colors font-medium flex items-center gap-2">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                                Deep Cleaning</a></li>
+                        <li><a href="#"
+                                class="text-slate-400 hover:text-orange-500 transition-colors font-medium flex items-center gap-2">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                                Unyellowing</a>
+                        </li>
+                        <li><a href="#"
+                                class="text-slate-400 hover:text-orange-500 transition-colors font-medium flex items-center gap-2">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                                Repaint &
+                                Custom</a></li>
+                        <li><a href="#"
+                                class="text-slate-400 hover:text-orange-500 transition-colors font-medium flex items-center gap-2">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                                Express
+                                Service</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6 uppercase tracking-widest text-sm">Informasi</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#"
+                                class="text-slate-400 hover:text-orange-500 transition-colors font-medium flex items-center gap-2">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                                Tentang
+                                Kami</a></li>
+                        <li><a href="#"
+                                class="text-slate-400 hover:text-orange-500 transition-colors font-medium flex items-center gap-2">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                                Syarat &
+                                Ketentuan</a></li>
+                        <li><a href="#"
+                                class="text-slate-400 hover:text-orange-500 transition-colors font-medium flex items-center gap-2">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                                Kebijakan
+                                Garansi</a></li>
+                        <li><a href="#"
+                                class="text-slate-400 hover:text-orange-500 transition-colors font-medium">Lokasi
+                                Workshop</a></li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800/50 p-8 rounded-[2rem] border border-slate-700 relative overflow-hidden group">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-orange-500/10 rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500">
+                    </div>
+                    <h4 class="text-white font-bold text-lg mb-2 relative z-10">Dapatkan Promo!</h4>
+                    <p class="text-slate-400 text-sm mb-6 relative z-10 font-medium">Langganan newsletter kami untuk
+                        info diskon cuci sepatu.</p>
+                    <div class="relative z-10">
+                        <input type="email" placeholder="Email kamu..."
+                            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-orange-500 transition-colors mb-3">
+                        <button
+                            class="w-full bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-orange-500/20 active:scale-95">
+                            Daftar Sekarang
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr class="border-slate-800 mb-12">
+
+            <div class="flex flex-col md:row-reverse md:flex-row justify-between items-center gap-6">
+                <p class="text-slate-500 text-sm font-medium">
+                    © 2026 <span class="text-orange-500">KicksMedic</span>. All rights reserved. <br class="md:hidden">
+                    Made with ❤️ by <a href="https://spinotek.com" target="_blank"
+                        class="text-orange-500 hover:text-orange-400 font-bold transition-colors">Spinotek</a>.
+                </p>
+                <div class="flex gap-8">
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <span class="text-slate-400 text-xs font-bold uppercase tracking-widest">Operational Status:
+                            Open</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

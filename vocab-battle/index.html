@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vocab Battle - Space Mission</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap");
+
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background: #020617;
+        color: #f8fafc;
+        overflow: hidden;
+        background-image:
+          radial-gradient(
+            circle at 20% 30%,
+            rgba(30, 64, 175, 0.15) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(126, 34, 206, 0.1) 0%,
+            transparent 40%
+          );
+      }
+
+      /* Star Animation */
+      .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: transparent
+          url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/123163/stars.png")
+          repeat;
+      }
+
+      .glass-panel {
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+      }
+
+      .rocket {
+        font-size: 3.5rem;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.5));
+        animation: idleFloat 3s ease-in-out infinite;
+      }
+
+      @keyframes idleFloat {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          transform: translateX(-50%) translateY(-15px);
+        }
+      }
+
+      .thruster {
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 15px;
+        height: 40px;
+        background: linear-gradient(to bottom, #38bdf8, transparent);
+        border-radius: 50%;
+        filter: blur(4px);
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+
+      .launching .thruster {
+        opacity: 1;
+        animation: flicker 0.1s infinite;
+      }
+
+      @keyframes flicker {
+        0%,
+        100% {
+          height: 40px;
+          opacity: 0.8;
+        }
+        50% {
+          height: 55px;
+          opacity: 1;
+        }
+      }
+
+      .choice-btn {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .choice-btn:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
+        border-color: rgba(56, 189, 248, 0.5);
+      }
+
+      .choice-btn.correct {
+        background: #059669 !important;
+        border-color: #10b981 !important;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+      }
+      .choice-btn.wrong {
+        background: #991b1b !important;
+        border-color: #ef4444 !important;
+      }
+
+      .timer-circle {
+        background: conic-gradient(#38bdf8 var(--p), transparent 0);
+        position: relative;
+      }
+
+      .text-neon {
+        text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+      }
+    </style>
+  </head>
+  <body class="h-screen flex flex-col p-6 gap-6">
+    <div class="stars"></div>
+
+    <header
+      class="flex justify-between items-center px-8 py-4 glass-panel rounded-3xl"
+    >
+      <div class="flex flex-col">
+        <h1
+          class="text-3xl font-extrabold tracking-tighter text-neon text-sky-400"
+        >
+          VOCAB BATTLE
+        </h1>
+        <a
+          href="https://spinotek.com"
+          target="_blank"
+          class="text-[10px] uppercase tracking-[0.3em] text-slate-500 hover:text-sky-400 transition-colors"
+          >By Spinotek</a
+        >
+      </div>
+      <div
+        class="flex items-center gap-4 bg-slate-900/50 px-6 py-2 rounded-2xl border border-white/5"
+      >
+        <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+        <span class="text-sm font-bold text-slate-400"
+          >MISSION STATUS: ACTIVE</span
+        >
+      </div>
+    </header>
+
+    <main class="flex flex-1 gap-6 overflow-hidden">
+      <div
+        class="w-24 glass-panel rounded-full flex flex-col items-center py-10 relative"
+      >
+        <div class="text-[10px] font-black text-sky-400 mb-4 opacity-50">
+          T-01
+        </div>
+        <div class="flex-1 w-full relative">
+          <div id="rocket1" class="rocket">
+            🚀
+            <div class="thruster"></div>
+          </div>
+        </div>
+        <div class="mt-4 text-3xl">🌙</div>
+      </div>
+
+      <section
+        id="side-1"
+        class="flex-1 glass-panel rounded-[2.5rem] flex flex-col p-8 transition-all"
+      >
+        <div class="flex justify-between items-end mb-6">
+          <div class="flex flex-col">
+            <span
+              class="text-[10px] font-bold text-sky-500 uppercase tracking-widest"
+              >Team Alpha Score</span
+            >
+            <span id="score1" class="text-6xl font-black text-white">0</span>
+          </div>
+          <div
+            id="timer1"
+            class="w-16 h-16 glass-panel rounded-full flex items-center justify-center text-xl font-black text-sky-400 border-sky-500/30 border-2"
+          >
+            10
+          </div>
+        </div>
+
+        <div
+          class="flex-1 flex flex-col items-center justify-center space-y-10"
+        >
+          <div class="text-center">
+            <p
+              class="text-slate-500 font-bold uppercase tracking-[0.2em] text-xs mb-2"
+            >
+              Translation Target
+            </p>
+            <h2
+              id="q1"
+              class="text-6xl font-black tracking-tight text-white uppercase"
+            >
+              ---
+            </h2>
+          </div>
+          <div
+            id="choices1"
+            class="grid grid-cols-2 gap-4 w-full max-w-lg"
+          ></div>
+        </div>
+      </section>
+
+      <section
+        id="side-2"
+        class="flex-1 glass-panel rounded-[2.5rem] flex flex-col p-8 transition-all"
+      >
+        <div class="flex justify-between items-end mb-6">
+          <div
+            id="timer2"
+            class="w-16 h-16 glass-panel rounded-full flex items-center justify-center text-xl font-black text-purple-400 border-purple-500/30 border-2"
+          >
+            10
+          </div>
+          <div class="flex flex-col text-right">
+            <span
+              class="text-[10px] font-bold text-purple-500 uppercase tracking-widest"
+              >Team Bravo Score</span
+            >
+            <span id="score2" class="text-6xl font-black text-white">0</span>
+          </div>
+        </div>
+
+        <div
+          class="flex-1 flex flex-col items-center justify-center space-y-10"
+        >
+          <div class="text-center">
+            <p
+              class="text-slate-500 font-bold uppercase tracking-[0.2em] text-xs mb-2"
+            >
+              Translation Target
+            </p>
+            <h2
+              id="q2"
+              class="text-6xl font-black tracking-tight text-white uppercase"
+            >
+              ---
+            </h2>
+          </div>
+          <div
+            id="choices2"
+            class="grid grid-cols-2 gap-4 w-full max-w-lg"
+          ></div>
+        </div>
+      </section>
+
+      <div
+        class="w-24 glass-panel rounded-full flex flex-col items-center py-10 relative"
+      >
+        <div class="text-[10px] font-black text-purple-400 mb-4 opacity-50">
+          T-02
+        </div>
+        <div class="flex-1 w-full relative">
+          <div id="rocket2" class="rocket">
+            🚀
+            <div class="thruster"></div>
+          </div>
+        </div>
+        <div class="mt-4 text-3xl">🌙</div>
+      </div>
+    </main>
+
+    <div
+      id="overlay"
+      class="fixed inset-0 z-50 flex items-center justify-center p-10 bg-slate-950/80 backdrop-blur-md"
+    >
+      <div
+        id="menu-content"
+        class="text-center max-w-2xl animate__animated animate__zoomIn"
+      >
+        <div
+          class="mb-10 inline-block px-8 py-3 glass-panel rounded-full text-sky-400 font-black text-lg tracking-widest uppercase border border-sky-500/30"
+        >
+          🚀 SHOW YOUR ENGLISH SKILLS
+        </div>
+
+        <h1
+          class="text-[7rem] leading-none font-black mb-6 tracking-tighter text-white"
+        >
+          VOCAB <span class="text-sky-400">BATTLE</span>
+        </h1>
+
+        <p class="text-2xl text-slate-300 mb-12 font-medium">
+          Kita Buktikan! Siapa yang paling jago Bahasa Inggris?
+        </p>
+
+        <button
+          id="start-btn"
+          class="px-16 py-8 bg-sky-500 hover:bg-sky-400 text-slate-100 text-5xl font-black rounded-3xl transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(56,189,248,0.4)] uppercase"
+        >
+          AYO MULAI!
+        </button>
+
+        <p
+          class="mt-8 text-sm font-bold text-slate-500 tracking-widest uppercase"
+        >
+          by Spinotek
+        </p>
+      </div>
+
+      <div
+        id="countdown"
+        class="hidden text-[12rem] font-black text-white animate__animated"
+      >
+        3
+      </div>
+
+      <div
+        id="winner-card"
+        class="hidden glass-panel p-16 rounded-[4rem] text-center max-w-3xl w-full border-2 border-sky-500/30"
+      >
+        <div
+          class="text-sky-400 font-black text-xs uppercase tracking-[0.5em] mb-4"
+        >
+          Mission Report
+        </div>
+        <h1
+          id="winner-team-name"
+          class="text-7xl font-black text-white mb-10 tracking-tighter uppercase"
+        >
+          ---
+        </h1>
+
+        <div class="grid grid-cols-3 gap-8 items-center mb-12">
+          <div class="p-6 bg-white/5 rounded-3xl">
+            <p class="text-[10px] text-sky-400 font-bold mb-2">ALPHA</p>
+            <p id="final-s1" class="text-4xl font-black">0</p>
+          </div>
+          <div class="text-2xl font-black text-slate-600">VS</div>
+          <div class="p-6 bg-white/5 rounded-3xl">
+            <p class="text-[10px] text-purple-400 font-bold mb-2">BRAVO</p>
+            <p id="final-s2" class="text-4xl font-black">0</p>
+          </div>
+        </div>
+
+        <button
+          onclick="location.reload()"
+          class="w-full py-6 glass-panel rounded-3xl text-2xl font-black hover:bg-white/10 transition-all uppercase tracking-widest"
+        >
+          Return to Base 🔄
+        </button>
+      </div>
+    </div>
+
+    <audio
+      id="sfx-correct"
+      src="https://assets.mixkit.co/active_storage/sfx/2020/2020-preview.mp3"
+    ></audio>
+    <audio
+      id="sfx-wrong"
+      src="https://assets.mixkit.co/active_storage/sfx/2959/2959-preview.mp3"
+    ></audio>
+  
+    <script>
+      const questionBank = [
+        {
+          q: "SEMANGKA",
+          a: "Watermelon",
+          options: ["Melon", "Watermelon", "Pineapple", "Apple"],
+        },
+        { q: "BUKU", a: "Book", options: ["Pencil", "Eraser", "Book", "Ruler"] },
+        {
+          q: "SEPEDA",
+          a: "Bicycle",
+          options: ["Car", "Motorcycle", "Bicycle", "Bus"],
+        },
+        { q: "MATAHARI", a: "Sun", options: ["Moon", "Star", "Sun", "Cloud"] },
+        { q: "KUCING", a: "Cat", options: ["Dog", "Cat", "Bird", "Rabbit"] },
+        { q: "JERUK", a: "Orange", options: ["Apple", "Grape", "Orange", "Banana"] },
+        { q: "TAS", a: "Bag", options: ["Table", "Bag", "Chair", "Lamp"] },
+        { q: "PINTU", a: "Door", options: ["Window", "Door", "Wall", "Floor"] },
+      ];
+
+      let gameState = {
+        1: {
+          score: 0,
+          currentIdx: 0,
+          timeLeft: 10,
+          timer: null,
+          active: false,
+          finished: false,
+        },
+        2: {
+          score: 0,
+          currentIdx: 0,
+          timeLeft: 10,
+          timer: null,
+          active: false,
+          finished: false,
+        },
+      };
+
+      let startBtn;
+      let overlay;
+      let menuContent;
+      let countdownEl;
+      let winnerCard;
+
+      document.addEventListener("DOMContentLoaded", () => {
+        startBtn = document.getElementById("start-btn");
+        overlay = document.getElementById("overlay");
+        menuContent = document.getElementById("menu-content");
+        countdownEl = document.getElementById("countdown");
+        winnerCard = document.getElementById("winner-card");
+
+        if (startBtn) {
+          startBtn.onclick = () => {
+            menuContent.classList.add("hidden");
+            countdownEl.classList.remove("hidden");
+            let count = 3;
+
+            const countInterval = setInterval(() => {
+              countdownEl.innerText = count === 0 ? "GO!" : count;
+              countdownEl.classList.remove("animate__zoomIn");
+              void countdownEl.offsetWidth;
+              countdownEl.classList.add("animate__zoomIn");
+
+              if (count < 0) {
+                clearInterval(countInterval);
+                countdownEl.classList.add("hidden");
+                initGame();
+              }
+              count--;
+            }, 1000);
+          };
+        }
+      });
+
+      function initGame() {
+        overlay.classList.add("hidden");
+        [1, 2].forEach(team => {
+          gameState[team].score = 0;
+          gameState[team].currentIdx = 0;
+          gameState[team].active = true;
+          gameState[team].finished = false;
+          document.getElementById(`score${team}`).innerText = "0";
+          document.getElementById(`rocket${team}`).style.bottom = "0%";
+          showQuestion(team);
+        });
+      }
+
+      function showQuestion(team) {
+        const teamData = gameState[team];
+        const qEl = document.getElementById(`q${team}`);
+        const cEl = document.getElementById(`choices${team}`);
+
+        if (teamData.currentIdx >= questionBank.length) {
+          teamData.active = false;
+          teamData.finished = true;
+          clearInterval(teamData.timer);
+          qEl.innerText = "MISSION COMPLETE 🏁";
+          qEl.classList.add("text-sky-400");
+          cEl.innerHTML = "";
+          checkGameOver();
+          return;
+        }
+
+        const currentQ = questionBank[teamData.currentIdx];
+        qEl.innerText = currentQ.q;
+
+        // Efek transisi soal
+        qEl.classList.remove("animate__fadeInUp");
+        void qEl.offsetWidth;
+        qEl.classList.add("animate__fadeInUp", "animate__animated");
+
+        cEl.innerHTML = "";
+        [...currentQ.options]
+          .sort(() => Math.random() - 0.5)
+          .forEach(opt => {
+            const btn = document.createElement("button");
+            btn.innerText = opt;
+            // Menyesuaikan dengan class CSS Glassmorphism
+            btn.className = `choice-btn py-6 px-4 rounded-2xl text-xl font-bold text-white uppercase tracking-widest`;
+            btn.onclick = () => handleAnswer(team, opt, btn);
+            cEl.appendChild(btn);
+          });
+
+        startTimer(team);
+      }
+
+      function handleAnswer(team, selected, btn) {
+        const teamData = gameState[team];
+        if (!teamData.active) return;
+        clearInterval(teamData.timer);
+
+        const isCorrect = selected === questionBank[teamData.currentIdx].a;
+        const sfx = document.getElementById(isCorrect ? "sfx-correct" : "sfx-wrong");
+        const rocket = document.getElementById(`rocket${team}`);
+
+        sfx.currentTime = 0;
+        sfx.play();
+
+        if (isCorrect) {
+          teamData.score += 50 + teamData.timeLeft * 10;
+          btn.classList.add("correct");
+          document.getElementById(`score${team}`).innerText = teamData.score;
+
+          // ANIMASI ROKET MELUNCUR (Menambahkan class ke parent untuk menyalakan api/thruster)
+          rocket.parentElement.parentElement.classList.add("launching");
+
+          const progress = ((teamData.currentIdx + 1) / questionBank.length) * 85;
+          rocket.style.bottom = `${progress}%`;
+
+          // Matikan thruster setelah meluncur selesai
+          setTimeout(() => {
+            rocket.parentElement.parentElement.classList.remove("launching");
+          }, 800);
+        } else {
+          btn.classList.add("wrong");
+          // ANIMASI ROKET ERROR (Goncang)
+          rocket.classList.add("animate__animated", "animate__headShake");
+          setTimeout(() => {
+            rocket.classList.remove("animate__animated", "animate__headShake");
+          }, 500);
+        }
+
+        // Kunci tombol agar tidak bisa klik berkali-kali
+        btn.parentElement
+          .querySelectorAll("button")
+          .forEach(b => (b.disabled = true));
+
+        setTimeout(() => {
+          teamData.currentIdx++;
+          showQuestion(team);
+        }, 800);
+      }
+
+      function startTimer(team) {
+        const teamData = gameState[team];
+        teamData.timeLeft = 10;
+        const timerDisplay = document.getElementById(`timer${team}`);
+        timerDisplay.innerText = "10";
+        timerDisplay.classList.remove("text-red-500");
+
+        teamData.timer = setInterval(() => {
+          teamData.timeLeft--;
+          timerDisplay.innerText = teamData.timeLeft;
+
+          // Warning jika waktu mau habis
+          if (teamData.timeLeft <= 3) timerDisplay.classList.add("text-red-500");
+
+          if (teamData.timeLeft <= 0) {
+            clearInterval(teamData.timer);
+            teamData.currentIdx++;
+            showQuestion(team);
+          }
+        }, 1000);
+      }
+
+      function checkGameOver() {
+        if (gameState[1].finished && gameState[2].finished) {
+          setTimeout(() => {
+            overlay.classList.remove("hidden");
+            winnerCard.classList.remove("hidden");
+
+            const s1 = gameState[1].score;
+            const s2 = gameState[2].score;
+            document.getElementById("final-s1").innerText = s1;
+            document.getElementById("final-s2").innerText = s2;
+
+            const winTitle = document.getElementById("winner-team-name");
+            if (s1 > s2) {
+              winTitle.innerText = "TEAM ALPHA MENANG! 🏆";
+              winTitle.className =
+                "text-7xl font-black text-sky-400 mb-6 tracking-tighter";
+            } else if (s2 > s1) {
+              winTitle.innerText = "TEAM BRAVO MENANG! 🏆";
+              winTitle.className =
+                "text-7xl font-black text-purple-400 mb-6 tracking-tighter";
+            } else {
+              winTitle.innerText = "MISI SERI! 🤝";
+              winTitle.className =
+                "text-7xl font-black text-white mb-6 tracking-tighter";
+            }
+
+            launchFinalFireworks();
+          }, 1200);
+        }
+      }
+
+      function launchFinalFireworks() {
+        const duration = 5 * 1000;
+        const end = Date.now() + duration;
+
+        (function frame() {
+          confetti({
+            particleCount: 5,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: ["#38bdf8", "#ffffff"],
+          });
+          confetti({
+            particleCount: 5,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: ["#a855f7", "#ffffff"],
+          });
+          if (Date.now() < end) requestAnimationFrame(frame);
+        })();
+      }
+    </script>
+  </body>
+</html>
